@@ -1,34 +1,86 @@
-import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-
-import HeaderButton from '../components/HeaderButton';
-import MyProductsScreen from '../screens/user/MyProductsScreen';
-import { NavigationContainer } from '@react-navigation/native';
-import OrdersScreen from '../screens/shop/OrdersScreen';
-import React from 'react';
-import ShopNavigation from '../navigation/ShopNavigation';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import Colors from "../constants/Colors";
+import { Ionicons } from "@expo/vector-icons";
+import MyProdNavigation from "./MyProductsStack";
+import OrdersNavigation from "../navigation/MyOrdersStack";
+import { Platform, StyleSheet } from "react-native";
+import React from "react";
+import ShopNavigation from "../navigation/ShopNavigation";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { DrawerComponent } from "../src/components/drawer/drawer.component";
+import * as authActions from "../store/actions/auth";
+import { useDispatch } from "react-redux";
 
 const MainDrawer = createDrawerNavigator();
 
-function MainDrawerNavi() {
+export const MainDrawerNavi = () => {
+  const dispatch = useDispatch();
   return (
-    <NavigationContainer>
-      <MainDrawer.Navigator initialRouteName="Shop">
-        <MainDrawer.Screen 
-            name="Home" 
-            component={ShopNavigation}
+    <MainDrawer.Navigator
+      initialRouteName="All Products"
+      backBehavior="history"
+      drawerContent={(props) => (
+        <DrawerComponent
+          {...props}
+          onLogOut={() => {
+            dispatch(authActions.logOut());
+          }}
         />
-        <MainDrawer.Screen 
-            name="My Products" 
-            component={MyProductsScreen} 
-        />
-        <MainDrawer.Screen 
-            name="My Orders" 
-            component={OrdersScreen} 
-        />
-      </MainDrawer.Navigator>
-    </NavigationContainer>
+      )}
+      drawerStyle={styles.drawer}
+      drawerContentOptions={{
+        activeTintColor:
+          Platform.OS === "android" ? Colors.labeldroid : Colors.labelios,
+        inactiveTintColor:
+          Platform.OS === "android" ? Colors.disabledroid : Colors.disablediOS,
+        itemStyle: {
+          padding: 30,
+        },
+        labelStyle: {
+          fontFamily: "open-sans-bold",
+          fontSize: 15,
+        },
+      }}
+      screenOptions={({ route }) => ({
+        drawerIcon: ({ focused, color, size }) => {
+          if (route.name === "All Products") {
+            return (
+              <Ionicons
+                name={focused ? "ios-home-sharp" : "ios-home-outline"}
+                size={size}
+                color={color}
+              />
+            );
+          } else if (route.name === "My Products") {
+            return (
+              <Ionicons
+                name={focused ? "ios-list-sharp" : "ios-list-outline"}
+                size={size}
+                color={color}
+              />
+            );
+          } else if (route.name === "My Orders") {
+            return (
+              <Ionicons
+                name={focused ? "basket-sharp" : "basket-outline"}
+                size={size}
+                color={color}
+              />
+            );
+          }
+        },
+      })}
+    >
+      <MainDrawer.Screen name="All Products" component={ShopNavigation} />
+      <MainDrawer.Screen name="My Orders" component={OrdersNavigation} />
+      <MainDrawer.Screen name="My Products" component={MyProdNavigation} />
+    </MainDrawer.Navigator>
   );
-}
+};
 
-export default MainDrawerNavi;
+const styles = StyleSheet.create({
+  drawer: {
+    backgroundColor:
+      Platform.OS === "android" ? Colors.headdroid : Colors.headiOS,
+    width: "85%",
+  },
+});
