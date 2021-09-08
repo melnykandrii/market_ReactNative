@@ -1,0 +1,6 @@
+module Pods_QShopQ_QShopQTests {
+  umbrella header "Pods-QShopQ-QShopQTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
