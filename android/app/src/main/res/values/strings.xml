@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">QSHPQ</string>
+    <string name="app_name">Simple Market</string>
+    <string name="expo_splash_screen_status_bar_translucent">true</string>
 </resources>
