@@ -73,7 +73,8 @@ export const Input = (props) => {
         value={inputState.value}
         onChangeText={textChangeHandler}
         onBlur={lostFocusHandler}
-        selectionColor={theme.colors.brand.muted}
+        selectionColor={theme.colors.text.disabled}
+        cursorColor={theme.colors.ui.tertiary}
       />
       {!inputState.isValid && inputState.touched && (
         <View style={styles.errorContainer}>
@@ -90,19 +91,21 @@ const styles = StyleSheet.create({
   },
   label: {
     marginVertical: 8,
-    color: theme.colors.brand.muted,
+    color: theme.colors.ui.tertiary,
   },
   input: {
     paddingHorizontal: 2,
     paddingVertical: 5,
-    borderBottomColor: "#ccc",
+    borderBottomColor: theme.colors.ui.tertiary,
     borderBottomWidth: 1,
+    color: theme.colors.ui.tertiary,
   },
   errorContainer: {
     marginVertical: 5,
   },
   errorText: {
-    color: "red",
+    color: theme.colors.ui.error,
     fontSize: 13,
+    backgroundColor: theme.colors.ui.secondary,
   },
 });

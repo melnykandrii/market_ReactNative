@@ -114,7 +114,7 @@ export const AuthScreen = ({ navigation }) => {
         >
           <Card style={styles.authScreenContainer}>
             <LinearGradient
-              colors={["rgba(0,0,0,0.4)", "transparent"]}
+              colors={["rgba(0,0,0,0.5)", "transparent"]}
               style={styles.gradiant}
             >
               <ScrollView>
@@ -144,7 +144,7 @@ export const AuthScreen = ({ navigation }) => {
                 <Spacer position="top" size="xxxl" />
                 <BodyButton
                   title={isSignUp ? "SignUp" : "Login"}
-                  buttonColor={theme.colors.brand.muted}
+                  buttonColor={theme.colors.ui.tertiary}
                   mode="outlined"
                   onNavi={authHandler}
                   loading={isLoading}
@@ -154,7 +154,7 @@ export const AuthScreen = ({ navigation }) => {
                 <Spacer position="top" size="xxxl" />
                 <BodyButton
                   title={`To ${isSignUp ? "Login" : "SignUp"}`}
-                  buttonColor={theme.colors.brand.muted}
+                  buttonColor={theme.colors.ui.tertiary}
                   mode="outlined"
                   onNavi={() => setIsSignUp((prevState) => !prevState)}
                   style={{ marginTop: 10 }}
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     width: "80%",
     maxWidth: 400,
     maxHeight: 400,
-    backgroundColor: "#87CEFA",
+    backgroundColor: "#AF8BFA",
   },
   gradiant: {
     padding: 15,

@@ -9,6 +9,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { DrawerComponent } from "../src/components/drawer/drawer.component";
 import * as authActions from "../store/actions/auth";
 import { useDispatch } from "react-redux";
+import { theme } from "../src/infrastructure/theme";
 
 const MainDrawer = createDrawerNavigator();
 
@@ -29,9 +30,13 @@ export const MainDrawerNavi = () => {
       drawerStyle={styles.drawer}
       drawerContentOptions={{
         activeTintColor:
-          Platform.OS === "android" ? Colors.labeldroid : Colors.labelios,
+          Platform.OS === "android"
+            ? theme.colors.bg.primary
+            : theme.colors.bg.primary,
         inactiveTintColor:
-          Platform.OS === "android" ? Colors.disabledroid : Colors.disablediOS,
+          Platform.OS === "android"
+            ? theme.colors.ui.disabled
+            : theme.colors.ui.disabled,
         itemStyle: {
           padding: 30,
         },
@@ -80,7 +85,9 @@ export const MainDrawerNavi = () => {
 const styles = StyleSheet.create({
   drawer: {
     backgroundColor:
-      Platform.OS === "android" ? Colors.headdroid : Colors.headiOS,
+      Platform.OS === "android"
+        ? theme.colors.ui.primary
+        : theme.colors.ui.primary,
     width: "85%",
   },
 });

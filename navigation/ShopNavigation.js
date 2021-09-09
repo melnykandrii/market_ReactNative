@@ -12,6 +12,7 @@ import { Platform } from "react-native";
 import ProductDetailsScreen from "../screens/shop/ProductDetailsScreen";
 import React from "react";
 import { TransitionPresets } from "@react-navigation/stack";
+import { theme } from "../src/infrastructure/theme";
 
 import ShopScreen from "../screens/shop/ShopScreen";
 
@@ -26,11 +27,9 @@ function ShopNavigation() {
         headerTitleAllowFontScaling: true,
         headerBackTitleVisible: false,
         headerStyle: {
-          backgroundColor:
-            Platform.OS === "android" ? Colors.headdroid : Colors.headiOS,
+          backgroundColor: theme.colors.ui.primary,
         },
-        headerTintColor:
-          Platform.OS === "android" ? Colors.labeldroid : Colors.labelios,
+        headerTintColor: theme.colors.bg.primary,
         headerTitleAlign: "center",
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         headerTitleStyle: {

@@ -7,9 +7,9 @@ export const colors = {
     spring: "#2E8B57",
   },
   ui: {
-    primary: "#262626",
-    secondary: "#757575",
-    tertiary: "#F1F1F1",
+    primary: "#AF8BFA",
+    secondary: "#ddcefd",
+    tertiary: "#eee7fe",
     quaternary: "#FFFFFF",
     disabled: "#DEDEDE",
     error: "#D0421B",
