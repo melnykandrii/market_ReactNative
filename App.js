@@ -14,7 +14,6 @@ import cartReducer from "./store/reducers/cart";
 import ordersReducer from "./store/reducers/order";
 import productsReducer from "./store/reducers/products";
 import { AppNavigator } from "./src/infrastructure/navigation";
-import { Splash } from "./src/features/startup/screens/splash.screen";
 
 const rootReducer = combineReducers({
   products: productsReducer,

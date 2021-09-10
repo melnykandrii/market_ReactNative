@@ -1,4 +1,5 @@
 import { StyleSheet, View } from "react-native";
+import { theme } from "../../src/infrastructure/theme";
 
 import React from "react";
 
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 5,
     borderRadius: 10,
-    backgroundColor: "white",
+    backgroundColor: theme.colors.ui.secondary,
   },
 });
 

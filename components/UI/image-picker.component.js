@@ -46,7 +46,6 @@ export const ImgPicker = (props) => {
       height: 400,
       cropping: true,
     });
-    console.log(image);
     setPickedImage(image.path);
     props.onImageTaken(image.path);
   };
@@ -59,7 +58,6 @@ export const ImgPicker = (props) => {
       height: 400,
       cropping: true,
     });
-    console.log(image);
     setPickedImage(image.path);
     props.onImageTaken(image.path);
   };

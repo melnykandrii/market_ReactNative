@@ -66,45 +66,50 @@ export const deleteProduct = (productId, imageUrl) => {
 };
 
 export const createProduct = (title, description, imageUrl, price) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    // any async code you want!
+    const token = getState().auth.token;
+    const userId = getState().auth.userId;
     const filename = imageUrl.split("/").pop();
     const imageRef = storage().ref(`/images/products/${filename}`);
-    await imageRef.putFile(imageUrl, {
-      contentType: "image/jpg",
-    });
-    const url = await imageRef.getDownloadURL();
-    console.log(url);
-    // any async code
-    const response = await fetch(
-      //"https://shopma-58377-default-rtdb.firebaseio.com/products.json",
-      "https://storefilern-default-rtdb.firebaseio.com/products.json",
-      {
-        method: "POST",
-        headers: {
-          "Cotent-Type": "application/json",
-        },
-        body: JSON.stringify({
+    try {
+      await imageRef.putFile(imageUrl, {
+        contentType: "image/jpg",
+      });
+      const url = await imageRef.getDownloadURL();
+      const response = await fetch(
+        `https://storefilern-default-rtdb.firebaseio.com/products.json?auth=${token}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            title,
+            description,
+            imageUrl: url,
+            price,
+            ownerId: userId,
+          }),
+        }
+      );
+
+      const resData = await response.json();
+
+      dispatch({
+        type: CREATE_PRODUCT,
+        productData: {
+          id: resData.name,
           title,
           description,
           imageUrl: url,
           price,
-        }),
-      }
-    );
-
-    const resData = await response.json();
-    console.log(resData);
-
-    dispatch({
-      type: CREATE_PRODUCT,
-      productData: {
-        id: resData.name,
-        title,
-        description,
-        imageUrl: url,
-        price,
-      },
-    });
+          ownerId: userId,
+        },
+      });
+    } catch (err) {
+      throw new Error("Something went wrong!");
+    }
   };
 };
 

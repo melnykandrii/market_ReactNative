@@ -109,7 +109,7 @@ export const AuthScreen = ({ navigation }) => {
       <AccountCover>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
-          keyboardVerticalOffset={10}
+          keyboardVerticalOffset={0}
           style={styles.screenContainer}
         >
           <Card style={styles.authScreenContainer}>
