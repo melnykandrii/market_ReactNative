@@ -10,6 +10,7 @@ import EditProductScreen from "../screens/user/EditProductScreen";
 import HeaderButton from "../components/UI/HeaderButton";
 import React from "react";
 import UserProductsScreen from "../screens/user/UserProductsScreen";
+import { theme } from "../src/infrastructure/theme";
 
 const ProdNavi = createStackNavigator();
 
@@ -21,11 +22,9 @@ function MyProdNavigation() {
       screenOptions={{
         headerBackTitleVisible: false,
         headerStyle: {
-          backgroundColor:
-            Platform.OS === "android" ? Colors.headdroid : Colors.headiOS,
+          backgroundColor: theme.colors.ui.primary,
         },
-        headerTintColor:
-          Platform.OS === "android" ? Colors.labeldroid : Colors.labelios,
+        headerTintColor: theme.colors.bg.primary,
         headerTitleAlign: "center",
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         headerTitleStyle: {

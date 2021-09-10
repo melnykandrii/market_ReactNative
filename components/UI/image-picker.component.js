@@ -3,8 +3,13 @@ import React, { useState } from "react";
 
 import Colors from "../../constants/Colors";
 import ImagePicker from "react-native-image-crop-picker";
+import { BodyButton } from "../../src/components/buttons/body.button.component";
+import { theme } from "../../src/infrastructure/theme";
+import { fontWeights } from "../../src/infrastructure/theme/fonts";
 
 export const ImgPicker = (props) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [pickedImage, setPickedImage] = useState(props.imageUrl);
 
   /* const verifyCameraPermissions = async () => {
@@ -41,7 +46,7 @@ export const ImgPicker = (props) => {
     }*/
     const image = await ImagePicker.openCamera({
       allowsEditing: true,
-      compressImageQuality: 0.5,
+      compressImageQuality: 0.9,
       width: 300,
       height: 400,
       cropping: true,
@@ -53,7 +58,7 @@ export const ImgPicker = (props) => {
   const selectImageHandler = async () => {
     const image = await ImagePicker.openPicker({
       allowsEditing: true,
-      compressImageQuality: 0.5,
+      compressImageQuality: 0.9,
       width: 300,
       height: 400,
       cropping: true,
@@ -66,23 +71,29 @@ export const ImgPicker = (props) => {
     <View style={styles.imagePickerContainer}>
       <View style={styles.imageContainer}>
         {!pickedImage ? (
-          <Text>No image picked yet.</Text>
+          <Text style={styles.emptyText}>No image picked yet.</Text>
         ) : (
           <Image style={styles.image} source={{ uri: pickedImage }} />
         )}
       </View>
       <View style={styles.buttonContainer}>
-        <Button
+        <BodyButton
+          title="Take Photo"
+          buttonColor={theme.colors.ui.primary}
+          mode="outlined"
+          onNavi={takeImageHandler}
+          buttonIcon="camera"
           style={styles.button}
-          title="Shoot"
-          color={Colors.primaryColor}
-          onPress={takeImageHandler}
+          compact="true"
         />
-        <Button
+        <BodyButton
+          title="Select Image"
+          buttonColor={theme.colors.ui.primary}
+          mode="outlined"
+          onNavi={selectImageHandler}
+          buttonIcon="camera-burst"
           style={styles.button}
-          title="Select"
-          color={Colors.primaryColor}
-          onPress={selectImageHandler}
+          compact="true"
         />
       </View>
     </View>
@@ -91,16 +102,18 @@ export const ImgPicker = (props) => {
 
 const styles = StyleSheet.create({
   imagePickerContainer: {
-    marginBottom: 15,
+    marginBottom: 10,
+    padding: 5,
   },
   imageContainer: {
     width: "100%",
-    height: 180,
+    height: 300,
     marginBottom: 10,
     justifyContent: "center",
     alignItems: "center",
-    borderColor: "#ccc",
-    borderWidth: 1,
+    borderColor: theme.colors.ui.primary,
+    borderWidth: 1.5,
+    backgroundColor: theme.colors.ui.tertiary,
   },
   image: {
     width: "100%",
@@ -112,11 +125,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   button: {
-    borderWidth: 2,
-    backgroundColor: Colors.primaryColory,
     height: 50,
     width: 140,
-    borderColor: Colors.disablediOS,
-    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  emptyText: {
+    fontStyle: "italic",
+    fontSize: 15,
   },
 });

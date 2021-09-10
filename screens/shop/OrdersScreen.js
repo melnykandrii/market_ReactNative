@@ -11,10 +11,11 @@ const OrdersScreen = (props) => {
   if (orders.length === 0) {
     return (
       <DefaultEmptyScreen
+        iconBg="red"
         title="You don't have orders still."
         subTitle="After completing an order it will appear here. Tap on the button to start shopping."
         buttonTitle="Shop"
-        navigateTo={() => {
+        onNavi={() => {
           console.log("Order screen navigation");
           props.navigation.navigate("All Products");
         }}

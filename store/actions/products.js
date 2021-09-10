@@ -8,15 +8,20 @@ export const SET_FILTERS = "SET_FILTERS";
 export const SET_PRODUCTS = "SET_PRODUCTS";
 
 export const fetchProducts = () => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    const token = getState().auth.token;
     // any async code
     try {
       const response = await fetch(
         //"https://shopma-58377-default-rtdb.firebaseio.com/products.json"
-        "https://storefilern-default-rtdb.firebaseio.com/products.json"
+        `https://storefilern-default-rtdb.firebaseio.com/products.json?auth=${token}`
       );
       if (!response.ok) {
-        throw new Error("Something went wrong!");
+        const errorResponseData = await response.json();
+        const errorId = errorResponseData.error.message;
+        console.log(errorResponseData);
+        let errorMessage = "Something went wrong";
+        throw new Error(errorMessage);
       }
       const resData = await response.json();
 
@@ -38,6 +43,7 @@ export const fetchProducts = () => {
       dispatch({ type: SET_PRODUCTS, products: loadedProducts });
     } catch (err) {
       //send to custom analytics server
+      console.log(err);
       throw err;
     }
   };
@@ -70,8 +76,8 @@ export const createProduct = (title, description, imageUrl, price) => {
     // any async code you want!
     const token = getState().auth.token;
     const userId = getState().auth.userId;
-    const filename = imageUrl.split("/").pop();
-    const imageRef = storage().ref(`/images/products/${filename}`);
+    const fileName = imageUrl.split("/").pop();
+    const imageRef = storage().ref(`/images/products/${fileName}`);
     try {
       await imageRef.putFile(imageUrl, {
         contentType: "image/jpg",
@@ -114,14 +120,47 @@ export const createProduct = (title, description, imageUrl, price) => {
 };
 
 export const updateProduct = (id, title, description, imageUrl) => {
-  return {
-    type: UPDATE_PRODUCT,
-    pid: id,
-    productData: {
-      title,
-      description,
-      imageUrl,
-    },
+  return async (dispatch, getState) => {
+    const token = getState().auth.token;
+    const fileName = imageUrl.split("/").pop();
+    const imageRef = storage().ref(`/images/products/${fileName}`);
+    try {
+      await imageRef.putFile(imageUrl, {
+        contentType: "image/jpg",
+      });
+      const url = await imageRef.getDownloadURL();
+      const response = await fetch(
+        //`https://shopma-58377-default-rtdb.firebaseio.com/products/${id}.json?auth=${token}`,
+        `https://storefilern-default-rtdb.firebaseio.com/products/${id}.json?auth=${token}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            title,
+            description,
+            imageUrl: url,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Something went wrong!");
+      }
+
+      dispatch({
+        type: UPDATE_PRODUCT,
+        pid: id,
+        productData: {
+          title,
+          description,
+          imageUrl: url,
+        },
+      });
+    } catch (err) {
+      throw new Error("Something went wrong");
+    }
   };
 };
 

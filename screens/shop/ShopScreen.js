@@ -16,11 +16,14 @@ import Colors from "../../constants/Colors";
 import DefaultEmptyScreen from "../../components/UI/EmptyScreen";
 import { Platform } from "react-native";
 import ProductItem from "../../components/shop/ProducItem";
+import { BodyButton } from "../../src/components/buttons/body.button.component";
+import { theme } from "../../src/infrastructure/theme";
 
 const ShopScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
   const products = useSelector((state) => state.products.availableProducts);
+  console.log(products);
 
   // const displayedProducts = useSelector(state => state.products.filteredProducts);
   /*
@@ -48,11 +51,15 @@ const ShopScreen = (props) => {
     loadProducts();
   }, [dispatch]);
 
-  const selectItemHandler = (id, title) => {
+  const viewProductHandler = (id, title) => {
     props.navigation.navigate("Product Details", {
       productId: id,
       productTitle: title,
     });
+  };
+
+  const addToCardHandler = (item) => {
+    dispatch(cartActions.addToCart(item));
   };
 
   if (error) {
@@ -94,32 +101,36 @@ const ShopScreen = (props) => {
     <FlatList
       data={products}
       keyExtractor={(item) => item.id}
-      renderItem={(itemData) => (
+      renderItem={({ item }) => (
         <ProductItem
-          image={itemData.item.imageUrl}
-          title={itemData.item.title}
-          price={itemData.item.price}
+          image={item.imageUrl}
+          title={item.title}
+          price={item.price}
           onSelect={() => {
-            selectItemHandler(itemData.item.id, itemData.item.title);
+            viewProductHandler(item.id, item.title);
           }}
         >
-          <Button
-            color={
-              Platform.OS === "android" ? Colors.headdroid : Colors.labelios
-            }
+          <BodyButton
             title="View Details"
-            onPress={() => {
-              selectItemHandler(itemData.item.id, itemData.item.title);
+            buttonColor={theme.colors.ui.primary}
+            mode="outlined"
+            onNavi={() => {
+              viewProductHandler(item.id, item.title);
             }}
+            buttonIcon="binoculars"
+            style={styles.button}
+            compact="true"
           />
-          <Button
-            color={
-              Platform.OS === "android" ? Colors.headdroid : Colors.labelios
-            }
+          <BodyButton
             title="Add to Cart"
-            onPress={() => {
-              dispatch(cartActions.addToCart(itemData.item));
+            buttonColor={theme.colors.ui.primary}
+            mode="outlined"
+            onNavi={() => {
+              addToCardHandler(item);
             }}
+            buttonIcon="cart-arrow-down"
+            style={styles.button}
+            compact="true"
           />
         </ProductItem>
       )}
@@ -137,6 +148,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  button: {
+    height: 50,
+    width: 140,
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal: 0,
+
+    backgroundColor: theme.colors.bg.primary,
   },
 });
 

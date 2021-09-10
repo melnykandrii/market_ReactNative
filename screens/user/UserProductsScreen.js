@@ -16,6 +16,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Colors from "../../constants/Colors";
 import DefaultEmptyScreen from "../../components/UI/EmptyScreen";
 import ProductItem from "../../components/shop/ProducItem";
+import { BodyButton } from "../../src/components/buttons/body.button.component";
+import { theme } from "../../src/infrastructure/theme";
 
 const UserProductsScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -107,23 +109,25 @@ const UserProductsScreen = (props) => {
             editProductHandler({ item }, item.id, item.title);
           }}
         >
-          <Button
-            color={
-              Platform.OS === "android" ? Colors.headdroid : Colors.labelios
-            }
+          <BodyButton
             title="Edit"
-            onPress={() => {
+            buttonColor={theme.colors.ui.primary}
+            mode="outlined"
+            onNavi={() => {
               editProductHandler({ item }, item.id, item.title);
             }}
+            buttonIcon="square-edit-outline"
+            style={styles.button}
           />
-          <Button
-            color={
-              Platform.OS === "android" ? Colors.headdroid : Colors.labelios
-            }
+          <BodyButton
             title="Delete"
-            onPress={() => {
+            buttonColor={theme.colors.ui.primary}
+            mode="outlined"
+            onNavi={() => {
               deleteHandler(item.id, item.imageUrl);
             }}
+            buttonIcon="trash-can"
+            style={styles.button}
           />
         </ProductItem>
       )}
@@ -136,6 +140,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  button: {
+    height: 50,
+    width: 140,
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal: 0,
+    backgroundColor: theme.colors.bg.primary,
   },
 });
 

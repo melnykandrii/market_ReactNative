@@ -1,23 +1,31 @@
 import React from "react";
 import { Button } from "react-native-paper";
-import styled from "styled-components";
+import { StyleSheet } from "react-native";
 import { theme } from "../../infrastructure/theme";
-
-const StyledBButton = styled(Button)`
-  margin-horizontal: 30%;
-`;
 
 export const BodyButton = (props) => {
   return (
-    <StyledBButton
+    <Button
       {...props}
       onPress={props.onNavi}
-      color={props.buttonColor || theme.colors.brand.spring}
-      mode={props.mode}
+      color={props.buttonColor || theme.colors.ui.primary}
+      mode={props.mode || "outlined"}
       loading={props.loading}
       icon={props.buttonIcon}
+      style={{ ...styles.button, ...props.style }}
     >
       {props.title}
-    </StyledBButton>
+    </Button>
   );
 };
+
+const styles = StyleSheet.create({
+  button: {
+    marginHorizontal: "30%",
+    marginTop: 10,
+    height: 50,
+    width: 140,
+    justifyContent: "center",
+    alignSelf: "center",
+  },
+});

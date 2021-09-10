@@ -54,10 +54,12 @@ export const AuthScreen = ({ navigation }) => {
     inputValues: {
       email: "",
       password: "",
+      repeatedPassword: "",
     },
     inputValidities: {
       email: false,
       password: false,
+      repeatedPassword: false,
     },
     formIsValid: false,
   });
@@ -109,7 +111,7 @@ export const AuthScreen = ({ navigation }) => {
       <AccountCover>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
-          keyboardVerticalOffset={0}
+          keyboardVerticalOffset={10}
           style={styles.screenContainer}
         >
           <Card style={styles.authScreenContainer}>
@@ -141,23 +143,35 @@ export const AuthScreen = ({ navigation }) => {
                   onInputChange={inputChangeHandler}
                   initialValue=""
                 />
-                <Spacer position="top" size="xxxl" />
+                {isSignUp ? (
+                  <Input
+                    id="repeatedPassword"
+                    label="RepeatePassword"
+                    keyboardType="default"
+                    secureTextEntry
+                    required
+                    minLength={6}
+                    autoCapitalize="none"
+                    errorText="Please enter a valid password"
+                    onInputChange={inputChangeHandler}
+                    initialValue=""
+                  />
+                ) : null}
                 <BodyButton
                   title={isSignUp ? "SignUp" : "Login"}
                   buttonColor={theme.colors.ui.tertiary}
-                  mode="outlined"
                   onNavi={authHandler}
                   loading={isLoading}
-                  icon="lock"
-                  style={{ marginTop: 20 }}
+                  buttonIcon={
+                    isSignUp ? "account-plus" : "account-circle-outline"
+                  }
                 />
-                <Spacer position="top" size="xxxl" />
                 <BodyButton
                   title={`To ${isSignUp ? "Login" : "SignUp"}`}
                   buttonColor={theme.colors.ui.tertiary}
                   mode="outlined"
+                  buttonIcon="account-convert"
                   onNavi={() => setIsSignUp((prevState) => !prevState)}
-                  style={{ marginTop: 10 }}
                 />
               </ScrollView>
             </LinearGradient>
@@ -171,7 +185,7 @@ export const AuthScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   screenContainer: { flex: 1, justifyContent: "center", alignItems: "center" },
   authScreenContainer: {
-    width: "80%",
+    width: "90%",
     maxWidth: 400,
     maxHeight: 400,
     backgroundColor: "#AF8BFA",

@@ -59,9 +59,12 @@ export const signUp = (email, password) => {
           "There was a problem with our service. Please try again later!";
       } else if (errorId === "TOO_MANY_ATTEMPTS_TRY_LATER") {
         message = "The number of attempts exided. Please try again later!";
+      } else if (errorId === "USER_DISABLED") {
+        message =
+          "This account was disabled. Please contact custom service or create a new one!";
       }
+
       throw new Error(message);
-      //throw new Error('Something went wrong!!!!');
     }
 
     const responseData = await response.json();
@@ -113,6 +116,10 @@ export const logIn = (email, password) => {
         message = "This password is not valid!";
       } else if (errorId === "USER_DISABLED") {
         message = "This user is disabled! Please call our support team!";
+      } else if (errorId === "INVALID_EMAIL") {
+        message = "Please enter a valid email address!";
+      } else if (errorId === "MISSING_PASSWORD") {
+        message = "You likely forgot to enter your password!";
       }
       throw new Error(message);
 

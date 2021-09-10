@@ -1,4 +1,5 @@
-import { Button, Platform } from "react-native";
+import React from "react";
+import { Platform } from "react-native";
 import {
   CardStyleInterpolators,
   createStackNavigator,
@@ -8,8 +9,7 @@ import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import Colors from "../constants/Colors";
 import HeaderButton from "../components/UI/HeaderButton";
 import OrdersScreen from "../screens/shop/OrdersScreen";
-import ProductDetailsScreen from "../screens/shop/ProductDetailsScreen";
-import React from "react";
+import { theme } from "../src/infrastructure/theme";
 
 const OrdersNavi = createStackNavigator();
 
@@ -20,11 +20,9 @@ function OrdersNavigation() {
       headerMode="screen"
       screenOptions={{
         headerStyle: {
-          backgroundColor:
-            Platform.OS === "android" ? Colors.headdroid : Colors.headiOS,
+          backgroundColor: theme.colors.ui.primary,
         },
-        headerTintColor:
-          Platform.OS === "android" ? Colors.labeldroid : Colors.labelios,
+        headerTintColor: theme.colors.bg.primary,
         headerTitleAlign: "center",
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         headerTitleStyle: {

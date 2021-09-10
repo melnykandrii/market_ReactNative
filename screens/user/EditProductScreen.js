@@ -6,6 +6,9 @@ import {
   ScrollView,
   StyleSheet,
   View,
+  Platform,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 import React, { useCallback, useEffect, useReducer, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +16,8 @@ import { useDispatch, useSelector } from "react-redux";
 import DefaultButton from "../../components/UI/DefaultButton";
 import DefaultInputCont from "../../components/UI/InputComponent";
 import { ImgPicker } from "../../components/UI/image-picker.component";
+import { BodyButton } from "../../src/components/buttons/body.button.component";
+import { theme } from "../../src/infrastructure/theme";
 
 const FORM_INPUT_UPDATE = "FORM_INPUT_UPDATE";
 
@@ -136,11 +141,16 @@ const EditProductScreen = (props) => {
   );
 
   return (
-    <>
-      <View>
-        <ImgPicker onImageTaken={imageHandler} imageUrl={imageUrl} />
-      </View>
-      <ScrollView>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{ flex: 1 }}
+      keyboardVerticalOffset={80}
+    >
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1 }}>
+        <View>
+          <ImgPicker onImageTaken={imageHandler} imageUrl={imageUrl} />
+        </View>
+
         <View style={styles.form}>
           <DefaultInputCont
             id="title"
@@ -203,14 +213,18 @@ const EditProductScreen = (props) => {
             minLength={5}
           />
         </View>
-        <DefaultButton
+        <BodyButton
           title="Save"
-          onPress={() => {
+          buttonColor={theme.colors.ui.primary}
+          mode="outlined"
+          onNavi={() => {
             props.route.params.submit();
           }}
+          buttonIcon="file-send"
+          style={styles.button}
         />
       </ScrollView>
-    </>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -219,7 +233,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   form: {
-    margin: 20,
+    paddingHorizontal: 10,
+  },
+  button: {
+    marginTop: 10,
+    height: 50,
+    width: 140,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

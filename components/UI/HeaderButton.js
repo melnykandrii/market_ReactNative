@@ -1,8 +1,9 @@
+import React from "react";
 import Colors from "../../constants/Colors";
 import { HeaderButton } from "react-navigation-header-buttons";
 import { Ionicons } from "@expo/vector-icons";
 import { Platform } from "react-native";
-import React from "react";
+import { theme } from "../../src/infrastructure/theme";
 
 const DefaultHeaderButton = (props) => {
   return (
@@ -10,7 +11,7 @@ const DefaultHeaderButton = (props) => {
       {...props}
       IconComponent={Ionicons}
       iconSize={23}
-      color={Platform.OS === "android" ? Colors.labeldroid : Colors.labelios}
+      color={props.color || theme.colors.bg.primary}
     />
   );
 };
