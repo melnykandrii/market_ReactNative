@@ -235,13 +235,6 @@ const styles = StyleSheet.create({
   form: {
     paddingHorizontal: 10,
   },
-  button: {
-    marginTop: 10,
-    height: 50,
-    width: 140,
-    justifyContent: "center",
-    alignItems: "center",
-  },
 });
 
 export default EditProductScreen;

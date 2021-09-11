@@ -1,44 +1,34 @@
-import * as productsActions from "../../store/actions/products";
-
-import {
-  ActivityIndicator,
-  Alert,
-  Button,
-  FlatList,
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
-import React, { useEffect, useState } from "react";
+import { Alert, FlatList, StyleSheet } from "react-native";
+import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import Colors from "../../constants/Colors";
-import DefaultEmptyScreen from "../../components/UI/EmptyScreen";
 import ProductItem from "../../components/shop/ProducItem";
 import { BodyButton } from "../../src/components/buttons/body.button.component";
 import { theme } from "../../src/infrastructure/theme";
+import { InfoScreen } from "../../src/components/info/info-screen.component";
+import { LoadingState } from "../../src/components/loading/loading-state.component";
+import * as productsActions from "../../store/actions/products";
 
 const UserProductsScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState();
+  const [error, setError] = useState(null);
 
   const userProducts = useSelector((state) => state.products.userProducts);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const loadProducts = async () => {
-      setIsLoading(true);
-      try {
-        await dispatch(productsActions.fetchProducts());
-      } catch (err) {
-        setError(err.message);
-      }
-
-      setIsLoading(false);
-    };
-    loadProducts();
+  const loadProducts = useCallback(async () => {
+    setError(null);
+    setIsLoading(true);
+    try {
+      await dispatch(productsActions.fetchProducts());
+    } catch (err) {
+      setError(err.message);
+    }
+    setIsLoading(false);
   }, [dispatch]);
+
+  useEffect(() => {
+    loadProducts();
+  }, [dispatch, loadProducts]);
 
   const editProductHandler = ({ item }, id, title) => {
     props.navigation.navigate("Edit Product", {
@@ -64,33 +54,32 @@ const UserProductsScreen = (props) => {
 
   if (error) {
     return (
-      <View style={styles.indicator}>
-        <Text>An error ocurred!</Text>
-        <Text />
-        <Button title="Try again" onPress={() => {}} />
-      </View>
+      <InfoScreen
+        title="An error occured!"
+        subTitle="Please try again."
+        buttonTitle="Try again"
+        iconName="close"
+        buttonIcon="reload"
+        compact="true"
+        iconBg={theme.colors.ui.error}
+        onNavi={loadProducts}
+      />
     );
   }
 
   if (isLoading) {
-    return (
-      <View style={styles.indicator}>
-        <ActivityIndicator
-          size="large"
-          color={Platform.OS === "android" ? Colors.headdroid : Colors.labelios}
-        />
-      </View>
-    );
+    return <LoadingState />;
   }
 
   if (!isLoading && userProducts.length === 0) {
     return (
-      <DefaultEmptyScreen
-        title="You don't have any products."
-        subTitle="After adding it will appear here. Tap on the button to start adding."
-        buttonTitle="Add My Product"
-        navigateTo={() => {
-          console.log("Add a product screen navigation");
+      <InfoScreen
+        title="You don't have any product yet."
+        subTitle="After adding one it will appear here. Tap on the button to start adding."
+        buttonTitle="Add Product"
+        buttonIcon="database-plus"
+        compact="true"
+        onNavi={() => {
           props.navigation.navigate("Edit Product");
         }}
       />

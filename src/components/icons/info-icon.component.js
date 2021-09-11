@@ -1,6 +1,7 @@
 import React from "react";
 import { Avatar } from "react-native-paper";
 import styled from "styled-components";
+import { theme } from "../../infrastructure/theme";
 
 const Icon = styled(Avatar.Icon).attrs({
   size: 50,
@@ -10,5 +11,11 @@ const Icon = styled(Avatar.Icon).attrs({
 `;
 
 export const InfoIcon = (props) => {
-  return <Icon icon="information-outline" color="white" />;
+  return (
+    <Icon
+      {...props}
+      icon={props.iconName || "information-outline"}
+      color={props.iconColor || theme.colors.bg.primary}
+    />
+  );
 };

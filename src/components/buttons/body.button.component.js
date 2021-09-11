@@ -11,7 +11,7 @@ export const BodyButton = (props) => {
       color={props.buttonColor || theme.colors.ui.primary}
       mode={props.mode || "outlined"}
       loading={props.loading}
-      icon={props.buttonIcon}
+      icon={props.buttonIcon || "shopping"}
       style={{ ...styles.button, ...props.style }}
     >
       {props.title}

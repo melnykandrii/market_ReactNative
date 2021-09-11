@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Platform,
   Alert,
+  View,
 } from "react-native";
 import { useDispatch } from "react-redux";
 
@@ -14,7 +15,7 @@ import { BodyButton } from "../../../components/buttons/body.button.component";
 import { Card } from "../../../components/cards/card.component";
 import { Input } from "../../../components/typography/input/input.component";
 import { theme } from "../../../infrastructure/theme";
-import { Spacer } from "../../../components/typography/spacer/spacer.component";
+import { LogoImage } from "../styles/auth-screen.styles";
 
 import { LinearGradient } from "expo-linear-gradient";
 import { AccountBackground, AccountCover } from "../styles/auth-screen.styles";
@@ -114,6 +115,10 @@ export const AuthScreen = ({ navigation }) => {
           keyboardVerticalOffset={10}
           style={styles.screenContainer}
         >
+          <View style={styles.logoContainer}>
+            <LogoImage style={styles.logo} />
+          </View>
+
           <Card style={styles.authScreenContainer}>
             <LinearGradient
               colors={["rgba(0,0,0,0.5)", "transparent"]}
@@ -162,6 +167,7 @@ export const AuthScreen = ({ navigation }) => {
                   buttonColor={theme.colors.ui.tertiary}
                   onNavi={authHandler}
                   loading={isLoading}
+                  style={styles.button}
                   buttonIcon={
                     isSignUp ? "account-plus" : "account-circle-outline"
                   }
@@ -171,6 +177,7 @@ export const AuthScreen = ({ navigation }) => {
                   buttonColor={theme.colors.ui.tertiary}
                   mode="outlined"
                   buttonIcon="account-convert"
+                  style={styles.button}
                   onNavi={() => setIsSignUp((prevState) => !prevState)}
                 />
               </ScrollView>
@@ -185,14 +192,19 @@ export const AuthScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   screenContainer: { flex: 1, justifyContent: "center", alignItems: "center" },
   authScreenContainer: {
-    width: "90%",
+    width: "80%",
     maxWidth: 400,
     maxHeight: 400,
     backgroundColor: "#AF8BFA",
   },
   gradiant: {
-    padding: 15,
+    paddingVertical: 30,
     alignItems: "center",
     borderRadius: 10,
   },
+  button: {
+    marginHorizontal: "20%",
+  },
+  logoContainer: { marginBottom: -20, zIndex: 1, elevation: 20 },
+  logo: {},
 });

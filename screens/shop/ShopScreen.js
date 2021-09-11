@@ -1,15 +1,8 @@
 import * as cartActions from "../../store/actions/cart";
 import * as productsActions from "../../store/actions/products";
 
-import {
-  ActivityIndicator,
-  Button,
-  FlatList,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
-import React, { useEffect, useState } from "react";
+import { Button, FlatList, StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Colors from "../../constants/Colors";
@@ -18,12 +11,12 @@ import { Platform } from "react-native";
 import ProductItem from "../../components/shop/ProducItem";
 import { BodyButton } from "../../src/components/buttons/body.button.component";
 import { theme } from "../../src/infrastructure/theme";
+import { LoadingState } from "../../src/components/loading/loading-state.component";
 
 const ShopScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
   const products = useSelector((state) => state.products.availableProducts);
-  console.log(products);
 
   // const displayedProducts = useSelector(state => state.products.filteredProducts);
   /*
@@ -36,20 +29,20 @@ const ShopScreen = (props) => {
     );
 */
   const dispatch = useDispatch();
+  const loadProducts = useCallback(async () => {
+    setError(null);
+    setIsLoading(true);
+    try {
+      await dispatch(productsActions.fetchProducts());
+    } catch (err) {
+      setError(err.message);
+    }
 
-  useEffect(() => {
-    const loadProducts = async () => {
-      setIsLoading(true);
-      try {
-        await dispatch(productsActions.fetchProducts());
-      } catch (err) {
-        setError(err.message);
-      }
-
-      setIsLoading(false);
-    };
-    loadProducts();
+    setIsLoading(false);
   }, [dispatch]);
+  useEffect(() => {
+    loadProducts();
+  }, [dispatch, loadProducts]);
 
   const viewProductHandler = (id, title) => {
     props.navigation.navigate("Product Details", {
@@ -64,33 +57,31 @@ const ShopScreen = (props) => {
 
   if (error) {
     return (
-      <View style={styles.indicator}>
-        <Text>An error ocurred!</Text>
-        <Text />
-        <Button title="Try again" onPress={() => {}} />
-      </View>
+      <DefaultEmptyScreen
+        title="An error occured!"
+        subTitle="Please try again."
+        buttonTitle="Try again"
+        iconName="close"
+        buttonIcon="reload"
+        compact="true"
+        iconBg={theme.colors.ui.error}
+        onNavi={loadProducts}
+      />
     );
   }
 
   if (isLoading) {
-    return (
-      <View style={styles.indicator}>
-        <ActivityIndicator
-          size="large"
-          color={Platform.OS === "android" ? Colors.headdroid : Colors.labelios}
-        />
-      </View>
-    );
+    return <LoadingState />;
   }
 
   if (!isLoading && products.length === 0) {
     return (
       <DefaultEmptyScreen
-        title="There is no product available for you."
-        subTitle="You can add your products if you`d like. It will be available for you and for everyone. Tap on the button and start adding."
-        buttonTitle="My Product"
-        navigateTo={() => {
-          console.log("Add a product screen navigation");
+        title="There is no product yet."
+        subTitle="You can add one if you`d like and it will be available for everyone. Tap on the button and start adding."
+        buttonTitle="My Products"
+        compact="true"
+        onNavi={() => {
           props.navigation.navigate("My Products");
         }}
       />
@@ -128,7 +119,7 @@ const ShopScreen = (props) => {
             onNavi={() => {
               addToCardHandler(item);
             }}
-            buttonIcon="cart-arrow-down"
+            buttonIcon="cart-plus"
             style={styles.button}
             compact="true"
           />

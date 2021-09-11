@@ -22,7 +22,7 @@ export const LoadingState = (props) => {
   return (
     <IndicatorContainer>
       <LoadingIndicator />
-      <Text variant="load">{props.label}</Text>
+      <Text variant="load">{props.label || "Loading"}</Text>
     </IndicatorContainer>
   );
 };

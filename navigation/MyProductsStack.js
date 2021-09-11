@@ -59,11 +59,7 @@ function MyProdNavigation() {
             <HeaderButtons HeaderButtonComponent={HeaderButton}>
               <Item
                 title="Add"
-                iconName={
-                  Platform.OS === "android"
-                    ? "add-circle-sharp"
-                    : "add-circle-outline"
-                }
+                iconName="add"
                 onPress={() => {
                   navigation.navigate("Edit Product");
                 }}
