@@ -42,8 +42,7 @@ const CartScreen = (props) => {
         title="The cart is empty."
         subTitle="After adding a product it will appear here. Tap on the button to start shopping."
         buttonTitle="Shop"
-        navigateTo={() => {
-          console.log("Cart Screen navigation");
+        onNavi={() => {
           props.navigation.navigate("Sale Market");
         }}
       />

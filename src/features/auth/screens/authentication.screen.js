@@ -1,24 +1,21 @@
 import React, { useState, useEffect, useReducer, useCallback } from "react";
-import {
-  ScrollView,
-  KeyboardAvoidingView,
-  StyleSheet,
-  Platform,
-  Alert,
-  View,
-} from "react-native";
+import { ScrollView, StyleSheet, Platform, Alert } from "react-native";
 import { useDispatch } from "react-redux";
 
 import * as authActions from "../../../../store/actions/auth";
-
-import { BodyButton } from "../../../components/buttons/body.button.component";
-import { Card } from "../../../components/cards/card.component";
 import { Input } from "../../../components/typography/input/input.component";
 import { theme } from "../../../infrastructure/theme";
-import { LogoImage } from "../styles/auth-screen.styles";
-
-import { LinearGradient } from "expo-linear-gradient";
-import { AccountBackground, AccountCover } from "../styles/auth-screen.styles";
+import {
+  LogoImage,
+  AccountBackground,
+  AccountCover,
+  Keyboard,
+  LogoContainer,
+  AuthCard,
+  AuthGradient,
+  AuthButton,
+} from "../styles/auth-screen.styles";
+import { Spacer } from "../../../components/typography/spacer/spacer.component";
 
 const FORM_INPUT_UPDATE = "FORM_INPUT_UPDATE";
 
@@ -88,7 +85,6 @@ export const AuthScreen = ({ navigation }) => {
     setIsLoading(true);
     try {
       await dispatch(action);
-      //navigation.navigate("Places");
     } catch (err) {
       setError(err.message);
       setIsLoading(false);
@@ -110,20 +106,16 @@ export const AuthScreen = ({ navigation }) => {
   return (
     <AccountBackground>
       <AccountCover>
-        <KeyboardAvoidingView
+        <Keyboard
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           keyboardVerticalOffset={10}
-          style={styles.screenContainer}
         >
-          <View style={styles.logoContainer}>
-            <LogoImage style={styles.logo} />
-          </View>
+          <LogoContainer>
+            <LogoImage />
+          </LogoContainer>
 
-          <Card style={styles.authScreenContainer}>
-            <LinearGradient
-              colors={["rgba(0,0,0,0.5)", "transparent"]}
-              style={styles.gradiant}
-            >
+          <AuthCard>
+            <AuthGradient colors={["rgba(0,0,0,0.5)", "transparent"]}>
               <ScrollView>
                 <Input
                   id="email"
@@ -136,6 +128,7 @@ export const AuthScreen = ({ navigation }) => {
                   onInputChange={inputChangeHandler}
                   initialValue=""
                 />
+                <Spacer position="bottom" size="xl" />
                 <Input
                   id="password"
                   label="Password"
@@ -162,49 +155,34 @@ export const AuthScreen = ({ navigation }) => {
                     initialValue=""
                   />
                 ) : null}
-                <BodyButton
+                <Spacer position="bottom" size="xl" />
+                <AuthButton
                   title={isSignUp ? "SignUp" : "Login"}
                   buttonColor={theme.colors.ui.tertiary}
                   onNavi={authHandler}
                   loading={isLoading}
-                  style={styles.button}
                   buttonIcon={
                     isSignUp ? "account-plus" : "account-circle-outline"
                   }
                 />
-                <BodyButton
+                <AuthButton
                   title={`To ${isSignUp ? "Login" : "SignUp"}`}
                   buttonColor={theme.colors.ui.tertiary}
                   mode="outlined"
                   buttonIcon="account-convert"
-                  style={styles.button}
                   onNavi={() => setIsSignUp((prevState) => !prevState)}
                 />
               </ScrollView>
-            </LinearGradient>
-          </Card>
-        </KeyboardAvoidingView>
+            </AuthGradient>
+          </AuthCard>
+        </Keyboard>
       </AccountCover>
     </AccountBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  screenContainer: { flex: 1, justifyContent: "center", alignItems: "center" },
-  authScreenContainer: {
-    width: "80%",
-    maxWidth: 400,
-    maxHeight: 400,
-    backgroundColor: "#AF8BFA",
-  },
-  gradiant: {
-    paddingVertical: 30,
-    alignItems: "center",
-    borderRadius: 10,
-  },
   button: {
     marginHorizontal: "20%",
   },
-  logoContainer: { marginBottom: -20, zIndex: 1, elevation: 20 },
-  logo: {},
 });

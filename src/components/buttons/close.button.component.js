@@ -6,7 +6,7 @@ export const CloseButton = (props) => {
   return (
     <IconButton
       {...props}
-      icon={props.name}
+      icon={props.name || "close"}
       color={props.buttonColor || theme.colors.bg.primary}
       onPress={props.onClose}
     />

@@ -34,7 +34,6 @@ const UserProductsScreen = (props) => {
     props.navigation.navigate("Edit Product", {
       item: item,
       productId: id,
-      productTitle: title,
       edit: true,
     });
   };
@@ -95,7 +94,7 @@ const UserProductsScreen = (props) => {
           title={item.title}
           price={item.price}
           onSelect={() => {
-            editProductHandler({ item }, item.id, item.title);
+            editProductHandler({ item }, item.id);
           }}
         >
           <BodyButton
@@ -103,7 +102,7 @@ const UserProductsScreen = (props) => {
             buttonColor={theme.colors.ui.primary}
             mode="outlined"
             onNavi={() => {
-              editProductHandler({ item }, item.id, item.title);
+              editProductHandler({ item }, item.id);
             }}
             buttonIcon="square-edit-outline"
             style={styles.button}

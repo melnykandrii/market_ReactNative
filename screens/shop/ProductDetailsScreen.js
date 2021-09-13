@@ -1,6 +1,6 @@
 import * as cartActions from "../../store/actions/cart";
 import * as productActions from "../../store/actions/products";
-
+import { useNavigation } from "@react-navigation/native";
 import {
   Button,
   Image,
@@ -9,6 +9,7 @@ import {
   StyleSheet,
   Text,
   View,
+  TouchableOpacity,
 } from "react-native";
 import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,6 +19,7 @@ import storage from "@react-native-firebase/storage";
 
 const ProductDetailsScreen = (props) => {
   const prodId = props.route.params.productId;
+  const navigation = useNavigation();
 
   const selectedProduct = useSelector((state) =>
     state.products.availableProducts.find((prod) => prod.id === prodId)
@@ -41,7 +43,18 @@ useEffect(() => {
 
   return (
     <ScrollView>
-      <Image style={styles.image} source={{ uri: selectedProduct.imageUrl }} />
+      <TouchableOpacity
+        onPress={() => {
+          props.navigation.navigate("ImageScreen", {
+            imageUrl: selectedProduct.imageUrl,
+          });
+        }}
+      >
+        <Image
+          style={styles.image}
+          source={{ uri: selectedProduct.imageUrl }}
+        />
+      </TouchableOpacity>
       <View style={styles.buttonCont}>
         <Text style={styles.price}>${selectedProduct.price.toFixed(2)}</Text>
         <Button

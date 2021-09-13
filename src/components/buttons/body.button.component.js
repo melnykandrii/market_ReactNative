@@ -22,10 +22,11 @@ export const BodyButton = (props) => {
 const styles = StyleSheet.create({
   button: {
     marginHorizontal: "30%",
-    marginTop: 10,
-    height: 50,
-    width: 140,
+    marginTop: theme.sizessh[2],
+    height: theme.sizessh[7],
+    width: theme.sizessh[11],
     justifyContent: "center",
     alignSelf: "center",
+    maxWidth: theme.sizessh[12],
   },
 });

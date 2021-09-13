@@ -1,4 +1,11 @@
-import { Alert, Button, Image, StyleSheet, Text, View } from "react-native";
+import {
+  Alert,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import React, { useState } from "react";
 
 import Colors from "../../constants/Colors";
@@ -46,9 +53,9 @@ export const ImgPicker = (props) => {
     }*/
     const image = await ImagePicker.openCamera({
       allowsEditing: true,
-      compressImageQuality: 0.9,
-      width: 300,
-      height: 400,
+      compressImageQuality: 1,
+      width: 1000,
+      height: 1500,
       cropping: true,
     });
     setPickedImage(image.path);
@@ -58,9 +65,8 @@ export const ImgPicker = (props) => {
   const selectImageHandler = async () => {
     const image = await ImagePicker.openPicker({
       allowsEditing: true,
-      compressImageQuality: 0.9,
-      width: 300,
-      height: 400,
+      width: 1000,
+      height: 1500,
       cropping: true,
     });
     setPickedImage(image.path);
@@ -69,13 +75,18 @@ export const ImgPicker = (props) => {
 
   return (
     <View style={styles.imagePickerContainer}>
-      <View style={styles.imageContainer}>
-        {!pickedImage ? (
-          <Text style={styles.emptyText}>No image picked yet.</Text>
-        ) : (
-          <Image style={styles.image} source={{ uri: pickedImage }} />
-        )}
-      </View>
+      <TouchableOpacity
+        disabled={props.editedProduct ? false : true}
+        onPress={props.onPress}
+      >
+        <View style={styles.imageContainer}>
+          {!pickedImage ? (
+            <Text style={styles.emptyText}>No image picked yet.</Text>
+          ) : (
+            <Image style={styles.image} source={{ uri: pickedImage }} />
+          )}
+        </View>
+      </TouchableOpacity>
       <View style={styles.buttonContainer}>
         <BodyButton
           title="Take Photo"

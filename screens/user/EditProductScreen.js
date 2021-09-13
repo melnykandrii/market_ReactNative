@@ -7,17 +7,19 @@ import {
   StyleSheet,
   View,
   Platform,
-  TouchableWithoutFeedback,
-  Keyboard,
+  TouchableOpacity,
+  Pressable,
 } from "react-native";
 import React, { useCallback, useEffect, useReducer, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import DefaultButton from "../../components/UI/DefaultButton";
 import DefaultInputCont from "../../components/UI/InputComponent";
 import { ImgPicker } from "../../components/UI/image-picker.component";
 import { BodyButton } from "../../src/components/buttons/body.button.component";
 import { theme } from "../../src/infrastructure/theme";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import HeaderButton from "../../components/UI/HeaderButton";
+import { LoadingState } from "../../src/components/loading/loading-state.component";
+import { Spacer } from "../../src/components/typography/spacer/spacer.component";
 
 const FORM_INPUT_UPDATE = "FORM_INPUT_UPDATE";
 
@@ -45,24 +47,31 @@ const formReducer = (state, action) => {
 };
 
 const EditProductScreen = (props) => {
-  const { item, edit } = props.route.params ? props.route.params : {};
-  const prodId = props.route.params?.productId ?? "";
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
+
+  //const { item, edit } = props.route.params ? props.route.params : {};
+  const prodId = props.route.params?.productId ?? null;
   //const prodId = props.route.params.productId
   const editedProduct = useSelector((state) =>
     state.products.userProducts.find((prod) => prod.id === prodId)
   );
   const dispatch = useDispatch();
+
   const [imageUrl, setImageUrl] = useState(
-    props.route.params && edit ? item.imageUrl : null
+    editedProduct ? editedProduct.imageUrl : ""
   );
+
   const [formState, dispatchFormState] = useReducer(formReducer, {
     inputValues: {
       title: editedProduct ? editedProduct.title : "",
+      //imageUrl: editedProduct ? editedProduct.imageUrl : "",
       description: editedProduct ? editedProduct.description : "",
       price: "",
     },
     inputValidities: {
       title: editedProduct ? true : false,
+      //imageUrl: editedProduct ? true : false,
       description: editedProduct ? true : false,
       price: editedProduct ? true : false,
     },
@@ -85,47 +94,54 @@ const EditProductScreen = (props) => {
     const [description, setDescription] = useState('');
 */
 
-  const submitHandler = useCallback(() => {
+  const submitHandler = useCallback(async () => {
     if (!formState.formIsValid) {
       Alert.alert("Wrong input!", "Please check errors in the form.", [
         { text: "Ok" },
       ]);
       return;
     }
-    if (editedProduct) {
-      dispatch(
-        productsActions.updateProduct(
-          prodId,
-          formState.inputValues.title,
-          formState.inputValues.description,
-          imageUrl
-        )
-      );
-    } else {
-      dispatch(
-        productsActions.createProduct(
-          formState.inputValues.title,
-          formState.inputValues.description,
-          imageUrl,
-          +formState.inputValues.price
-        )
-      );
+    setError(null);
+    setIsLoading(true);
+    try {
+      if (editedProduct) {
+        await dispatch(
+          productsActions.updateProduct(
+            prodId,
+            formState.inputValues.title,
+            formState.inputValues.description,
+            imageUrl
+          )
+        );
+      } else {
+        await dispatch(
+          productsActions.createProduct(
+            formState.inputValues.title,
+            formState.inputValues.description,
+            imageUrl,
+            +formState.inputValues.price
+          )
+        );
+      }
+      props.navigation.goBack();
+    } catch (err) {
+      setError(err.message);
     }
-    props.navigation.goBack();
-  }, [
-    formState.formIsValid,
-    formState.inputValues.title,
-    formState.inputValues.description,
-    formState.inputValues.price,
-    editedProduct,
-    props.navigation,
-    dispatch,
-    prodId,
-    imageUrl,
-  ]);
+    setIsLoading(false);
+  }, [dispatch, formState, prodId, imageUrl]);
 
   useEffect(() => {
-    props.navigation.setParams({ submit: submitHandler });
+    props.navigation.setOptions({
+      headerRight: () => (
+        <HeaderButtons HeaderButtonComponent={HeaderButton}>
+          <Item
+            title="Submit"
+            iconName={Platform.OS === "android" ? "save-sharp" : "save-outline"}
+            onPress={submitHandler}
+          />
+        </HeaderButtons>
+      ),
+    });
   }, [props.navigation, submitHandler]);
 
   const inputChangeHandler = useCallback(
@@ -140,6 +156,16 @@ const EditProductScreen = (props) => {
     [dispatchFormState]
   );
 
+  const onNavigate = () => {
+    props.navigation.navigate("ImageScreen", {
+      imageUrl: imageUrl,
+    });
+  };
+
+  if (isLoading) {
+    return <LoadingState />;
+  }
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -147,9 +173,12 @@ const EditProductScreen = (props) => {
       keyboardVerticalOffset={80}
     >
       <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1 }}>
-        <View>
-          <ImgPicker onImageTaken={imageHandler} imageUrl={imageUrl} />
-        </View>
+        <ImgPicker
+          onImageTaken={imageHandler}
+          imageUrl={imageUrl}
+          onPress={onNavigate}
+          editedProduct={editedProduct}
+        />
 
         <View style={styles.form}>
           <DefaultInputCont
@@ -211,17 +240,16 @@ const EditProductScreen = (props) => {
             initiallyValid={!!editedProduct}
             required
             minLength={5}
+            style={styles.button}
           />
         </View>
+        <Spacer position="bottom" size="xl" />
         <BodyButton
           title="Save"
           buttonColor={theme.colors.ui.primary}
           mode="outlined"
-          onNavi={() => {
-            props.route.params.submit();
-          }}
+          onNavi={submitHandler}
           buttonIcon="file-send"
-          style={styles.button}
         />
       </ScrollView>
     </KeyboardAvoidingView>
@@ -234,6 +262,10 @@ const styles = StyleSheet.create({
   },
   form: {
     paddingHorizontal: 10,
+  },
+  button: {
+    width: 180,
+    maxWidth: 180,
   },
 });
 

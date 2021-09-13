@@ -11,6 +11,7 @@ import HeaderButton from "../components/UI/HeaderButton";
 import React from "react";
 import UserProductsScreen from "../screens/user/UserProductsScreen";
 import { theme } from "../src/infrastructure/theme";
+import { ImageScreen } from "../src/features/market/screens/image.screen";
 
 const ProdNavi = createStackNavigator();
 
@@ -75,21 +76,14 @@ function MyProdNavigation() {
           //title: route.params?.productTitle ?? 'Add New Product',
           title: route.params?.productId ? "Edit Product" : "Add New Product",
           gestureEnabled: true,
-          headerRight: (props) => (
-            <HeaderButtons HeaderButtonComponent={HeaderButton}>
-              <Item
-                title="Submit"
-                iconName={
-                  Platform.OS === "android" ? "save-sharp" : "save-outline"
-                }
-                onPress={() => {
-                  //navigation.toggleDrawer();
-                  //console.log('Search tapped')
-                  route.params.submit();
-                }}
-              />
-            </HeaderButtons>
-          ),
+        })}
+      />
+      <ProdNavi.Screen
+        name="ImageScreen"
+        component={ImageScreen}
+        options={() => ({
+          headerShown: false,
+          gestureEnabled: true,
         })}
       />
     </ProdNavi.Navigator>

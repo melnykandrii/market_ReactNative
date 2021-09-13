@@ -5,7 +5,6 @@ import {
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
 import CartScreen from "../screens/shop/CartScreen";
-import Colors from "../constants/Colors";
 import FiltersScreen from "../screens/shop/FiltersScreen";
 import HeaderButton from "../components/UI/HeaderButton";
 import { Platform } from "react-native";
@@ -13,6 +12,7 @@ import ProductDetailsScreen from "../screens/shop/ProductDetailsScreen";
 import React from "react";
 import { TransitionPresets } from "@react-navigation/stack";
 import { theme } from "../src/infrastructure/theme";
+import { ImageScreen } from "../src/features/market/screens/image.screen";
 
 import ShopScreen from "../screens/shop/ShopScreen";
 
@@ -107,6 +107,14 @@ function ShopNavigation() {
           ),
         })}
       />
+      <ShopNavi.Screen
+        name="ImageScreen"
+        component={ImageScreen}
+        options={() => ({
+          headerShown: false,
+          gestureEnabled: true,
+        })}
+      />
       <ShopNavi.Screen name="Cart" component={CartScreen} />
       <ShopNavi.Screen
         name="Filters"
@@ -122,8 +130,6 @@ function ShopNavigation() {
                 iconName="close-outline"
                 onPress={() => {
                   navigation.goBack();
-                  //console.log('Search tapped')
-                  //navigation.navigate('Categories')
                 }}
               />
             </HeaderButtons>
@@ -134,8 +140,6 @@ function ShopNavigation() {
                 title="Save"
                 iconName="checkmark-outline"
                 onPress={() => {
-                  //navigation.toggleDrawer();
-                  //console.log('Search tapped')
                   route.params.save();
                   navigation.goBack();
                 }}

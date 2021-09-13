@@ -1,13 +1,10 @@
 import * as cartActions from "../../store/actions/cart";
 import * as productsActions from "../../store/actions/products";
 
-import { Button, FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import Colors from "../../constants/Colors";
 import DefaultEmptyScreen from "../../components/UI/EmptyScreen";
-import { Platform } from "react-native";
 import ProductItem from "../../components/shop/ProducItem";
 import { BodyButton } from "../../src/components/buttons/body.button.component";
 import { theme } from "../../src/infrastructure/theme";
@@ -102,7 +99,7 @@ const ShopScreen = (props) => {
           }}
         >
           <BodyButton
-            title="View Details"
+            title="View"
             buttonColor={theme.colors.ui.primary}
             mode="outlined"
             onNavi={() => {
@@ -113,7 +110,7 @@ const ShopScreen = (props) => {
             compact="true"
           />
           <BodyButton
-            title="Add to Cart"
+            title="Buy"
             buttonColor={theme.colors.ui.primary}
             mode="outlined"
             onNavi={() => {
