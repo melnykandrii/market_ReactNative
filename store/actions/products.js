@@ -9,12 +9,12 @@ export const SET_PRODUCTS = "SET_PRODUCTS";
 
 export const fetchProducts = () => {
   return async (dispatch, getState) => {
-    const token = getState().auth.token;
+    const userId = getState().auth.userId;
     // any async code
     try {
       const response = await fetch(
         //"https://shopma-58377-default-rtdb.firebaseio.com/products.json"
-        `https://storefilern-default-rtdb.firebaseio.com/products.json?auth=${token}`
+        "https://storefilern-default-rtdb.firebaseio.com/products.json"
       );
       if (!response.ok) {
         const errorResponseData = await response.json();
@@ -31,7 +31,7 @@ export const fetchProducts = () => {
         loadedProducts.push(
           new Product(
             key,
-            "u1",
+            resData[key].ownerId,
             resData[key].title,
             resData[key].imageUrl,
             resData[key].description,
@@ -40,7 +40,11 @@ export const fetchProducts = () => {
         );
       }
 
-      dispatch({ type: SET_PRODUCTS, products: loadedProducts });
+      dispatch({
+        type: SET_PRODUCTS,
+        products: loadedProducts,
+        userProducts: loadedProducts.filter((prod) => prod.ownerId === userId),
+      });
     } catch (err) {
       //send to custom analytics server
       console.log(err);
@@ -50,13 +54,14 @@ export const fetchProducts = () => {
 };
 
 export const deleteProduct = (productId, imageUrl) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    const token = getState().auth.token;
     const imageRef = storage().refFromURL(imageUrl);
     const fileName = imageRef.path.split("/").pop();
     await storage().ref(`/images/products/${fileName}`).delete();
     try {
       const response = await fetch(
-        `https://storefilern-default-rtdb.firebaseio.com/products/${productId}.json`,
+        `https://storefilern-default-rtdb.firebaseio.com/products/${productId}.json?auth=${token}`,
         {
           method: "DELETE",
         }

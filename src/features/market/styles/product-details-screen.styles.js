@@ -57,37 +57,3 @@ export const BottomContainer = styled.View`
   margin-left: ${(props) => props.theme.sizepx[4]};
   padding-bottom: ${(props) => props.theme.sizepx[2]};
 `;
-/*
- image: {
-    width: "100%",
-    height: 300,
-  },
-
-  priceLabel: {
-    fontFamily: "abril",
-    fontSize: 20,
-    color: Colors.labelios,
-    textAlign: "center",
-    marginVertical: 10,
-    marginStart: -5,
-  },
-  price: {
-    fontFamily: "abril",
-    fontSize: 18,
-    color: Colors.headdroid,
-    marginBottom: 10,
-  },
-  descriptionHeader: {
-    fontFamily: "abril",
-    fontSize: 20,
-    textAlign: "justify",
-    marginHorizontal: 15,
-    paddingBottom: 10,
-  },
-  descriptionText: {
-    fontFamily: "open-sans",
-    fontSize: 14,
-    textAlign: "justify",
-    marginHorizontal: 20,
-  },
-*/

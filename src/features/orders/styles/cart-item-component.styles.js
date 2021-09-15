@@ -10,6 +10,7 @@ export const CardContainer = styled.View`
   border-bottom-width: ${(props) => props.theme.space[1]}
   border-bottom-color: ${(props) => props.theme.colors.ui.disabled};
 `;
+
 export const QuantityContainer = styled.View`
   flex: 0.5;
   align-items: flex-start;

@@ -8,10 +8,10 @@ export const BodyButton = (props) => {
     <Button
       {...props}
       onPress={props.onNavi}
-      color={props.buttonColor || theme.colors.ui.primary}
+      color={props.buttonColor || theme.colors.text.primary}
       mode={props.mode || "outlined"}
       loading={props.loading}
-      icon={props.buttonIcon || "shopping"}
+      icon={props.buttonIcon}
       style={{ ...styles.button, ...props.style }}
     >
       {props.title}

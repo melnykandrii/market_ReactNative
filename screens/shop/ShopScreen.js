@@ -1,8 +1,9 @@
+import React, { useEffect, useState, useCallback } from "react";
 import * as cartActions from "../../store/actions/cart";
 import * as productsActions from "../../store/actions/products";
 
-import { FlatList, StyleSheet } from "react-native";
-import React, { useEffect, useState, useCallback } from "react";
+import { FlatList, StyleSheet, RefreshControl } from "react-native";
+
 import { useDispatch, useSelector } from "react-redux";
 import DefaultEmptyScreen from "../../components/UI/EmptyScreen";
 import ProductItem from "../../components/shop/ProducItem";
@@ -37,9 +38,17 @@ const ShopScreen = (props) => {
 
     setIsLoading(false);
   }, [dispatch]);
+
   useEffect(() => {
     loadProducts();
   }, [dispatch, loadProducts]);
+
+  useEffect(() => {
+    const focus = props.navigation.addListener("focus", loadProducts);
+    return () => {
+      focus();
+    };
+  }, [loadProducts, props.navigation]);
 
   const viewProductHandler = (id, title) => {
     props.navigation.navigate("Product Details", {
@@ -89,6 +98,14 @@ const ShopScreen = (props) => {
     <FlatList
       data={products}
       keyExtractor={(item) => item.id}
+      refreshControl={
+        <RefreshControl
+          tintColor={theme.colors.ui.primary}
+          colors={[theme.colors.ui.primary]}
+          refreshing={isLoading}
+          onRefresh={loadProducts}
+        />
+      }
       renderItem={({ item }) => (
         <ProductItem
           image={item.imageUrl}

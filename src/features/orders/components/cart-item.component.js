@@ -12,7 +12,7 @@ import {
   Price,
   RemoveContainer,
   Remove,
-} from "../styles/cart-item.component.styles";
+} from "../styles/cart-item-component.styles";
 
 export const CartItem = (props) => {
   return (
