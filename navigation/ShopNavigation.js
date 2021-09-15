@@ -8,7 +8,7 @@ import CartScreen from "../screens/shop/CartScreen";
 import FiltersScreen from "../screens/shop/FiltersScreen";
 import HeaderButton from "../components/UI/HeaderButton";
 import { Platform } from "react-native";
-import ProductDetailsScreen from "../screens/shop/ProductDetailsScreen";
+import { ProductDetailsScreen } from "../src/features/market/screens/product-details.screen";
 import React from "react";
 import { TransitionPresets } from "@react-navigation/stack";
 import { theme } from "../src/infrastructure/theme";

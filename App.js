@@ -28,6 +28,9 @@ const fetchFonts = () => {
   return Font.loadAsync({
     "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
     "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
+    righteous: require("./assets/fonts/Righteous-Regular.ttf"),
+    abril: require("./assets/fonts/Righteous-Regular.ttf"),
+    stint: require("./assets/fonts/StintUltraCondensed-Regular.ttf"),
   });
 };
 

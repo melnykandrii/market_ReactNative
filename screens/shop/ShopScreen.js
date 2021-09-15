@@ -100,7 +100,7 @@ const ShopScreen = (props) => {
         >
           <BodyButton
             title="View"
-            buttonColor={theme.colors.ui.primary}
+            buttonColor={theme.colors.text.primary}
             mode="outlined"
             onNavi={() => {
               viewProductHandler(item.id, item.title);
@@ -111,7 +111,7 @@ const ShopScreen = (props) => {
           />
           <BodyButton
             title="Buy"
-            buttonColor={theme.colors.ui.primary}
+            buttonColor={theme.colors.text.primary}
             mode="outlined"
             onNavi={() => {
               addToCardHandler(item);

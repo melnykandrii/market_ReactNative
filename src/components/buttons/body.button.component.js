@@ -28,5 +28,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
     maxWidth: theme.sizessh[12],
+    backgroundColor: theme.colors.bg.primary,
   },
 });

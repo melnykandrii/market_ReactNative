@@ -2,12 +2,11 @@ import { Button, Platform, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
 
 import Card from "../UI/Card";
-import CartItem from "./CartItem";
+import { CartItem } from "../../src/features/orders/components/cart-item.component";
 import Colors from "../../constants/Colors";
 
 const OrderItem = (props) => {
   const [showDetails, setShowDetails] = useState(false);
-
   return (
     <Card style={styles.orderItem}>
       <View style={styles.summary}>
@@ -27,10 +26,11 @@ const OrderItem = (props) => {
         <View style={styles.detalItems}>
           {props.items.map((cartItem) => (
             <CartItem
-              key={cartItem.productId}
+              key={cartItem.id}
               quantity={cartItem.quantity}
               amount={cartItem.sum}
-              title={cartItem.productTitle}
+              imageUrl={cartItem.imageUrl}
+              title={cartItem.title}
             />
           ))}
         </View>

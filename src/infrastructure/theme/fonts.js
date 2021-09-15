@@ -1,8 +1,8 @@
 export const fonts = {
-  title: "open-sans-bold",
+  title: "abril",
   body: "open-sans",
-  heading: "open-sans-bold",
-  monospace: "open-sans",
+  heading: "righteous",
+  monospace: "stint",
 };
 
 export const fontWeights = {

@@ -1,21 +1,17 @@
 import * as cartActions from "../../store/actions/cart";
 import * as ordersActions from "../../store/actions/order";
 
-import {
-  Button,
-  FlatList,
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { FlatList, Platform, StyleSheet, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 import Card from "../../components/UI/Card";
-import CartItem from "../../components/shop/CartItem";
+import { CartItem } from "../../src/features/orders/components/cart-item.component";
 import Colors from "../../constants/Colors";
 import DefaultEmptyScreen from "../../components/UI/EmptyScreen";
 import React from "react";
+import { Spacer } from "../../src/components/typography/spacer/spacer.component";
+import { BodyButton } from "../../src/components/buttons/body.button.component";
+import { theme } from "../../src/infrastructure/theme";
 
 const CartScreen = (props) => {
   const cartTotalAmount = useSelector((state) => state.cart.totalAmount);
@@ -23,9 +19,10 @@ const CartScreen = (props) => {
     const transformedCartItems = [];
     for (const key in state.cart.items) {
       transformedCartItems.push({
-        productId: key,
-        productTitle: state.cart.items[key].productTitle,
-        productPrice: state.cart.items[key].productPrice,
+        id: key,
+        title: state.cart.items[key].productTitle,
+        imageUrl: state.cart.items[key].productImageUrl,
+        price: state.cart.items[key].productPrice,
         quantity: state.cart.items[key].quantity,
         sum: state.cart.items[key].sum,
       });
@@ -52,27 +49,28 @@ const CartScreen = (props) => {
   return (
     <View style={styles.screen}>
       <Text style={styles.headerTitle}>Added Products</Text>
+      <Spacer position="bottom" size="xl" />
       <View style={styles.tablehead}>
         <Text style={styles.headerQty}>QTY</Text>
-        <Text style={styles.headerName}>Name</Text>
+        <Text style={styles.headerName}>Products</Text>
         <Text style={styles.headerPrice}>Price</Text>
       </View>
       <FlatList
         data={cartItems}
-        keyExtractor={(item) => item.productId}
-        renderItem={(itemData) => (
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
           <CartItem
-            quantity={itemData.item.quantity}
-            title={itemData.item.productTitle}
-            amount={itemData.item.sum}
+            quantity={item.quantity}
+            title={item.title}
+            amount={item.sum}
+            imageUrl={item.imageUrl}
             deletable
             onRemove={() => {
-              dispatch(cartActions.removeFromCart(itemData.item.productId));
+              dispatch(cartActions.removeFromCart(item.id));
             }}
             onViewDetails={() => {
               props.navigation.navigate("Product Details", {
-                productId: itemData.item.productId,
-                productTitle: itemData.item.productTitle,
+                productId: item.id,
               });
             }}
           />
@@ -85,16 +83,19 @@ const CartScreen = (props) => {
         </Text>
       </View>
       <View style={styles.buttonCont}>
-        <Button
-          color={Platform.OS === "android" ? Colors.headdroid : Colors.labelios}
+        <BodyButton
           title="Order Now"
+          buttonColor={theme.colors.text.primary}
+          mode="outlined"
           disabled={cartItems.length === 0}
-          onPress={() => {
+          onNavi={() => {
             dispatch(ordersActions.addOrder(cartItems, cartTotalAmount));
             props.navigation.navigate("Sale Market");
-            //props.navigation.goBack()
             props.navigation.navigate("My Orders");
           }}
+          buttonIcon="contactless-payment"
+          style={styles.button}
+          compact="true"
         />
       </View>
     </View>
@@ -111,23 +112,25 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   tablehead: {
+    padding: 10,
     flexDirection: "row",
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
+    borderBottomWidth: 1,
+    backgroundColor: "white",
   },
   headerQty: {
     fontFamily: "open-sans",
     fontSize: 13,
-    marginRight: "2%",
+    marginLeft: -10,
   },
   headerName: {
     fontFamily: "open-sans",
     fontSize: 13,
-    marginRight: "50%",
   },
   headerPrice: {
+    marginRight: "15%",
     fontFamily: "open-sans",
     fontSize: 13,
-    marginRight: "20%",
   },
   summary: {
     flexDirection: "row",

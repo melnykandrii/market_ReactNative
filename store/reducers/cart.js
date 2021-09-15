@@ -14,6 +14,7 @@ export default (state = initialState, action) => {
       const addedProduct = action.product;
       const prodPrice = addedProduct.price;
       const prodTitle = addedProduct.title;
+      const prodImage = addedProduct.imageUrl;
 
       let updatedOrNewCartItem;
 
@@ -22,11 +23,18 @@ export default (state = initialState, action) => {
         updatedOrNewCartItem = new CartItem(
           state.items[addedProduct.id].quantity + 1,
           prodPrice,
+          prodImage,
           prodTitle,
           state.items[addedProduct.id].sum + prodPrice
         );
       } else {
-        updatedOrNewCartItem = new CartItem(1, prodPrice, prodTitle, prodPrice);
+        updatedOrNewCartItem = new CartItem(
+          1,
+          prodPrice,
+          prodImage,
+          prodTitle,
+          prodPrice
+        );
       }
       return {
         ...state,
@@ -42,6 +50,7 @@ export default (state = initialState, action) => {
         const updatedCartItem = new CartItem(
           selectedCartItem.quantity - 1,
           selectedCartItem.productPrice,
+          selectedCartItem.productImageUrl,
           selectedCartItem.productTitle,
           selectedCartItem.sum - selectedCartItem.productPrice
         );

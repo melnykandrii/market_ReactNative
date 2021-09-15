@@ -65,5 +65,6 @@ const styles = StyleSheet.create({
   },
   button: {
     marginHorizontal: "20%",
+    backgroundColor: theme.colors.ui.primary,
   },
 });

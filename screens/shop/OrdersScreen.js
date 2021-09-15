@@ -1,4 +1,4 @@
-import { FlatList, Text } from "react-native";
+import { FlatList } from "react-native";
 
 import DefaultEmptyScreen from "../../components/UI/EmptyScreen";
 import OrderItem from "../../components/shop/OrderItem";
@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 
 const OrdersScreen = (props) => {
   const orders = useSelector((state) => state.orders.orders);
+  console.log(orders.items);
 
   if (orders.length === 0) {
     return (
@@ -26,11 +27,11 @@ const OrdersScreen = (props) => {
     <FlatList
       data={orders}
       keyExtractor={(item) => item.id}
-      renderItem={(itemData) => (
+      renderItem={({ item }) => (
         <OrderItem
-          amount={itemData.item.totalAmount}
-          date={itemData.item.readableDate}
-          items={itemData.item.items}
+          amount={item.totalAmount}
+          date={item.readableDate}
+          items={item.items}
         />
       )}
     />

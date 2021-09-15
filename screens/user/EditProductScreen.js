@@ -9,6 +9,7 @@ import {
   Platform,
   TouchableOpacity,
   Pressable,
+  Keyboard,
 } from "react-native";
 import React, { useCallback, useEffect, useReducer, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -128,7 +129,7 @@ const EditProductScreen = (props) => {
       setError(err.message);
     }
     setIsLoading(false);
-  }, [dispatch, formState, prodId, imageUrl]);
+  }, [dispatch, formState, prodId, imageUrl, editedProduct, props.navigation]);
 
   useEffect(() => {
     props.navigation.setOptions({
@@ -228,9 +229,7 @@ const EditProductScreen = (props) => {
             multiline
             numberOfLines={3}
             returnKey="done"
-            submit={() => {
-              props.route.params.submit();
-            }}
+            submit={Keyboard.dismiss}
             //inputRef={(descRef) => (this.descRef = descRef)}
             blur={false}
             placeholder="Description"
