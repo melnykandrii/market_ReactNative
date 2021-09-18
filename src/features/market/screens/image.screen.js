@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
 
-    backgroundColor: theme.colors.ui.tertiary,
+    backgroundColor: theme.colors.ui.primary,
   },
   closeButton: {
     position: "absolute",

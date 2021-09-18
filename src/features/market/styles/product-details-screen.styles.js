@@ -21,12 +21,13 @@ export const ButtonContainer = styled.View`
   flex: 2;
   justify-content: center;
   align-items: flex-end;
+  margin-right: ${(props) => props.theme.sizepx[4]};
 `;
 
 export const HeaderLabel = styled.Text`
   font-family: abril;
   font-size: ${(props) => props.theme.sizepx[4]};
-  color: ${(props) => props.theme.colors.text.primary};
+  color: ${(props) => props.theme.colors.bg.black};
   margin-bottom: ${(props) => props.theme.sizepx[2]};
   margin-left: -${(props) => props.theme.sizepx[0]};
 `;
@@ -34,7 +35,7 @@ export const HeaderLabel = styled.Text`
 export const Price = styled.Text`
   font-family: abril;
   font-size: 18px;
-  color: ${(props) => props.theme.colors.ui.primary};
+  color: ${(props) => props.theme.colors.bg.black};
   margin-bottom: ${(props) => props.theme.sizepx[2]};
 `;
 

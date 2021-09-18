@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 5,
     borderRadius: 10,
-    backgroundColor: theme.colors.bg.primary,
+    backgroundColor: theme.colors.ui.primary,
   },
 });
 

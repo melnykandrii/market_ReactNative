@@ -1,12 +1,14 @@
-import { Alert, FlatList, StyleSheet } from "react-native";
+import { Alert, FlatList, StyleSheet, Dimensions } from "react-native";
 import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductItem from "../../components/shop/ProducItem";
-import { BodyButton } from "../../src/components/buttons/body.button.component";
+//import { BodyButton } from "../../src/components/buttons/body.button.component";
+import { BodyButton } from "../../src/components/buttons/button.component";
 import { theme } from "../../src/infrastructure/theme";
 import { InfoScreen } from "../../src/components/info/info-screen.component";
 import { LoadingState } from "../../src/components/loading/loading-state.component";
 import * as productsActions from "../../store/actions/products";
+import { CloseButton } from "../../src/components/buttons/close.button.component";
 
 const UserProductsScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -76,9 +78,9 @@ const UserProductsScreen = (props) => {
         title="You don't have any product yet."
         subTitle="After adding one it will appear here. Tap on the button to start adding."
         buttonTitle="Add Product"
-        buttonIcon="database-plus"
         compact="true"
-        onNavi={() => {
+        buttonContant={styles.btContant}
+        onPress={() => {
           props.navigation.navigate("Edit Product");
         }}
       />
@@ -86,10 +88,15 @@ const UserProductsScreen = (props) => {
   }
   return (
     <FlatList
+      numColumns={2}
+      horizontal={false}
       data={userProducts}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
         <ProductItem
+          cardStyle={styles.card}
+          styleTitleLabel={styles.titleLabel}
+          stylePrice={styles.price}
           image={item.imageUrl}
           title={item.title}
           price={item.price}
@@ -97,25 +104,21 @@ const UserProductsScreen = (props) => {
             editProductHandler({ item }, item.id);
           }}
         >
-          <BodyButton
-            title="Edit"
-            buttonColor={theme.colors.ui.primary}
-            mode="outlined"
-            onNavi={() => {
+          <CloseButton
+            buttonColor={theme.colors.text.primary}
+            onClose={() => {
               editProductHandler({ item }, item.id);
             }}
-            buttonIcon="square-edit-outline"
-            style={styles.button}
+            name="square-edit-outline"
+            size={18}
           />
-          <BodyButton
-            title="Delete"
-            buttonColor={theme.colors.ui.primary}
-            mode="outlined"
-            onNavi={() => {
+          <CloseButton
+            buttonColor={theme.colors.text.primary}
+            onClose={() => {
               deleteHandler(item.id, item.imageUrl);
             }}
-            buttonIcon="trash-can"
-            style={styles.button}
+            name="trash-can"
+            size={18}
           />
         </ProductItem>
       )}
@@ -124,18 +127,20 @@ const UserProductsScreen = (props) => {
 };
 
 const styles = StyleSheet.create({
+  card: {
+    width: Dimensions.get("screen").width / 2.5,
+    height: Dimensions.get("screen").width / 3,
+  },
   indicator: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
-  button: {
-    height: 50,
-    width: 140,
-    justifyContent: "center",
-    alignItems: "center",
-    marginHorizontal: 0,
-    backgroundColor: theme.colors.bg.primary,
+  price: {
+    fontSize: 8,
+  },
+  titleLabel: {
+    fontSize: 10,
   },
 });
 

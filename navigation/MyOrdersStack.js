@@ -16,8 +16,9 @@ const OrdersNavi = createStackNavigator();
 function OrdersNavigation() {
   return (
     <OrdersNavi.Navigator
-      initialRouteName="My Orders"
+      initialRouteName="Orders"
       headerMode="screen"
+      backBehavior="history"
       screenOptions={{
         headerStyle: {
           backgroundColor: theme.colors.ui.primary,
@@ -26,7 +27,7 @@ function OrdersNavigation() {
         headerTitleAlign: "center",
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         headerTitleStyle: {
-          fontFamily: "open-sans-bold",
+          fontFamily: "righteous",
           fontSize: 22,
         },
         headerBackTitleStyle: {
@@ -35,20 +36,16 @@ function OrdersNavigation() {
       }}
     >
       <OrdersNavi.Screen
-        name="My Orders"
+        name="Orders"
         component={OrdersScreen}
         options={({ navigation }) => ({
           headerLeft: (props) => (
             <HeaderButtons HeaderButtonComponent={HeaderButton}>
               <Item
                 title="Menu"
-                iconName={
-                  Platform.OS === "android" ? "logo-android" : "logo-apple"
-                }
+                iconName="menu-outline"
                 onPress={() => {
                   navigation.toggleDrawer();
-                  //console.log('Search tapped')
-                  //navigation.navigate('Categories')
                 }}
               />
             </HeaderButtons>

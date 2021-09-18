@@ -17,7 +17,7 @@ export const MainDrawerNavi = () => {
   const dispatch = useDispatch();
   return (
     <MainDrawer.Navigator
-      initialRouteName="All Products"
+      initialRouteName="Market"
       backBehavior="history"
       drawerContent={(props) => (
         <DrawerComponent
@@ -41,32 +41,38 @@ export const MainDrawerNavi = () => {
           padding: 30,
         },
         labelStyle: {
-          fontFamily: "open-sans-bold",
-          fontSize: 15,
+          fontFamily: "righteous",
+          fontSize: 22,
         },
       }}
       screenOptions={({ route }) => ({
         drawerIcon: ({ focused, color, size }) => {
-          if (route.name === "All Products") {
+          if (route.name === "Market") {
             return (
               <Ionicons
-                name={focused ? "ios-home-sharp" : "ios-home-outline"}
+                name={
+                  focused ? "chevron-down-circle-outline" : "ellipse-outline"
+                }
                 size={size}
                 color={color}
               />
             );
-          } else if (route.name === "My Products") {
+          } else if (route.name === "For Sale") {
             return (
               <Ionicons
-                name={focused ? "ios-list-sharp" : "ios-list-outline"}
+                name={
+                  focused ? "chevron-down-circle-outline" : "ellipse-outline"
+                }
                 size={size}
                 color={color}
               />
             );
-          } else if (route.name === "My Orders") {
+          } else if (route.name === "Orders") {
             return (
               <Ionicons
-                name={focused ? "basket-sharp" : "basket-outline"}
+                name={
+                  focused ? "chevron-down-circle-outline" : "ellipse-outline"
+                }
                 size={size}
                 color={color}
               />
@@ -75,9 +81,9 @@ export const MainDrawerNavi = () => {
         },
       })}
     >
-      <MainDrawer.Screen name="All Products" component={ShopNavigation} />
-      <MainDrawer.Screen name="My Orders" component={OrdersNavigation} />
-      <MainDrawer.Screen name="My Products" component={MyProdNavigation} />
+      <MainDrawer.Screen name="Market" component={ShopNavigation} />
+      <MainDrawer.Screen name="Orders" component={OrdersNavigation} />
+      <MainDrawer.Screen name="For Sale" component={MyProdNavigation} />
     </MainDrawer.Navigator>
   );
 };

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const CardContainer = styled.View`
-  flex:1;
   padding: ${(props) => props.theme.sizepx[1]};
   background-color: ${(props) => props.theme.colors.ui.quaternary};
   flex-direction: row;
@@ -9,18 +8,19 @@ export const CardContainer = styled.View`
   align-items: center;
   border-bottom-width: ${(props) => props.theme.space[1]}
   border-bottom-color: ${(props) => props.theme.colors.ui.disabled};
+  
 `;
 
 export const QuantityContainer = styled.View`
   flex: 0.5;
-  align-items: flex-start;
+  align-items: flex-end;
   margin-left: -${(props) => props.theme.sizepx[0]};
 `;
 
 export const QuantityLabel = styled.Text`
-  font-family: open-sans;
+  font-family: abril;
   font-size: 12px;
-  color: ${(props) => props.theme.colors.text.primary};
+  color: ${(props) => props.theme.colors.bg.black};
 `;
 
 export const ItemsConstainer = styled.TouchableOpacity`
@@ -35,7 +35,7 @@ export const ItemImage = styled.Image`
 `;
 
 export const ItemTitle = styled.Text`
-  font-family: open-sans-bold;
+  font-family: righteous;
   font-size: 14px;
   flex: 1;
   flex-wrap: wrap-reverse;
@@ -44,10 +44,11 @@ export const ItemTitle = styled.Text`
 export const PriceContainer = styled.View`
   flex: 2;
   flex-direction: row;
+  justify-content: flex-end;
 `;
 
 export const Price = styled.Text`
-  font-family: open-sans-bold;
+  font-family: abril;
   font-size: 13px;
 `;
 

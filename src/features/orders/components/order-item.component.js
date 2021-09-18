@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { CartItem } from "./cart-item.component";
-import { BodyButton } from "../../../components/buttons/body.button.component";
+import { BodyButton } from "../../../components/buttons/button.component";
+//import { BodyButton } from "../../../components/buttons/body.button.component";
 import {
   OrderContainer,
   OrderLabel,
   DateLabel,
-  TotalContainer,
+  DateContainer,
   TotalLabel,
   DetailsContainer,
   OrderCard,
@@ -17,17 +18,18 @@ const OrderItem = (props) => {
     <OrderCard>
       <OrderContainer>
         <OrderLabel>Order #{props.orderId}</OrderLabel>
-        <DateLabel>{props.date}</DateLabel>
-      </OrderContainer>
-      <TotalContainer>
         <TotalLabel>${props.amount.toFixed(2)}</TotalLabel>
-      </TotalContainer>
+      </OrderContainer>
+      <DateContainer>
+        <DateLabel>{props.date}</DateLabel>
+      </DateContainer>
       <BodyButton
-        title={showDetails ? "Hide Details" : "Show Details"}
+        buttonTitle={showDetails ? "Hide Details" : "Show Details"}
         mode="text"
-        onNavi={() => {
+        onPress={() => {
           setShowDetails((prevState) => !prevState);
         }}
+        labelStyle={{ fontSize: 10 }}
         compact={true}
       />
 
@@ -40,6 +42,11 @@ const OrderItem = (props) => {
               amount={cartItem.sum}
               imageUrl={cartItem.imageUrl}
               title={cartItem.title}
+              onViewDetails={() =>
+                props.navigation.navigate("Product Details", {
+                  productId: cartItem.id,
+                })
+              }
             />
           ))}
         </DetailsContainer>

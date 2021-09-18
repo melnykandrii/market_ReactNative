@@ -4,7 +4,8 @@ import { ScrollView, TouchableOpacity } from "react-native";
 import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { theme } from "../../../infrastructure/theme";
-import { BodyButton } from "../../../components/buttons/body.button.component";
+//import { BodyButton } from "../../../components/buttons/body.button.component";
+import { BodyButton } from "../../../components/buttons/button.component";
 import { Spacer } from "../../../components/typography/spacer/spacer.component";
 import {
   Image,
@@ -59,13 +60,13 @@ useEffect(() => {
         </PriceContainer>
         <ButtonContainer>
           <BodyButton
-            title="Buy"
-            buttonColor={theme.colors.ui.primary}
+            buttonTitle="Buy"
             mode="outlined"
-            onNavi={() => {
+            buttonColor={theme.colors.bg.black}
+            style={{ borderColor: theme.colors.bg.grey }}
+            onPress={() => {
               dispatch(cartActions.addToCart(selectedProduct));
             }}
-            buttonIcon="cart-plus"
           />
         </ButtonContainer>
       </TopContainer>

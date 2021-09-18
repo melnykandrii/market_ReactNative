@@ -3,6 +3,7 @@ import {
   createStackNavigator,
 } from "@react-navigation/stack";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import { useSelector } from "react-redux";
 
 import CartScreen from "../screens/shop/CartScreen";
 import FiltersScreen from "../screens/shop/FiltersScreen";
@@ -13,15 +14,18 @@ import React from "react";
 import { TransitionPresets } from "@react-navigation/stack";
 import { theme } from "../src/infrastructure/theme";
 import { ImageScreen } from "../src/features/market/screens/image.screen";
+import { HeaderBadgedButton } from "../src/components/buttons/header-badged-button.component";
 
 import ShopScreen from "../screens/shop/ShopScreen";
 
 const ShopNavi = createStackNavigator();
 
 function ShopNavigation() {
+  const cartTotalQty = useSelector((state) => state.cart.totalQty);
   return (
     <ShopNavi.Navigator
-      initialRouteName="Sale Market"
+      initialRouteName="Simple Market"
+      backBehavior="history"
       headerMode="screen"
       screenOptions={{
         headerTitleAllowFontScaling: true,
@@ -33,7 +37,7 @@ function ShopNavigation() {
         headerTitleAlign: "center",
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         headerTitleStyle: {
-          fontFamily: "open-sans-bold",
+          fontFamily: "righteous",
           fontSize: 22,
         },
         headerBackTitleStyle: {
@@ -42,43 +46,41 @@ function ShopNavigation() {
       }}
     >
       <ShopNavi.Screen
-        name="Sale Market"
+        name="Simple Market"
         component={ShopScreen}
         options={({ navigation }) => ({
           headerLeft: (props) => (
             <HeaderButtons HeaderButtonComponent={HeaderButton}>
               <Item
                 title="Menu"
-                iconName={
-                  Platform.OS === "android" ? "logo-android" : "logo-apple"
-                }
+                iconName="menu-outline"
                 onPress={() => {
                   navigation.toggleDrawer();
-                  //console.log('Search tapped')
-                  //navigation.navigate('Categories')
                 }}
               />
             </HeaderButtons>
           ),
           headerRight: (props) => (
-            <HeaderButtons HeaderButtonComponent={HeaderButton}>
+            <HeaderButtons HeaderButtonComponent={HeaderBadgedButton}>
               <Item
+                badgeVisible={false}
                 title="Filter"
-                iconName={
-                  Platform.OS === "android" ? "filter-sharp" : "filter-outline"
-                }
+                iconName={"filter-sharp"}
+                badgeTestId="filter-badge"
+                buttonTestId="filter-button-badge"
                 onPress={() => {
-                  //navigation.toggleDrawer();
-                  //console.log('Search tapped')
                   navigation.navigate("Filters");
                 }}
               />
               <Item
+                badgeVisible={cartTotalQty}
+                badgeValue={cartTotalQty}
+                badgeTestId="cart-badge"
+                buttonTestId="cart-button-badge"
                 title="Cart"
-                iconName={Platform.OS === "android" ? "md-cart" : "ios-cart"}
+                iconName="cart"
+                testId="filter"
                 onPress={() => {
-                  //navigation.toggleDrawer();
-                  //console.log('Search tapped')
                   navigation.navigate("Cart");
                 }}
               />
@@ -93,13 +95,16 @@ function ShopNavigation() {
           title: route.params?.productTitle ?? "Product Details",
           gestureEnabled: true,
           headerRight: (props) => (
-            <HeaderButtons HeaderButtonComponent={HeaderButton}>
+            <HeaderButtons HeaderButtonComponent={HeaderBadgedButton}>
               <Item
+                badgeVisible={cartTotalQty}
+                badgeValue={cartTotalQty}
+                badgeTestId="cart-badge"
+                buttonTestId="cart-button-badge"
                 title="Cart"
-                iconName="md-cart"
+                iconName="cart"
+                testId="filter"
                 onPress={() => {
-                  //navigation.toggleDrawer();
-                  //console.log('Search tapped')
                   navigation.navigate("Cart");
                 }}
               />
@@ -113,6 +118,7 @@ function ShopNavigation() {
         options={() => ({
           headerShown: false,
           gestureEnabled: true,
+          ...TransitionPresets.FadeFromBottomAndroid,
         })}
       />
       <ShopNavi.Screen name="Cart" component={CartScreen} />

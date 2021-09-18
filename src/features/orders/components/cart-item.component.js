@@ -17,9 +17,6 @@ import {
 export const CartItem = (props) => {
   return (
     <CardContainer>
-      <QuantityContainer>
-        <QuantityLabel>{props.quantity} </QuantityLabel>
-      </QuantityContainer>
       <ItemsConstainer onPress={props.onViewDetails}>
         <ItemImage source={{ uri: props.imageUrl }} />
         <Spacer position="left" size="xxl" />
@@ -27,16 +24,19 @@ export const CartItem = (props) => {
           {props.title}
         </ItemTitle>
       </ItemsConstainer>
+      <QuantityContainer>
+        <QuantityLabel>{props.quantity} </QuantityLabel>
+      </QuantityContainer>
       <PriceContainer>
         <Price>${props.amount.toFixed(2)}</Price>
       </PriceContainer>
-      <RemoveContainer>
-        {props.deletable && (
+      {props.deletable && (
+        <RemoveContainer>
           <Remove onPress={props.onRemove}>
             <Ionicons name="trash-outline" size={20} color="silver" />
           </Remove>
-        )}
-      </RemoveContainer>
+        </RemoveContainer>
+      )}
     </CardContainer>
   );
 };

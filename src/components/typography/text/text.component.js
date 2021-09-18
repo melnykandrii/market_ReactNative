@@ -31,7 +31,8 @@ const error = (theme) => `
 `;
 
 const load = (theme) => `
-    color: ${theme.colors.ui.primary};
+    color: ${theme.colors.bg.black};
+    font-family: ${theme.fonts.title};
 `;
 
 const caption = (theme) => `

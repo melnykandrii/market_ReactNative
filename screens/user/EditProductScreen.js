@@ -7,15 +7,15 @@ import {
   StyleSheet,
   View,
   Platform,
-  TouchableOpacity,
-  Pressable,
   Keyboard,
 } from "react-native";
 import React, { useCallback, useEffect, useReducer, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DefaultInputCont from "../../components/UI/InputComponent";
 import { ImgPicker } from "../../components/UI/image-picker.component";
-import { BodyButton } from "../../src/components/buttons/body.button.component";
+//import { BodyButton } from "../../src/components/buttons/body.button.component";
+
+import { BodyButton } from "../../src/components/buttons/button.component";
 import { theme } from "../../src/infrastructure/theme";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import HeaderButton from "../../components/UI/HeaderButton";
@@ -82,18 +82,6 @@ const EditProductScreen = (props) => {
   const imageHandler = (image) => {
     setImageUrl(image);
   };
-  /*
-    const [title, setTitle] = useState(editedProduct ? editedProduct.title : '');
-    const [titleIsValid, setTitleIsValid] = useState(false);
-    const [imageUrl, setImageUrl] = useState(editedProduct ? editedProduct.imageUrl : '');
-    const [price, setPrice] = useState('');
-    const [description, setDescription] = useState(editedProduct ? editedProduct.description : '');
-
-    const [title, setTitle] = useState('');
-    const [imageUrl, setImageUrl] = useState('');
-    const [price, setPrice] = useState('');
-    const [description, setDescription] = useState('');
-*/
 
   const submitHandler = useCallback(async () => {
     if (!formState.formIsValid) {
@@ -137,7 +125,7 @@ const EditProductScreen = (props) => {
         <HeaderButtons HeaderButtonComponent={HeaderButton}>
           <Item
             title="Submit"
-            iconName={Platform.OS === "android" ? "save-sharp" : "save-outline"}
+            iconName="checkmark-outline"
             onPress={submitHandler}
           />
         </HeaderButtons>
@@ -242,13 +230,13 @@ const EditProductScreen = (props) => {
             style={styles.button}
           />
         </View>
-        <Spacer position="bottom" size="xl" />
+        <Spacer position="bottom" size="xxl" />
         <BodyButton
-          title="Save"
-          buttonColor={theme.colors.ui.primary}
+          buttonTitle="Save"
           mode="outlined"
-          onNavi={submitHandler}
-          buttonIcon="file-send"
+          onPress={submitHandler}
+          buttonColor={theme.colors.bg.black}
+          style={styles.button}
         />
       </ScrollView>
     </KeyboardAvoidingView>
@@ -263,8 +251,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   button: {
-    width: 180,
-    maxWidth: 180,
+    alignSelf: "center",
+    marginBottom: 10,
+    borderColor: theme.colors.bg.grey,
   },
 });
 

@@ -15,14 +15,14 @@ const IndicatorContainer = styled.View`
 `;
 const LoadingIndicator = styled.ActivityIndicator.attrs({
   size: "large",
-  color: theme.colors.ui.primary,
+  color: theme.colors.bg.black,
 })``;
 
 export const LoadingState = (props) => {
   return (
     <IndicatorContainer>
       <LoadingIndicator />
-      <Text variant="load">{props.label || "Loading"}</Text>
+      <Text variant="load">{props.label || "Loading..."}</Text>
     </IndicatorContainer>
   );
 };

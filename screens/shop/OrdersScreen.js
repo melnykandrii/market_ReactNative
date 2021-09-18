@@ -1,11 +1,12 @@
-import { FlatList } from "react-native";
-
+import { FlatList, RefreshControl } from "react-native";
+import { InfoScreen } from "../../src/components/info/info-screen.component";
 import DefaultEmptyScreen from "../../components/UI/EmptyScreen";
 import OrderItem from "../../src/features/orders/components/order-item.component";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as ordersActions from "../../store/actions/order";
 import { LoadingState } from "../../src/components/loading/loading-state.component";
+import { theme } from "../../src/infrastructure/theme";
 
 const OrdersScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -13,13 +14,43 @@ const OrdersScreen = (props) => {
 
   const orders = useSelector((state) => state.orders.orders);
   const dispatch = useDispatch();
-  console.log(orders);
-  useEffect(() => {
+
+  const loadOrders = useCallback(async () => {
+    setError(null);
     setIsLoading(true);
-    dispatch(ordersActions.fetchOrders()).then(() => {
-      setIsLoading(false);
-    });
+    try {
+      await dispatch(ordersActions.fetchOrders());
+    } catch (err) {
+      setError(err.message);
+    }
+    setIsLoading(false);
   }, [dispatch]);
+
+  useEffect(() => {
+    loadOrders();
+  }, [dispatch, loadOrders]);
+
+  useEffect(() => {
+    const focus = props.navigation.addListener("focus", loadOrders);
+    return () => {
+      focus();
+    };
+  }, [loadOrders, props.navigation]);
+
+  if (error) {
+    return (
+      <InfoScreen
+        title="An error occured!"
+        subTitle="Please try again."
+        buttonTitle="Try again"
+        iconName="close"
+        buttonIcon="reload"
+        compact="true"
+        iconBg={theme.colors.ui.error}
+        onPress={loadOrders}
+      />
+    );
+  }
 
   if (isLoading) {
     return <LoadingState />;
@@ -27,28 +58,35 @@ const OrdersScreen = (props) => {
 
   if (orders.length === 0) {
     return (
-      <DefaultEmptyScreen
+      <InfoScreen
         title="You don't have orders yet."
         subTitle="Your orders will appear here. Tap on the button to start shopping."
         buttonTitle="Shop"
-        onNavi={() => {
-          console.log("Order screen navigation");
-          props.navigation.navigate("All Products");
+        onPress={() => {
+          props.navigation.navigate("Market");
         }}
       />
     );
   }
-
   return (
     <FlatList
       data={orders}
       keyExtractor={(item) => item.id}
+      refreshControl={
+        <RefreshControl
+        tintColor={theme.colors.bg.primary}
+        colors={[theme.colors.ui.primary]}
+          refreshing={isLoading}
+          onRefresh={loadOrders}
+        />
+      }
       renderItem={({ item }) => (
         <OrderItem
           amount={item.totalAmount}
           date={item.readableDate}
           orderId={item.refId}
           items={item.items}
+          navigation={props.navigation}
         />
       )}
     />

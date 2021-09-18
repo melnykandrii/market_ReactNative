@@ -9,8 +9,8 @@ import {
 } from "react-native";
 
 import Card from "../UI/Card";
-import Colors from "../../constants/Colors";
 import React from "react";
+import { theme } from "../../src/infrastructure/theme";
 
 const ProductItem = (props) => {
   let TouchableCmp = TouchableOpacity;
@@ -19,7 +19,7 @@ const ProductItem = (props) => {
   }
 
   return (
-    <Card style={styles.product}>
+    <Card style={{ ...styles.product, ...props.cardStyle }}>
       <View style={styles.touchable}>
         <TouchableCmp onPress={props.onSelect} useForeground>
           <View>
@@ -28,8 +28,12 @@ const ProductItem = (props) => {
             </View>
 
             <View style={styles.details}>
-              <Text style={styles.title}>{props.title}</Text>
-              <Text style={styles.price}>${props.price.toFixed(2)}</Text>
+              <Text style={{ ...styles.title, ...props.styleTitleLabel }}>
+                {props.title}
+              </Text>
+              <Text style={{ ...styles.price, ...props.stylePrice }}>
+                ${props.price.toFixed(2)}
+              </Text>
             </View>
             <View style={styles.buttons}>{props.children}</View>
           </View>
@@ -62,18 +66,19 @@ const styles = StyleSheet.create({
   details: {
     alignItems: "center",
     height: "15%",
-    padding: 5,
+    padding: 0,
     justifyContent: "space-between",
   },
   title: {
     fontSize: 18,
-    fontFamily: "open-sans-bold",
+    fontFamily: "abril",
     marginVertical: 2,
+    color: theme.colors.bg.primary,
   },
   price: {
-    fontFamily: "open-sans",
+    fontFamily: "abril",
     fontSize: 14,
-    color: Colors.headdroid,
+    color: theme.colors.bg.primary,
   },
   buttons: {
     flexDirection: "row",

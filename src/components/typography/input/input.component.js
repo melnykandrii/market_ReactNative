@@ -74,7 +74,7 @@ export const Input = (props) => {
         onChangeText={textChangeHandler}
         onBlur={lostFocusHandler}
         selectionColor={theme.colors.text.disabled}
-        cursorColor={theme.colors.ui.tertiary}
+        cursorColor={theme.colors.ui.primary}
       />
       {!inputState.isValid && inputState.touched && (
         <View style={styles.errorContainer}>
@@ -91,14 +91,14 @@ const styles = StyleSheet.create({
   },
   label: {
     marginVertical: 3,
-    color: theme.colors.ui.tertiary,
+    color: theme.colors.ui.primary,
   },
   input: {
     paddingHorizontal: 2,
     paddingVertical: 5,
-    borderBottomColor: theme.colors.ui.tertiary,
+    borderBottomColor: theme.colors.ui.primary,
     borderBottomWidth: 1,
-    color: theme.colors.ui.tertiary,
+    color: theme.colors.ui.primary,
   },
   errorContainer: {
     marginVertical: 5,
@@ -106,6 +106,5 @@ const styles = StyleSheet.create({
   errorText: {
     color: theme.colors.ui.error,
     fontSize: 13,
-    backgroundColor: theme.colors.ui.secondary,
   },
 });

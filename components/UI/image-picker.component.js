@@ -10,8 +10,9 @@ import React, { useState } from "react";
 
 import Colors from "../../constants/Colors";
 import ImagePicker from "react-native-image-crop-picker";
-import { BodyButton } from "../../src/components/buttons/body.button.component";
+//import { BodyButton } from "../../src/components/buttons/body.button.component";
 import { theme } from "../../src/infrastructure/theme";
+import { BodyButton } from "../../src/components/buttons/button.component";
 import { fontWeights } from "../../src/infrastructure/theme/fonts";
 
 export const ImgPicker = (props) => {
@@ -89,22 +90,19 @@ export const ImgPicker = (props) => {
       </TouchableOpacity>
       <View style={styles.buttonContainer}>
         <BodyButton
-          title="Take Photo"
-          buttonColor={theme.colors.ui.primary}
+          buttonTitle="Take Photo"
           mode="outlined"
-          onNavi={takeImageHandler}
-          buttonIcon="camera"
+          onPress={takeImageHandler}
           style={styles.button}
-          compact="true"
+          buttonColor={theme.colors.bg.black}
         />
         <BodyButton
-          title="Select Image"
-          buttonColor={theme.colors.ui.primary}
+          buttonTitle="Select Image"
           mode="outlined"
-          onNavi={selectImageHandler}
-          buttonIcon="camera-burst"
+          onPress={selectImageHandler}
           style={styles.button}
-          compact="true"
+          compact={true}
+          buttonColor={theme.colors.bg.black}
         />
       </View>
     </View>
@@ -124,7 +122,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderColor: theme.colors.ui.primary,
     borderWidth: 1.5,
-    backgroundColor: theme.colors.ui.tertiary,
+    backgroundColor: theme.colors.ui.primary,
   },
   image: {
     width: "100%",
@@ -136,10 +134,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   button: {
-    height: 50,
     width: 140,
-    justifyContent: "center",
-    alignItems: "center",
+    borderColor: theme.colors.bg.grey,
   },
   emptyText: {
     fontStyle: "italic",

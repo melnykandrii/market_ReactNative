@@ -115,23 +115,35 @@ export const AuthScreen = ({ navigation }) => {
           </LogoContainer>
 
           <AuthCard>
-            <AuthGradient colors={["rgba(0,0,0,0.5)", "transparent"]}>
-              <ScrollView>
+            <ScrollView>
+              <Input
+                id="email"
+                label="E-mail"
+                keyboardType="email-address"
+                required
+                email
+                autoCapitalize="none"
+                errorText="Please enter a valid email address"
+                onInputChange={inputChangeHandler}
+                initialValue=""
+              />
+              <Spacer position="bottom" size="xl" />
+              <Input
+                id="password"
+                label="Password"
+                keyboardType="default"
+                secureTextEntry
+                required
+                minLength={6}
+                autoCapitalize="none"
+                errorText="Please enter a valid password"
+                onInputChange={inputChangeHandler}
+                initialValue=""
+              />
+              {isSignUp ? (
                 <Input
-                  id="email"
-                  label="E-mail"
-                  keyboardType="email-address"
-                  required
-                  email
-                  autoCapitalize="none"
-                  errorText="Please enter a valid email address"
-                  onInputChange={inputChangeHandler}
-                  initialValue=""
-                />
-                <Spacer position="bottom" size="xl" />
-                <Input
-                  id="password"
-                  label="Password"
+                  id="repeatedPassword"
+                  label="RepeatePassword"
                   keyboardType="default"
                   secureTextEntry
                   required
@@ -141,39 +153,25 @@ export const AuthScreen = ({ navigation }) => {
                   onInputChange={inputChangeHandler}
                   initialValue=""
                 />
-                {isSignUp ? (
-                  <Input
-                    id="repeatedPassword"
-                    label="RepeatePassword"
-                    keyboardType="default"
-                    secureTextEntry
-                    required
-                    minLength={6}
-                    autoCapitalize="none"
-                    errorText="Please enter a valid password"
-                    onInputChange={inputChangeHandler}
-                    initialValue=""
-                  />
-                ) : null}
-                <Spacer position="bottom" size="xl" />
-                <AuthButton
-                  title={isSignUp ? "SignUp" : "Login"}
-                  buttonColor={theme.colors.ui.tertiary}
-                  onNavi={authHandler}
-                  loading={isLoading}
-                  buttonIcon={
-                    isSignUp ? "account-plus" : "account-circle-outline"
-                  }
-                />
-                <AuthButton
-                  title={`To ${isSignUp ? "Login" : "SignUp"}`}
-                  buttonColor={theme.colors.ui.tertiary}
-                  mode="outlined"
-                  buttonIcon="account-convert"
-                  onNavi={() => setIsSignUp((prevState) => !prevState)}
-                />
-              </ScrollView>
-            </AuthGradient>
+              ) : null}
+              <Spacer position="bottom" size="xl" />
+              <AuthButton
+                buttonTitle={isSignUp ? "SignUp" : "Login"}
+                buttonColor={theme.colors.ui.primary}
+                onPress={authHandler}
+                loading={isLoading}
+                buttonIcon={
+                  isSignUp ? "account-plus" : "account-circle-outline"
+                }
+              />
+              <AuthButton
+                buttonTitle={`To ${isSignUp ? "Login" : "SignUp"}`}
+                buttonColor={theme.colors.ui.primary}
+                mode="outlined"
+                buttonIcon="account-convert"
+                onPress={() => setIsSignUp((prevState) => !prevState)}
+              />
+            </ScrollView>
           </AuthCard>
         </Keyboard>
       </AccountCover>

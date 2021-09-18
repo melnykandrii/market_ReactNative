@@ -4,11 +4,11 @@ import { StyleSheet } from "react-native";
 import { theme } from "../../../infrastructure/theme";
 import { Card } from "../../../components/cards/card.component";
 import { LinearGradient } from "expo-linear-gradient";
-import { BodyButton } from "../../../components/buttons/body.button.component";
+import { BodyButton } from "../../../components/buttons/button.component";
 
-export const LogoImage = styled.Image.attrs({
-  source: require("../../../../assets/adaptive_icon.png"),
-  resizeMode: "cover",
+export const LogoImage = styled.View.attrs({
+  //source: require("../../../../assets/adaptive_icon.png"),
+  //resizeMode: "cover",
 })`
   border-radius: ${(props) => props.theme.sizepx[6]};
   width: ${(props) => props.theme.sizepx[8]};
@@ -31,8 +31,8 @@ export const AuthCard = (props) => {
   return <Card style={styles.authCard}>{props.children}</Card>;
 };
 
-export const AccountBackground = styled.ImageBackground.attrs({
-  source: require("../../../../assets/home_bg_places.jpg"),
+export const AccountBackground = styled.View.attrs({
+  //source: require("../../../../assets/home_bg_places.jpg"),
 })`
   flex: 1;
   align-items: center;
@@ -53,18 +53,33 @@ export const AuthGradient = styled(LinearGradient)`
 `;
 
 export const AuthButton = (props) => {
-  return <BodyButton {...props} style={styles.button} />;
+  return (
+    <BodyButton
+      {...props}
+      style={styles.button}
+      buttonContant={styles.btContant}
+    />
+  );
 };
 
 const styles = StyleSheet.create({
   authCard: {
     width: "80%",
     maxWidth: theme.sizessh[18],
-    maxHeight: theme.sizessh[18],
-    backgroundColor: theme.colors.ui.primary,
+    maxHeight: theme.sizessh[19],
+    backgroundColor: theme.colors.bg.primary,
+    padding: 20,
   },
   button: {
-    marginHorizontal: "20%",
-    backgroundColor: theme.colors.ui.primary,
+    alignSelf: "center",
+    marginTop: 20,
+    width: 120,
+    height: 40,
+    //marginHorizontal: "20%",
+    //backgroundColor: theme.colors.bg.primary,
+  },
+  btContant: {
+    width: 120,
+    height: 40,
   },
 });

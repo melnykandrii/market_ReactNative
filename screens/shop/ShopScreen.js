@@ -7,7 +7,8 @@ import { FlatList, StyleSheet, RefreshControl } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import DefaultEmptyScreen from "../../components/UI/EmptyScreen";
 import ProductItem from "../../components/shop/ProducItem";
-import { BodyButton } from "../../src/components/buttons/body.button.component";
+import { BodyButton } from "../../src/components/buttons/button.component";
+//import { BodyButton } from "../../src/components/buttons/body.button.component";
 import { theme } from "../../src/infrastructure/theme";
 import { LoadingState } from "../../src/components/loading/loading-state.component";
 
@@ -100,7 +101,7 @@ const ShopScreen = (props) => {
       keyExtractor={(item) => item.id}
       refreshControl={
         <RefreshControl
-          tintColor={theme.colors.ui.primary}
+          tintColor={theme.colors.bg.primary}
           colors={[theme.colors.ui.primary]}
           refreshing={isLoading}
           onRefresh={loadProducts}
@@ -116,24 +117,22 @@ const ShopScreen = (props) => {
           }}
         >
           <BodyButton
-            title="View"
+            buttonTitle="View"
             buttonColor={theme.colors.text.primary}
             mode="outlined"
-            onNavi={() => {
+            onPress={() => {
               viewProductHandler(item.id, item.title);
             }}
-            buttonIcon="binoculars"
             style={styles.button}
             compact="true"
           />
           <BodyButton
-            title="Buy"
+            buttonTitle="Order"
             buttonColor={theme.colors.text.primary}
             mode="outlined"
-            onNavi={() => {
+            onPress={() => {
               addToCardHandler(item);
             }}
-            buttonIcon="cart-plus"
             style={styles.button}
             compact="true"
           />
@@ -153,16 +152,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-  },
-  button: {
-    height: 50,
-    width: 140,
-    justifyContent: "center",
-    alignItems: "center",
-    marginHorizontal: 0,
-
-    backgroundColor: theme.colors.bg.primary,
-  },
+  } 
 });
 
 export default ShopScreen;

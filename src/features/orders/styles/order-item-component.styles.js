@@ -14,18 +14,18 @@ export const OrderContainer = styled.View`
 export const OrderLabel = styled.Text`
   font-size: ${(props) => props.theme.sizepx[3]};
   font-family: abril;
-  color: ${(props) => props.theme.colors.text.primary};
+  color: ${(props) => props.theme.colors.bg.primary};
 `;
 
 export const DateLabel = styled.Text`
   font-family: stint;
   font-size: ${(props) => props.theme.sizepx[3]};
-  color: ${(props) => props.theme.colors.text.disabled};
+  color: ${(props) => props.theme.colors.bg.disabled};
 `;
 
-export const TotalContainer = styled.View`
+export const DateContainer = styled.View`
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   width: 100%;
   margin-bottom: 14px;
@@ -34,7 +34,7 @@ export const TotalContainer = styled.View`
 export const TotalLabel = styled.Text`
   font-size: ${(props) => props.theme.sizepx[3]};
   font-family: abril;
-  color: ${(props) => props.theme.colors.text.secondary};
+  color: ${(props) => props.theme.colors.bg.disabled};
 `;
 
 export const DetailsContainer = styled.View`
