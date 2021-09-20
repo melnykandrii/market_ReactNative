@@ -51,10 +51,11 @@ const ShopScreen = (props) => {
     };
   }, [loadProducts, props.navigation]);
 
-  const viewProductHandler = (id, title) => {
+  const viewProductHandler = (id, title, { item }) => {
     props.navigation.navigate("Product Details", {
       productId: id,
       productTitle: title,
+      item: item,
     });
   };
 
@@ -101,7 +102,7 @@ const ShopScreen = (props) => {
       keyExtractor={(item) => item.id}
       refreshControl={
         <RefreshControl
-          tintColor={theme.colors.bg.primary}
+          tintColor={theme.colors.bg.black}
           colors={[theme.colors.ui.primary]}
           refreshing={isLoading}
           onRefresh={loadProducts}
@@ -113,7 +114,7 @@ const ShopScreen = (props) => {
           title={item.title}
           price={item.price}
           onSelect={() => {
-            viewProductHandler(item.id, item.title);
+            viewProductHandler(item.id, item.title, { item });
           }}
         >
           <BodyButton
@@ -121,7 +122,7 @@ const ShopScreen = (props) => {
             buttonColor={theme.colors.text.primary}
             mode="outlined"
             onPress={() => {
-              viewProductHandler(item.id, item.title);
+              viewProductHandler(item.id, item.title, { item });
             }}
             style={styles.button}
             compact="true"
@@ -152,7 +153,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-  } 
+  },
 });
 
 export default ShopScreen;

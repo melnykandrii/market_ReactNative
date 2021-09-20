@@ -124,16 +124,31 @@ export const createProduct = (title, description, imageUrl, price) => {
   };
 };
 
-export const updateProduct = (id, title, description, imageUrl) => {
+export const updateProduct = (
+  id,
+  title,
+  description,
+  imageUrl,
+  oldImageUrl
+) => {
   return async (dispatch, getState) => {
     const token = getState().auth.token;
-    const fileName = imageUrl.split("/").pop();
-    const imageRef = storage().ref(`/images/products/${fileName}`);
-    try {
+    const storedImage = imageUrl.split("/")[0] === "https:";
+    let url;
+    if (storedImage) {
+      url === imageUrl;
+    } else {
+      const fileName = imageUrl.split("/").pop();
+      const imageRef = storage().ref(`/images/products/${fileName}`);
       await imageRef.putFile(imageUrl, {
         contentType: "image/jpg",
       });
-      const url = await imageRef.getDownloadURL();
+      url = await imageRef.getDownloadURL();
+      const oldImageRef = storage().refFromURL(oldImageUrl);
+      const oldImageFile = oldImageRef.path.split("/").pop();
+      await storage().ref(`/images/products/${oldImageFile}`).delete();
+    }
+    try {
       const response = await fetch(
         //`https://shopma-58377-default-rtdb.firebaseio.com/products/${id}.json?auth=${token}`,
         `https://storefilern-default-rtdb.firebaseio.com/products/${id}.json?auth=${token}`,

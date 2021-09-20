@@ -17,9 +17,11 @@ import {
   BottomContainer,
   Description,
 } from "../styles/product-details-screen.styles";
+import { InfoScreen } from "../../../components/info/info-screen.component";
 
 export const ProductDetailsScreen = (props) => {
   const prodId = props.route.params.productId;
+  const { item } = props.route.params;
 
   const selectedProduct = useSelector((state) =>
     state.products.availableProducts.find((prod) => prod.id === prodId)
@@ -40,6 +42,19 @@ useEffect(() => {
 useEffect(() => {
     props.navigation.setParams({isFav: currentProductIsFavorite});
 },[currentProductIsFavorite]);*/
+
+  if (!selectedProduct) {
+    return (
+      <InfoScreen
+        title={item.title}
+        subTitle="Your orders will appear here. Tap on the button to start shopping."
+        buttonTitle="Shop"
+        onPress={() => {
+          props.navigation.navigate("Simple Market");
+        }}
+      />
+    );
+  }
 
   return (
     <ScrollView>

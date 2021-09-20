@@ -1,4 +1,10 @@
-import { Alert, FlatList, StyleSheet, Dimensions } from "react-native";
+import {
+  Alert,
+  FlatList,
+  StyleSheet,
+  Dimensions,
+  RefreshControl,
+} from "react-native";
 import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductItem from "../../components/shop/ProducItem";
@@ -31,6 +37,13 @@ const UserProductsScreen = (props) => {
   useEffect(() => {
     loadProducts();
   }, [dispatch, loadProducts]);
+
+  useEffect(() => {
+    const focus = props.navigation.addListener("focus", loadProducts);
+    return () => {
+      focus();
+    };
+  }, [loadProducts, props.navigation]);
 
   const editProductHandler = ({ item }, id, title) => {
     props.navigation.navigate("Edit Product", {
@@ -91,6 +104,14 @@ const UserProductsScreen = (props) => {
       numColumns={2}
       horizontal={false}
       data={userProducts}
+      refreshControl={
+        <RefreshControl
+          tintColor={theme.colors.bg.black}
+          colors={[theme.colors.ui.primary]}
+          refreshing={isLoading}
+          onRefresh={loadProducts}
+        />
+      }
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
         <ProductItem

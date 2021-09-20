@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { StyleSheet } from "react-native";
 import { theme } from "../../../infrastructure/theme";
+import { darkTheme } from "../../../infrastructure/theme/dark";
 import { Card } from "../../../components/cards/card.component";
 import { LinearGradient } from "expo-linear-gradient";
 import { BodyButton } from "../../../components/buttons/button.component";

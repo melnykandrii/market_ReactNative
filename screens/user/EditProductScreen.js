@@ -1,5 +1,5 @@
 import * as productsActions from "../../store/actions/products";
-
+import storage from "@react-native-firebase/storage";
 import {
   Alert,
   KeyboardAvoidingView,
@@ -62,7 +62,6 @@ const EditProductScreen = (props) => {
   const [imageUrl, setImageUrl] = useState(
     editedProduct ? editedProduct.imageUrl : ""
   );
-
   const [formState, dispatchFormState] = useReducer(formReducer, {
     inputValues: {
       title: editedProduct ? editedProduct.title : "",
@@ -78,6 +77,8 @@ const EditProductScreen = (props) => {
     },
     formIsValid: editedProduct ? true : false,
   });
+
+  const oldImageUrl = editedProduct ? editedProduct.imageUrl : "";
 
   const imageHandler = (image) => {
     setImageUrl(image);
@@ -99,7 +100,8 @@ const EditProductScreen = (props) => {
             prodId,
             formState.inputValues.title,
             formState.inputValues.description,
-            imageUrl
+            imageUrl,
+            oldImageUrl
           )
         );
       } else {
@@ -117,7 +119,15 @@ const EditProductScreen = (props) => {
       setError(err.message);
     }
     setIsLoading(false);
-  }, [dispatch, formState, prodId, imageUrl, editedProduct, props.navigation]);
+  }, [
+    formState,
+    editedProduct,
+    props.navigation,
+    dispatch,
+    prodId,
+    imageUrl,
+    oldImageUrl,
+  ]);
 
   useEffect(() => {
     props.navigation.setOptions({
@@ -237,6 +247,7 @@ const EditProductScreen = (props) => {
           onPress={submitHandler}
           buttonColor={theme.colors.bg.black}
           style={styles.button}
+          disabled={!imageUrl}
         />
       </ScrollView>
     </KeyboardAvoidingView>

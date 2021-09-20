@@ -96,6 +96,7 @@ const CartScreen = (props) => {
                 onViewDetails={() => {
                   props.navigation.navigate("Product Details", {
                     productId: item.id,
+                    item: item,
                   });
                 }}
               />

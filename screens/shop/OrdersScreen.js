@@ -74,8 +74,8 @@ const OrdersScreen = (props) => {
       keyExtractor={(item) => item.id}
       refreshControl={
         <RefreshControl
-        tintColor={theme.colors.bg.primary}
-        colors={[theme.colors.ui.primary]}
+          tintColor={theme.colors.bg.black}
+          colors={[theme.colors.ui.primary]}
           refreshing={isLoading}
           onRefresh={loadOrders}
         />

@@ -5,6 +5,7 @@ import { ThemeProvider } from "styled-components/native";
 import React, { useState } from "react";
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import { theme } from "./src/infrastructure/theme";
+import { darkTheme } from "./src/infrastructure/theme/dark";
 import AppLoading from "expo-app-loading";
 import { Provider } from "react-redux";
 import ReduxThunk from "redux-thunk";
@@ -14,6 +15,8 @@ import cartReducer from "./store/reducers/cart";
 import ordersReducer from "./store/reducers/order";
 import productsReducer from "./store/reducers/products";
 import { AppNavigator } from "./src/infrastructure/navigation";
+
+import { Appearance } from "react-native";
 
 const rootReducer = combineReducers({
   products: productsReducer,
@@ -36,6 +39,10 @@ const fetchFonts = () => {
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
+  /*
+  const dark = Appearance.getColorScheme() === "dark";
+  console.log(dark);
+*/
   if (!fontLoaded) {
     return (
       <AppLoading

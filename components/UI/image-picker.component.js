@@ -7,17 +7,24 @@ import {
   View,
 } from "react-native";
 import React, { useState } from "react";
+import storage from "@react-native-firebase/storage";
 
 import Colors from "../../constants/Colors";
 import ImagePicker from "react-native-image-crop-picker";
 //import { BodyButton } from "../../src/components/buttons/body.button.component";
 import { theme } from "../../src/infrastructure/theme";
 import { BodyButton } from "../../src/components/buttons/button.component";
-import { fontWeights } from "../../src/infrastructure/theme/fonts";
+import { CloseButton } from "../../src/components/buttons/close.button.component";
+import styled from "styled-components";
+
+const DeleteButton = styled(CloseButton)`
+  position: absolute;
+  z-index: 999;
+  right: 10px;
+  top: 10px;
+`;
 
 export const ImgPicker = (props) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [pickedImage, setPickedImage] = useState(props.imageUrl);
 
   /* const verifyCameraPermissions = async () => {
@@ -52,26 +59,53 @@ export const ImgPicker = (props) => {
     if (!hasPermission) {
       return;
     }*/
-    const image = await ImagePicker.openCamera({
-      allowsEditing: true,
-      compressImageQuality: 1,
-      width: 1000,
-      height: 1500,
-      cropping: true,
-    });
-    setPickedImage(image.path);
-    props.onImageTaken(image.path);
+    try {
+      const image = await ImagePicker.openCamera({
+        allowsEditing: true,
+        compressImageQuality: 1,
+        width: 1000,
+        height: 1500,
+        cropping: true,
+      });
+      setPickedImage(image.path);
+      props.onImageTaken(image.path);
+    } catch (err) {
+      if (err.message === "User cancelled image selection") {
+        return;
+      }
+    }
   };
 
   const selectImageHandler = async () => {
-    const image = await ImagePicker.openPicker({
-      allowsEditing: true,
-      width: 1000,
-      height: 1500,
-      cropping: true,
-    });
-    setPickedImage(image.path);
-    props.onImageTaken(image.path);
+    try {
+      const image = await ImagePicker.openPicker({
+        allowsEditing: true,
+        width: 1000,
+        height: 1500,
+        cropping: true,
+      });
+      setPickedImage(image.path);
+      props.onImageTaken(image.path);
+    } catch (err) {
+      if (err.message === "User cancelled image selection") {
+        return;
+      }
+    }
+  };
+
+  const storedImage = pickedImage.split("/")[0] === "https:";
+
+  const deleteImageHandler = () => {
+    //const imageRef = storage().refFromURL(pickedImage);
+    //const fileName = imageRef.path.split("//");
+    console.log(storedImage);
+    /*try {
+      storage().ref(`/images/products/${fileName}`).delete();
+      setPickedImage(null);
+      props.onImageTaken(null);
+    } catch (err) {
+      console.log(err.message);
+    }*/
   };
 
   return (
@@ -96,6 +130,7 @@ export const ImgPicker = (props) => {
           style={styles.button}
           buttonColor={theme.colors.bg.black}
         />
+
         <BodyButton
           buttonTitle="Select Image"
           mode="outlined"
