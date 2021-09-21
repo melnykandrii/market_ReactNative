@@ -1,15 +1,12 @@
 import React from "react";
-import { Platform } from "react-native";
 import {
   CardStyleInterpolators,
   createStackNavigator,
 } from "@react-navigation/stack";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
-
-import Colors from "../constants/Colors";
-import HeaderButton from "../components/UI/HeaderButton";
-import OrdersScreen from "../screens/shop/OrdersScreen";
-import { theme } from "../src/infrastructure/theme";
+import HeaderButton from "../../../components/UI/HeaderButton";
+import OrdersScreen from "../../../screens/shop/OrdersScreen";
+import { theme } from "../theme";
 
 const OrdersNavi = createStackNavigator();
 
@@ -27,11 +24,8 @@ function OrdersNavigation() {
         headerTitleAlign: "center",
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         headerTitleStyle: {
-          fontFamily: "righteous",
+          fontFamily: theme.fonts.heading,
           fontSize: 22,
-        },
-        headerBackTitleStyle: {
-          fontFamily: "open-sans",
         },
       }}
     >

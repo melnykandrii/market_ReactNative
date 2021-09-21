@@ -10,11 +10,12 @@ export const SET_PRODUCTS = "SET_PRODUCTS";
 export const fetchProducts = () => {
   return async (dispatch, getState) => {
     const userId = getState().auth.userId;
+    const token = getState().auth.token;
     // any async code
     try {
       const response = await fetch(
         //"https://shopma-58377-default-rtdb.firebaseio.com/products.json"
-        "https://storefilern-default-rtdb.firebaseio.com/products.json"
+        `https://storefilern-default-rtdb.firebaseio.com/products.json?auth=${token}`
       );
       if (!response.ok) {
         const errorResponseData = await response.json();
@@ -132,6 +133,7 @@ export const updateProduct = (
   oldImageUrl
 ) => {
   return async (dispatch, getState) => {
+    console.log("oldImage", oldImageUrl, "newImage", imageUrl);
     const token = getState().auth.token;
     const storedImage = imageUrl.split("/")[0] === "https:";
     let url;

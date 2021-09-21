@@ -45,6 +45,7 @@ const OrderItem = (props) => {
               onViewDetails={() =>
                 props.navigation.navigate("Product Details", {
                   productId: cartItem.id,
+                  productTitle: cartItem.title,
                   item: cartItem,
                 })
               }

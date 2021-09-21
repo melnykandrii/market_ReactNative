@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useReducer, useCallback } from "react";
-import { ScrollView, StyleSheet, Platform, Alert } from "react-native";
+import { ScrollView, StyleSheet, Platform, Alert, Image } from "react-native";
 import { useDispatch } from "react-redux";
 
 import * as authActions from "../../../../store/actions/auth";
@@ -12,7 +12,6 @@ import {
   Keyboard,
   LogoContainer,
   AuthCard,
-  AuthGradient,
   AuthButton,
 } from "../styles/auth-screen.styles";
 import { Spacer } from "../../../components/typography/spacer/spacer.component";

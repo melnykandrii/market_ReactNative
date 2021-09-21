@@ -1,13 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { MainDrawerNavi } from "../../../navigation/MainDrawerNavi";
-//import { AuthStackNavigator } from "../navigation/auth-stack.navigator";
-//import AuthScreen from "../../../screens/user/AuthScreen";
-
+import { MainDrawerNavi } from "./main-drawer.navigator";
 import { NavigationContainer } from "@react-navigation/native";
 
 import { StartupScreen } from "../../features/startup/screens/startup.screen";
-import { AuthScreen } from "../../features/auth/screens/authentication.screen";
+import { AuthStackNavigator } from "./auth-stack.navigator";
 
 export const AppNavigator = () => {
   const isAuth = useSelector((state) => !!state.auth.token);
@@ -16,7 +13,7 @@ export const AppNavigator = () => {
   return (
     <NavigationContainer>
       {isAuth && <MainDrawerNavi />}
-      {!isAuth && tryAuth && <AuthScreen />}
+      {!isAuth && tryAuth && <AuthStackNavigator />}
       {!isAuth && !tryAuth && <StartupScreen />}
     </NavigationContainer>
   );

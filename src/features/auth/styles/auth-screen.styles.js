@@ -7,9 +7,9 @@ import { Card } from "../../../components/cards/card.component";
 import { LinearGradient } from "expo-linear-gradient";
 import { BodyButton } from "../../../components/buttons/button.component";
 
-export const LogoImage = styled.View.attrs({
-  //source: require("../../../../assets/adaptive_icon.png"),
-  //resizeMode: "cover",
+export const LogoImage = styled.Image.attrs({
+  source: require("../../../../assets/adaptive_icon.png"),
+  resizeMode: "cover",
 })`
   border-radius: ${(props) => props.theme.sizepx[6]};
   width: ${(props) => props.theme.sizepx[8]};
@@ -23,8 +23,8 @@ export const Keyboard = styled.KeyboardAvoidingView`
 `;
 
 export const LogoContainer = styled.View`
-  margin-bottom: -${(props) => props.theme.sizepx[4]};
-  z-index: ${(props) => props.theme.sizes[4]};
+  margin-bottom: -${(props) => props.theme.sizepx[5]};
+  z-index: ${(props) => props.theme.sizes[6]};
   elevation: ${(props) => props.theme.sizes[4]};
 `;
 

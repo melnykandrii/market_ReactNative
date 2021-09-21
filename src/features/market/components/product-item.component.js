@@ -8,9 +8,9 @@ import {
   View,
 } from "react-native";
 
-import Card from "../UI/Card";
+import { Card } from "../../../components/cards/card.component";
 import React from "react";
-import { theme } from "../../src/infrastructure/theme";
+import { theme } from "../../../infrastructure/theme";
 
 const ProductItem = (props) => {
   let TouchableCmp = TouchableOpacity;
@@ -24,7 +24,11 @@ const ProductItem = (props) => {
         <TouchableCmp onPress={props.onSelect} useForeground>
           <View>
             <View style={styles.imageContainer}>
-              <Image style={styles.image} source={{ uri: props.image }} />
+              <Image
+                style={styles.image}
+                source={{ uri: props.image }}
+                defaultSource={require("../../../../assets/default_product.jpg")}
+              />
             </View>
 
             <View style={styles.details}>

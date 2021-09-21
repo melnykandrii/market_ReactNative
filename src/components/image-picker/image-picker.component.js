@@ -7,22 +7,10 @@ import {
   View,
 } from "react-native";
 import React, { useState } from "react";
-import storage from "@react-native-firebase/storage";
-
-import Colors from "../../constants/Colors";
 import ImagePicker from "react-native-image-crop-picker";
 //import { BodyButton } from "../../src/components/buttons/body.button.component";
-import { theme } from "../../src/infrastructure/theme";
-import { BodyButton } from "../../src/components/buttons/button.component";
-import { CloseButton } from "../../src/components/buttons/close.button.component";
-import styled from "styled-components";
-
-const DeleteButton = styled(CloseButton)`
-  position: absolute;
-  z-index: 999;
-  right: 10px;
-  top: 10px;
-`;
+import { theme } from "../../infrastructure/theme";
+import { BodyButton } from "../buttons/button.component";
 
 export const ImgPicker = (props) => {
   const [pickedImage, setPickedImage] = useState(props.imageUrl);
@@ -93,21 +81,6 @@ export const ImgPicker = (props) => {
     }
   };
 
-  const storedImage = pickedImage.split("/")[0] === "https:";
-
-  const deleteImageHandler = () => {
-    //const imageRef = storage().refFromURL(pickedImage);
-    //const fileName = imageRef.path.split("//");
-    console.log(storedImage);
-    /*try {
-      storage().ref(`/images/products/${fileName}`).delete();
-      setPickedImage(null);
-      props.onImageTaken(null);
-    } catch (err) {
-      console.log(err.message);
-    }*/
-  };
-
   return (
     <View style={styles.imagePickerContainer}>
       <TouchableOpacity
@@ -124,7 +97,7 @@ export const ImgPicker = (props) => {
       </TouchableOpacity>
       <View style={styles.buttonContainer}>
         <BodyButton
-          buttonTitle="Take Photo"
+          buttonTitle="Add Photo"
           mode="outlined"
           onPress={takeImageHandler}
           style={styles.button}
@@ -175,5 +148,6 @@ const styles = StyleSheet.create({
   emptyText: {
     fontStyle: "italic",
     fontSize: 15,
+    color: theme.colors.bg.primary,
   },
 });

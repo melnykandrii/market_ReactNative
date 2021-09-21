@@ -6,17 +6,17 @@ import { FlatList, StyleSheet, RefreshControl } from "react-native";
 
 import { useDispatch, useSelector } from "react-redux";
 import DefaultEmptyScreen from "../../components/UI/EmptyScreen";
-import ProductItem from "../../components/shop/ProducItem";
+import ProductItem from "../../src/features/market/components/product-item.component";
 import { BodyButton } from "../../src/components/buttons/button.component";
 //import { BodyButton } from "../../src/components/buttons/body.button.component";
 import { theme } from "../../src/infrastructure/theme";
 import { LoadingState } from "../../src/components/loading/loading-state.component";
+import { InfoScreen } from "../../src/components/info/info-screen.component";
 
 const ShopScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
   const products = useSelector((state) => state.products.availableProducts);
-
   // const displayedProducts = useSelector(state => state.products.filteredProducts);
   /*
     const prodId = products.id;
@@ -65,7 +65,7 @@ const ShopScreen = (props) => {
 
   if (error) {
     return (
-      <DefaultEmptyScreen
+      <InfoScreen
         title="An error occured!"
         subTitle="Please try again."
         buttonTitle="Try again"
@@ -73,7 +73,7 @@ const ShopScreen = (props) => {
         buttonIcon="reload"
         compact="true"
         iconBg={theme.colors.ui.error}
-        onNavi={loadProducts}
+        onPress={loadProducts}
       />
     );
   }
@@ -84,13 +84,13 @@ const ShopScreen = (props) => {
 
   if (!isLoading && products.length === 0) {
     return (
-      <DefaultEmptyScreen
+      <InfoScreen
         title="There is no product yet."
         subTitle="You can add one if you`d like and it will be available for everyone. Tap on the button and start adding."
         buttonTitle="My Products"
         compact="true"
-        onNavi={() => {
-          props.navigation.navigate("My Products");
+        onPress={() => {
+          props.navigation.navigate("For Sale");
         }}
       />
     );

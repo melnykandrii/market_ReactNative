@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ProductItem from "../../components/shop/ProducItem";
+import ProductItem from "../../src/features/market/components/product-item.component";
 //import { BodyButton } from "../../src/components/buttons/body.button.component";
 import { BodyButton } from "../../src/components/buttons/button.component";
 import { theme } from "../../src/infrastructure/theme";
@@ -59,8 +59,15 @@ const UserProductsScreen = (props) => {
       {
         text: "Yes",
         style: "destructive",
-        onPress: () => {
-          dispatch(productsActions.deleteProduct(id, image));
+        onPress: async () => {
+          setError(null);
+          setIsLoading(true);
+          try {
+            await dispatch(productsActions.deleteProduct(id, image));
+          } catch (err) {
+            setError(err.message);
+          }
+          setIsLoading(false);
         },
       },
     ]);
@@ -76,7 +83,7 @@ const UserProductsScreen = (props) => {
         buttonIcon="reload"
         compact="true"
         iconBg={theme.colors.ui.error}
-        onNavi={loadProducts}
+        onPress={loadProducts}
       />
     );
   }

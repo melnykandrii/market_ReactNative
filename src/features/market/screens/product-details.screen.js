@@ -46,8 +46,8 @@ useEffect(() => {
   if (!selectedProduct) {
     return (
       <InfoScreen
-        title={item.title}
-        subTitle="Your orders will appear here. Tap on the button to start shopping."
+        title="This product was removed."
+        subTitle="If you have any questions regarding this product, please reach our custumer service."
         buttonTitle="Shop"
         onPress={() => {
           props.navigation.navigate("Simple Market");

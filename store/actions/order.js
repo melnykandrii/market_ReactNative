@@ -6,10 +6,11 @@ export const SET_ORDERS = "SET_ORDERS";
 
 export const fetchOrders = () => {
   return async (dispatch, getState) => {
+    const token = getState().auth.token;
     const userId = getState().auth.userId;
     try {
       const response = await fetch(
-        `https://storefilern-default-rtdb.firebaseio.com/orders/${userId}.json`
+        `https://storefilern-default-rtdb.firebaseio.com/orders/${userId}.json?auth=${token}`
       );
 
       if (!response.ok) {

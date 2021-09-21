@@ -5,18 +5,18 @@ import {
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { useSelector } from "react-redux";
 
-import CartScreen from "../screens/shop/CartScreen";
-import FiltersScreen from "../screens/shop/FiltersScreen";
-import HeaderButton from "../components/UI/HeaderButton";
+import CartScreen from "../../../screens/shop/CartScreen";
+import FiltersScreen from "../../../screens/shop/FiltersScreen";
+import HeaderButton from "../../../components/UI/HeaderButton";
 import { Platform } from "react-native";
-import { ProductDetailsScreen } from "../src/features/market/screens/product-details.screen";
+import { ProductDetailsScreen } from "../../features/market/screens/product-details.screen";
 import React from "react";
 import { TransitionPresets } from "@react-navigation/stack";
-import { theme } from "../src/infrastructure/theme";
-import { ImageScreen } from "../src/features/market/screens/image.screen";
-import { HeaderBadgedButton } from "../src/components/buttons/header-badged-button.component";
+import { theme } from "../theme";
+import { ImageScreen } from "../../features/market/screens/image.screen";
+import { HeaderBadgedButton } from "../../components/buttons/header-badged-button.component";
 
-import ShopScreen from "../screens/shop/ShopScreen";
+import ShopScreen from "../../../screens/shop/ShopScreen";
 
 const ShopNavi = createStackNavigator();
 
@@ -37,11 +37,8 @@ function ShopNavigation() {
         headerTitleAlign: "center",
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         headerTitleStyle: {
-          fontFamily: "righteous",
-          fontSize: 22,
-        },
-        headerBackTitleStyle: {
-          fontFamily: "open-sans",
+          fontFamily: theme.fonts.heading,
+          fontSize: theme.fontSize.h6,
         },
       }}
     >
@@ -57,6 +54,7 @@ function ShopNavigation() {
                 onPress={() => {
                   navigation.toggleDrawer();
                 }}
+                testID="menu"
               />
             </HeaderButtons>
           ),
@@ -68,6 +66,7 @@ function ShopNavigation() {
                 iconName={"filter-sharp"}
                 badgeTestId="filter-badge"
                 buttonTestId="filter-button-badge"
+                testID="filterBadge"
                 onPress={() => {
                   navigation.navigate("Filters");
                 }}
@@ -79,7 +78,7 @@ function ShopNavigation() {
                 buttonTestId="cart-button-badge"
                 title="Cart"
                 iconName="cart"
-                testId="filter"
+                testID="cartBadge"
                 onPress={() => {
                   navigation.navigate("Cart");
                 }}
@@ -103,7 +102,7 @@ function ShopNavigation() {
                 buttonTestId="cart-button-badge"
                 title="Cart"
                 iconName="cart"
-                testId="filter"
+                testID="cartBadge"
                 onPress={() => {
                   navigation.navigate("Cart");
                 }}

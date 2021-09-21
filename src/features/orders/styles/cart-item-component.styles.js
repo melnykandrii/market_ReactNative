@@ -29,9 +29,12 @@ export const ItemsConstainer = styled.TouchableOpacity`
   align-items: center;
 `;
 
-export const ItemImage = styled.Image`
+export const ItemImage = styled.Image.attrs({
+  defaultSource: require("../../../../assets/default_product1.jpg"),
+})`
   width: 100px;
   height: 100px;
+  background-color: ${(props) => props.theme.colors.bg.grey};
 `;
 
 export const ItemTitle = styled.Text`

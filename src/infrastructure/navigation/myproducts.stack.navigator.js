@@ -3,12 +3,12 @@ import {
   createStackNavigator,
 } from "@react-navigation/stack";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
-import EditProductScreen from "../screens/user/EditProductScreen";
-import HeaderButton from "../components/UI/HeaderButton";
+import EditProductScreen from "../../../screens/user/EditProductScreen";
+import HeaderButton from "../../../components/UI/HeaderButton";
 import React from "react";
-import UserProductsScreen from "../screens/user/UserProductsScreen";
-import { theme } from "../src/infrastructure/theme";
-import { ImageScreen } from "../src/features/market/screens/image.screen";
+import UserProductsScreen from "../../../screens/user/UserProductsScreen";
+import { theme } from "../theme";
+import { ImageScreen } from "../../features/market/screens/image.screen";
 
 import { TransitionPresets } from "@react-navigation/stack";
 

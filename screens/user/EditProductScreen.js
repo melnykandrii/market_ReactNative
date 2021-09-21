@@ -12,8 +12,7 @@ import {
 import React, { useCallback, useEffect, useReducer, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DefaultInputCont from "../../components/UI/InputComponent";
-import { ImgPicker } from "../../components/UI/image-picker.component";
-//import { BodyButton } from "../../src/components/buttons/body.button.component";
+import { ImgPicker } from "../../src/components/image-picker/image-picker.component";
 
 import { BodyButton } from "../../src/components/buttons/button.component";
 import { theme } from "../../src/infrastructure/theme";
