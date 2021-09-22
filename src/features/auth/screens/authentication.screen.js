@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useReducer, useCallback } from "react";
-import { ScrollView, StyleSheet, Platform, Alert, Image } from "react-native";
+import {
+  ScrollView,
+  Platform,
+  Alert,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
 import { useDispatch } from "react-redux";
 
 import * as authActions from "../../../../store/actions/auth";
@@ -9,7 +15,7 @@ import {
   LogoImage,
   AccountBackground,
   AccountCover,
-  Keyboard,
+  KeyboardView,
   LogoContainer,
   AuthCard,
   AuthButton,
@@ -103,83 +109,97 @@ export const AuthScreen = ({ navigation }) => {
   );
 
   return (
-    <AccountBackground>
-      <AccountCover>
-        <Keyboard
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-          keyboardVerticalOffset={10}
-        >
-          <LogoContainer>
-            <LogoImage />
-          </LogoContainer>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <AccountBackground>
+        <AccountCover>
+          <KeyboardView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            keyboardVerticalOffset={10}
+          >
+            <LogoContainer>
+              <LogoImage />
+            </LogoContainer>
 
-          <AuthCard>
-            <ScrollView>
-              <Input
-                id="email"
-                label="E-mail"
-                keyboardType="email-address"
-                required
-                email
-                autoCapitalize="none"
-                errorText="Please enter a valid email address"
-                onInputChange={inputChangeHandler}
-                initialValue=""
-              />
-              <Spacer position="bottom" size="xl" />
-              <Input
-                id="password"
-                label="Password"
-                keyboardType="default"
-                secureTextEntry
-                required
-                minLength={6}
-                autoCapitalize="none"
-                errorText="Please enter a valid password"
-                onInputChange={inputChangeHandler}
-                initialValue=""
-              />
-              {isSignUp ? (
+            <AuthCard>
+              <ScrollView>
                 <Input
-                  id="repeatedPassword"
-                  label="RepeatePassword"
+                  id="email"
+                  label="E-mail"
+                  keyboardType="email-address"
+                  required
+                  email
+                  autoCapitalize="none"
+                  returnKey="next"
+                  errorText="Please enter a valid email address"
+                  onInputChange={inputChangeHandler}
+                  initialValue=""
+                  submit={() => {
+                    this.passwordRef.focus();
+                  }}
+                  blur={false}
+                />
+                <Spacer position="bottom" size="xl" />
+                <Input
+                  id="password"
+                  label="Password"
                   keyboardType="default"
                   secureTextEntry
                   required
                   minLength={6}
                   autoCapitalize="none"
+                  returnKey="done"
                   errorText="Please enter a valid password"
                   onInputChange={inputChangeHandler}
                   initialValue=""
+                  submit={() => {
+                    isSignUp ? this.repeatPassRef.focus() : Keyboard.dismiss;
+                  }}
+                  inputRef={(passwordRef) => {
+                    this.passwordRef = passwordRef;
+                  }}
+                  blur={false}
                 />
-              ) : null}
-              <Spacer position="bottom" size="xl" />
-              <AuthButton
-                buttonTitle={isSignUp ? "SignUp" : "Login"}
-                buttonColor={theme.colors.ui.primary}
-                onPress={authHandler}
-                loading={isLoading}
-                buttonIcon={
-                  isSignUp ? "account-plus" : "account-circle-outline"
-                }
-              />
-              <AuthButton
-                buttonTitle={`To ${isSignUp ? "Login" : "SignUp"}`}
-                buttonColor={theme.colors.ui.primary}
-                mode="outlined"
-                buttonIcon="account-convert"
-                onPress={() => setIsSignUp((prevState) => !prevState)}
-              />
-            </ScrollView>
-          </AuthCard>
-        </Keyboard>
-      </AccountCover>
-    </AccountBackground>
+                {isSignUp ? (
+                  <Input
+                    id="repeatedPassword"
+                    label="RepeatePassword"
+                    keyboardType="default"
+                    secureTextEntry
+                    required
+                    minLength={6}
+                    autoCapitalize="none"
+                    errorText="Please enter a valid password"
+                    onInputChange={inputChangeHandler}
+                    initialValue=""
+                    submit={Keyboard.dismiss}
+                    inputRef={(repeatPassRef) => {
+                      this.repeatPassRef = repeatPassRef;
+                    }}
+                    blur={false}
+                  />
+                ) : null}
+                <Spacer position="bottom" size="xl" />
+                <AuthButton
+                  buttonTitle={isSignUp ? "SignUp" : "Login"}
+                  buttonColor={theme.colors.ui.primary}
+                  onPress={authHandler}
+                  buttonLoading={isLoading}
+                  buttonIcon={
+                    isSignUp ? "account-plus" : "account-circle-outline"
+                  }
+                />
+                <AuthButton
+                  buttonTitle={`To ${isSignUp ? "Login" : "SignUp"}`}
+                  buttonColor={theme.colors.ui.primary}
+                  mode="outlined"
+                  buttonIcon="account-convert"
+                  onPress={() => setIsSignUp((prevState) => !prevState)}
+                />
+              </ScrollView>
+            </AuthCard>
+          </KeyboardView>
+        </AccountCover>
+      </AccountBackground>
+    </TouchableWithoutFeedback>
   );
 };
-
-const styles = StyleSheet.create({
-  button: {
-    marginHorizontal: "20%",
-  },
-});

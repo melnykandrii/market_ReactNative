@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>568968568447-k2op5ubqgecv7v62o96i9kmltg6q8n7d.apps.googleusercontent.com</string>
+	<string>573201095214-sgapunovnu9bclbcku9a7qpo5u4ud651.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.568968568447-k2op5ubqgecv7v62o96i9kmltg6q8n7d</string>
+	<string>com.googleusercontent.apps.573201095214-sgapunovnu9bclbcku9a7qpo5u4ud651</string>
 	<key>API_KEY</key>
-	<string>AIzaSyA0hUImPFEU6FjnS6aD9EKc-tYjwcUTJ1w</string>
+	<string>AIzaSyBmJ-rMZ-QEtIw7-N6JF9oespND4AkcnFE</string>
 	<key>GCM_SENDER_ID</key>
-	<string>568968568447</string>
+	<string>573201095214</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>org.name.QSHPQ</string>
 	<key>PROJECT_ID</key>
-	<string>shopma-58377</string>
+	<string>storefilern</string>
 	<key>STORAGE_BUCKET</key>
-	<string>shopma-58377.appspot.com</string>
+	<string>storefilern.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:568968568447:ios:68bf615271be1c0d7f294a</string>
-	<key>DATABASE_URL</key>
-	<string>https://shopma-58377-default-rtdb.firebaseio.com</string>
+	<string>1:573201095214:ios:d88a290e722e182dd59dbf</string>
 </dict>
 </plist>

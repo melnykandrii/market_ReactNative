@@ -1,14 +1,13 @@
 import { FlatList, RefreshControl } from "react-native";
-import { InfoScreen } from "../../src/components/info/info-screen.component";
-import DefaultEmptyScreen from "../../components/UI/EmptyScreen";
-import OrderItem from "../../src/features/orders/components/order-item.component";
+import { InfoScreen } from "../../../components/info/info-screen.component";
+import { OrderItem } from "../components/order-item.component";
 import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import * as ordersActions from "../../store/actions/order";
-import { LoadingState } from "../../src/components/loading/loading-state.component";
-import { theme } from "../../src/infrastructure/theme";
+import * as ordersActions from "../../../../store/actions/order";
+import { LoadingState } from "../../../components/loading/loading-state.component";
+import { theme } from "../../../infrastructure/theme";
 
-const OrdersScreen = (props) => {
+export const OrdersScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
 
@@ -92,5 +91,3 @@ const OrdersScreen = (props) => {
     />
   );
 };
-
-export default OrdersScreen;

@@ -1,4 +1,4 @@
-import * as productsActions from "../../store/actions/products";
+import * as productsActions from "../../../../store/actions/products";
 import storage from "@react-native-firebase/storage";
 import {
   Alert,
@@ -11,15 +11,15 @@ import {
 } from "react-native";
 import React, { useCallback, useEffect, useReducer, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import DefaultInputCont from "../../components/UI/InputComponent";
-import { ImgPicker } from "../../src/components/image-picker/image-picker.component";
+import DefaultInputCont from "../../../../components/UI/InputComponent";
+import { ImgPicker } from "../../../components/image-picker/image-picker.component";
 
-import { BodyButton } from "../../src/components/buttons/button.component";
-import { theme } from "../../src/infrastructure/theme";
+import { BodyButton } from "../../../components/buttons/button.component";
+import { theme } from "../../../infrastructure/theme";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
-import HeaderButton from "../../components/UI/HeaderButton";
-import { LoadingState } from "../../src/components/loading/loading-state.component";
-import { Spacer } from "../../src/components/typography/spacer/spacer.component";
+import HeaderButton from "../../../../components/UI/HeaderButton";
+import { LoadingState } from "../../../components/loading/loading-state.component";
+import { Spacer } from "../../../components/typography/spacer/spacer.component";
 
 const FORM_INPUT_UPDATE = "FORM_INPUT_UPDATE";
 
@@ -46,7 +46,7 @@ const formReducer = (state, action) => {
   return state;
 };
 
-const EditProductScreen = (props) => {
+export const EditProductScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
 
@@ -189,7 +189,9 @@ const EditProductScreen = (props) => {
             autoCapitalize="words"
             autoCorrect
             returnKey="next"
-            //submit={() => (editedProduct ? null : this.priceRef.focus())}
+            submit={() => {
+              editedProduct ? this.descRef.focus() : this.priceRef.focus();
+            }}
             blur={false}
             placeholder="Title"
             onInputChange={inputChangeHandler}
@@ -206,8 +208,12 @@ const EditProductScreen = (props) => {
               //onChangeText={textChangeHandler.bind(this, 'price')}
               keyboard="decimal-pad"
               returnKey="next"
-              //submit={() => this.descRef.focus()}
-              //inputRef={(priceRef) => (this.priceRef = priceRef)}
+              submit={() => {
+                this.descRef.focus();
+              }}
+              inputRef={(priceRef) => {
+                this.priceRef = priceRef;
+              }}
               blur={false}
               placeholder="0.00"
               onInputChange={inputChangeHandler}
@@ -225,9 +231,10 @@ const EditProductScreen = (props) => {
             autoCorrect
             multiline
             numberOfLines={3}
-            returnKey="done"
             submit={Keyboard.dismiss}
-            //inputRef={(descRef) => (this.descRef = descRef)}
+            inputRef={(descRef) => {
+              this.descRef = descRef;
+            }}
             blur={false}
             placeholder="Description"
             errorText="Please enter a Description"
@@ -266,5 +273,3 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.bg.grey,
   },
 });
-
-export default EditProductScreen;

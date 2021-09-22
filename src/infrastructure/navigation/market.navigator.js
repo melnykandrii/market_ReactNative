@@ -5,10 +5,9 @@ import {
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { useSelector } from "react-redux";
 
-import CartScreen from "../../../screens/shop/CartScreen";
+import { CartScreen } from "../../features/market/screens/cart.screen";
 import FiltersScreen from "../../../screens/shop/FiltersScreen";
 import HeaderButton from "../../../components/UI/HeaderButton";
-import { Platform } from "react-native";
 import { ProductDetailsScreen } from "../../features/market/screens/product-details.screen";
 import React from "react";
 import { TransitionPresets } from "@react-navigation/stack";
@@ -16,11 +15,13 @@ import { theme } from "../theme";
 import { ImageScreen } from "../../features/market/screens/image.screen";
 import { HeaderBadgedButton } from "../../components/buttons/header-badged-button.component";
 
-import ShopScreen from "../../../screens/shop/ShopScreen";
+import { ActionScreen } from "../../features/market/screens/action.screen";
+
+import { ShopScreen } from "../../features/market/screens/market.screen";
 
 const ShopNavi = createStackNavigator();
 
-function ShopNavigation() {
+export const ShopNavigator = () => {
   const cartTotalQty = useSelector((state) => state.cart.totalQty);
   return (
     <ShopNavi.Navigator
@@ -38,7 +39,7 @@ function ShopNavigation() {
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         headerTitleStyle: {
           fontFamily: theme.fonts.heading,
-          fontSize: theme.fontSize.h6,
+          fontSize: theme.fontSize.h5,
         },
       }}
     >
@@ -122,6 +123,15 @@ function ShopNavigation() {
       />
       <ShopNavi.Screen name="Cart" component={CartScreen} />
       <ShopNavi.Screen
+        name="Actions"
+        component={ActionScreen}
+        options={() => ({
+          headerShown: false,
+          gestureEnabled: true,
+          ...TransitionPresets.FadeFromBottomAndroid,
+        })}
+      />
+      <ShopNavi.Screen
         name="Filters"
         component={FiltersScreen}
         options={({ navigation, route }) => ({
@@ -155,6 +165,4 @@ function ShopNavigation() {
       />
     </ShopNavi.Navigator>
   );
-}
-
-export default ShopNavigation;
+};

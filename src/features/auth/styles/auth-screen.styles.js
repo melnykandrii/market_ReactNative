@@ -16,7 +16,7 @@ export const LogoImage = styled.Image.attrs({
   height: ${(props) => props.theme.sizepx[8]};
 `;
 
-export const Keyboard = styled.KeyboardAvoidingView`
+export const KeyboardView = styled.KeyboardAvoidingView`
   flex: 1;
   justify-content: center;
   align-items: center;

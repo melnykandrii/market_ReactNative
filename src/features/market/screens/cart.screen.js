@@ -1,31 +1,19 @@
-import * as cartActions from "../../store/actions/cart";
-import * as ordersActions from "../../store/actions/order";
+import * as cartActions from "../../../../store/actions/cart";
+import * as ordersActions from "../../../../store/actions/order";
 
-import {
-  FlatList,
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-} from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { Card } from "../../../components/cards/card.component";
 
-//import Card from "../../components/UI/Card";
-import { Card } from "../../src/components/cards/card.component";
-
-import { CartItem } from "../../src/features/orders/components/cart-item.component";
-import Colors from "../../constants/Colors";
-import DefaultEmptyScreen from "../../components/UI/EmptyScreen";
-import { InfoScreen } from "../../src/components/info/info-screen.component";
+import { CartItem } from "../components/cart-item.component";
+import { InfoScreen } from "../../../components/info/info-screen.component";
 import React, { useState } from "react";
-import { Spacer } from "../../src/components/typography/spacer/spacer.component";
-import { BodyButton } from "../../src/components/buttons/button.component";
-import { theme } from "../../src/infrastructure/theme";
-import { LoadingState } from "../../src/components/loading/loading-state.component";
-import ThemedListItem from "react-native-elements/dist/list/ListItem";
+import { Spacer } from "../../../components/typography/spacer/spacer.component";
+import { BodyButton } from "../../../components/buttons/button.component";
+import { theme } from "../../../infrastructure/theme";
+import { LoadingState } from "../../../components/loading/loading-state.component";
 
-const CartScreen = (props) => {
+export const CartScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const cartTotalAmount = useSelector((state) => state.cart.totalAmount);
@@ -51,6 +39,8 @@ const CartScreen = (props) => {
     setIsLoading(true);
     await dispatch(ordersActions.addOrder(cartItems, cartTotalAmount));
     setIsLoading(false);
+    props.navigation.navigate("Simple Market");
+    props.navigation.navigate("Actions");
   };
 
   if (isLoading) {
@@ -205,4 +195,3 @@ const styles = StyleSheet.create({
     height: 40,
   },
 });
-export default CartScreen;

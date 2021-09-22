@@ -1,19 +1,17 @@
 import React, { useEffect, useState, useCallback } from "react";
-import * as cartActions from "../../store/actions/cart";
-import * as productsActions from "../../store/actions/products";
+import * as cartActions from "../../../../store/actions/cart";
+import * as productsActions from "../../../../store/actions/products";
 
 import { FlatList, StyleSheet, RefreshControl } from "react-native";
 
 import { useDispatch, useSelector } from "react-redux";
-import DefaultEmptyScreen from "../../components/UI/EmptyScreen";
-import ProductItem from "../../src/features/market/components/product-item.component";
-import { BodyButton } from "../../src/components/buttons/button.component";
-//import { BodyButton } from "../../src/components/buttons/body.button.component";
-import { theme } from "../../src/infrastructure/theme";
-import { LoadingState } from "../../src/components/loading/loading-state.component";
-import { InfoScreen } from "../../src/components/info/info-screen.component";
+import ProductItem from "../components/product-item.component";
+import { BodyButton } from "../../../components/buttons/button.component";
+import { theme } from "../../../infrastructure/theme";
+import { LoadingState } from "../../../components/loading/loading-state.component";
+import { InfoScreen } from "../../../components/info/info-screen.component";
 
-const ShopScreen = (props) => {
+export const ShopScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
   const products = useSelector((state) => state.products.availableProducts);
@@ -155,5 +153,3 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-
-export default ShopScreen;

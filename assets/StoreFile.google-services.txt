@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "573201095214",
+    "project_id": "storefilern",
+    "storage_bucket": "storefilern.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:573201095214:android:b3ab6b1be7d63c49d59dbf",
+        "android_client_info": {
+          "package_name": "com.qshpq"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "573201095214-dafea66vmvdb7qk377nn8dsoqa4pj6vv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxm3HiBwqyaDLtTUIcSg3l0rlpUIzpilM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "573201095214-dafea66vmvdb7qk377nn8dsoqa4pj6vv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

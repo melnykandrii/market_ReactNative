@@ -4,7 +4,6 @@ import { Button, FlatList, Platform } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 import Colors from "../../constants/Colors";
-import DefaultEmptyScreen from "../../components/UI/EmptyScreen";
 import ProductItem from "../../src/features/market/components/product-item.component";
 import React from "react";
 

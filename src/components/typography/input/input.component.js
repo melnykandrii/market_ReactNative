@@ -73,6 +73,9 @@ export const Input = (props) => {
         value={inputState.value}
         onChangeText={textChangeHandler}
         onBlur={lostFocusHandler}
+        onSubmitEditing={props.submit}
+        ref={props.inputRef}
+        blurOnSubmit={props.blur}
         selectionColor={theme.colors.text.disabled}
         cursorColor={theme.colors.ui.primary}
       />

@@ -1,8 +1,8 @@
-import MyProdNavigation from "./myproducts.stack.navigator";
-import OrdersNavigation from "./orders.stack.navigator";
+import { MyProdNavigation } from "./myproducts.stack.navigator";
+import { OrdersNavigation } from "./orders.stack.navigator";
 import { StyleSheet } from "react-native";
 import React from "react";
-import ShopNavigation from "./market.navigator";
+import { ShopNavigator } from "./market.navigator";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { DrawerComponent } from "../../components/drawer/drawer.component";
 import * as authActions from "../../../store/actions/auth";
@@ -51,7 +51,7 @@ export const MainDrawerNavi = () => {
         },
       })}
     >
-      <MainDrawer.Screen name="Market" component={ShopNavigation} />
+      <MainDrawer.Screen name="Market" component={ShopNavigator} />
       <MainDrawer.Screen name="Orders" component={OrdersNavigation} />
       <MainDrawer.Screen name="For Sale" component={MyProdNavigation} />
     </MainDrawer.Navigator>

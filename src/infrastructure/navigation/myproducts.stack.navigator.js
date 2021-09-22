@@ -3,10 +3,10 @@ import {
   createStackNavigator,
 } from "@react-navigation/stack";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
-import EditProductScreen from "../../../screens/user/EditProductScreen";
+import { EditProductScreen } from "../../features/market/screens/edit-product.screen";
 import HeaderButton from "../../../components/UI/HeaderButton";
 import React from "react";
-import UserProductsScreen from "../../../screens/user/UserProductsScreen";
+import { UserProductsScreen } from "../../features/market/screens/my-products.screen";
 import { theme } from "../theme";
 import { ImageScreen } from "../../features/market/screens/image.screen";
 
@@ -14,7 +14,7 @@ import { TransitionPresets } from "@react-navigation/stack";
 
 const ProdNavi = createStackNavigator();
 
-function MyProdNavigation() {
+export const MyProdNavigation = () => {
   return (
     <ProdNavi.Navigator
       initialRouteName="Sale"
@@ -28,8 +28,8 @@ function MyProdNavigation() {
         headerTitleAlign: "center",
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         headerTitleStyle: {
-          fontFamily: "righteous",
-          fontSize: 22,
+          fontFamily: theme.fonts.heading,
+          fontSize: theme.fontSize.h5,
         },
       }}
     >
@@ -64,7 +64,7 @@ function MyProdNavigation() {
       <ProdNavi.Screen
         name="Edit Product"
         component={EditProductScreen}
-        options={({ route, navigation }) => ({
+        options={({ route }) => ({
           title: route.params?.productId ? "Edit Product" : "Add New Product",
           gestureEnabled: true,
         })}
@@ -81,6 +81,4 @@ function MyProdNavigation() {
       />
     </ProdNavi.Navigator>
   );
-}
-
-export default MyProdNavigation;
+};

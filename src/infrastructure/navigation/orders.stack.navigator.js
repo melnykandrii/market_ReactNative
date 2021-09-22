@@ -5,12 +5,12 @@ import {
 } from "@react-navigation/stack";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import HeaderButton from "../../../components/UI/HeaderButton";
-import OrdersScreen from "../../../screens/shop/OrdersScreen";
+import { OrdersScreen } from "../../features/orders/screens/orders.screen";
 import { theme } from "../theme";
 
 const OrdersNavi = createStackNavigator();
 
-function OrdersNavigation() {
+export const OrdersNavigation = () => {
   return (
     <OrdersNavi.Navigator
       initialRouteName="Orders"
@@ -25,7 +25,7 @@ function OrdersNavigation() {
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         headerTitleStyle: {
           fontFamily: theme.fonts.heading,
-          fontSize: 22,
+          fontSize: theme.fontSize.h5,
         },
       }}
     >
@@ -48,6 +48,4 @@ function OrdersNavigation() {
       />
     </OrdersNavi.Navigator>
   );
-}
-
-export default OrdersNavigation;
+};

@@ -7,16 +7,14 @@ import {
 } from "react-native";
 import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ProductItem from "../../src/features/market/components/product-item.component";
-//import { BodyButton } from "../../src/components/buttons/body.button.component";
-import { BodyButton } from "../../src/components/buttons/button.component";
-import { theme } from "../../src/infrastructure/theme";
-import { InfoScreen } from "../../src/components/info/info-screen.component";
-import { LoadingState } from "../../src/components/loading/loading-state.component";
-import * as productsActions from "../../store/actions/products";
-import { CloseButton } from "../../src/components/buttons/close.button.component";
+import ProductItem from "../components/product-item.component";
+import { theme } from "../../../infrastructure/theme";
+import { InfoScreen } from "../../../components/info/info-screen.component";
+import { LoadingState } from "../../../components/loading/loading-state.component";
+import * as productsActions from "../../../../store/actions/products";
+import { CloseButton } from "../../../components/buttons/close.button.component";
 
-const UserProductsScreen = (props) => {
+export const UserProductsScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -171,5 +169,3 @@ const styles = StyleSheet.create({
     fontSize: 10,
   },
 });
-
-export default UserProductsScreen;

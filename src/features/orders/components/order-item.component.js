@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CartItem } from "./cart-item.component";
+import { CartItem } from "../../market/components/cart-item.component";
 import { BodyButton } from "../../../components/buttons/button.component";
 //import { BodyButton } from "../../../components/buttons/body.button.component";
 import {
@@ -12,7 +12,7 @@ import {
   OrderCard,
 } from "../styles/order-item-component.styles";
 
-const OrderItem = (props) => {
+export const OrderItem = (props) => {
   const [showDetails, setShowDetails] = useState(false);
   return (
     <OrderCard>
@@ -56,5 +56,3 @@ const OrderItem = (props) => {
     </OrderCard>
   );
 };
-
-export default OrderItem;

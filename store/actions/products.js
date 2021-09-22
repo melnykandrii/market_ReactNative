@@ -14,8 +14,8 @@ export const fetchProducts = () => {
     // any async code
     try {
       const response = await fetch(
-        //"https://shopma-58377-default-rtdb.firebaseio.com/products.json"
-        `https://storefilern-default-rtdb.firebaseio.com/products.json?auth=${token}`
+        `https://shopma-58377-default-rtdb.firebaseio.com/products.json?auth=${token}`
+        // `https://storefilern-default-rtdb.firebaseio.com/products.json?auth=${token}`
       );
       if (!response.ok) {
         const errorResponseData = await response.json();
@@ -62,7 +62,8 @@ export const deleteProduct = (productId, imageUrl) => {
     await storage().ref(`/images/products/${fileName}`).delete();
     try {
       const response = await fetch(
-        `https://storefilern-default-rtdb.firebaseio.com/products/${productId}.json?auth=${token}`,
+        `https://shopma-58377-default-rtdb.firebaseio.com/products/${productId}.json?auth=${token}`,
+        //`https://storefilern-default-rtdb.firebaseio.com/products/${productId}.json?auth=${token}`,
         {
           method: "DELETE",
         }
@@ -90,7 +91,8 @@ export const createProduct = (title, description, imageUrl, price) => {
       });
       const url = await imageRef.getDownloadURL();
       const response = await fetch(
-        `https://storefilern-default-rtdb.firebaseio.com/products.json?auth=${token}`,
+        `https://shopma-58377-default-rtdb.firebaseio.com/products.json?auth=${token}`,
+        //`https://storefilern-default-rtdb.firebaseio.com/products.json?auth=${token}`,
         {
           method: "POST",
           headers: {
@@ -152,8 +154,8 @@ export const updateProduct = (
     }
     try {
       const response = await fetch(
-        //`https://shopma-58377-default-rtdb.firebaseio.com/products/${id}.json?auth=${token}`,
-        `https://storefilern-default-rtdb.firebaseio.com/products/${id}.json?auth=${token}`,
+        `https://shopma-58377-default-rtdb.firebaseio.com/products/${id}.json?auth=${token}`,
+        //`https://storefilern-default-rtdb.firebaseio.com/products/${id}.json?auth=${token}`,
         {
           method: "PATCH",
           headers: {

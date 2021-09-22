@@ -1,33 +1,34 @@
 {
   "project_info": {
-    "project_number": "573201095214",
-    "project_id": "storefilern",
-    "storage_bucket": "storefilern.appspot.com"
+    "project_number": "568968568447",
+    "firebase_url": "https://shopma-58377-default-rtdb.firebaseio.com",
+    "project_id": "shopma-58377",
+    "storage_bucket": "shopma-58377.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:573201095214:android:b3ab6b1be7d63c49d59dbf",
+        "mobilesdk_app_id": "1:568968568447:android:4a2ed618c0ba258a7f294a",
         "android_client_info": {
           "package_name": "com.qshpq"
         }
       },
       "oauth_client": [
         {
-          "client_id": "573201095214-dafea66vmvdb7qk377nn8dsoqa4pj6vv.apps.googleusercontent.com",
+          "client_id": "568968568447-6rh9n3gn90qaak4lm8u7qpl0dt7bss24.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBxm3HiBwqyaDLtTUIcSg3l0rlpUIzpilM"
+          "current_key": "AIzaSyAaeuaK-JgrXmLsRnsvmu2-8xeGoo3SiMM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "573201095214-dafea66vmvdb7qk377nn8dsoqa4pj6vv.apps.googleusercontent.com",
+              "client_id": "568968568447-6rh9n3gn90qaak4lm8u7qpl0dt7bss24.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
