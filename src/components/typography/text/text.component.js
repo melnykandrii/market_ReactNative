@@ -26,6 +26,22 @@ const hint = (theme) => `
     font-size: ${theme.fontSizes.body};
 `;
 
+const authHeader = (theme) => `
+    font-family: ${theme.fonts.title};
+    font-weight: ${theme.fontWeights.regular};
+    font-size: ${theme.fontSizes.body};
+    color: ${theme.colors.ui.primary};
+    margin-top: 15px;
+`;
+
+const authLabel = (theme) => `
+    font-family: ${theme.fonts.title};
+    font-weight: ${theme.fontWeights.regular};
+    font-size: ${theme.fontSizes.caption};
+    color: ${theme.colors.bg.grey};
+    margin-top: 10px;
+`;
+
 const error = (theme) => `
     color: ${theme.colors.text.error};
 `;
@@ -62,6 +78,8 @@ const variants = {
   load,
   hint,
   button,
+  authLabel,
+  authHeader,
 };
 
 export const Text = styled.Text`

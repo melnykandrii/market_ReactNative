@@ -76,8 +76,9 @@ export const Input = (props) => {
         onSubmitEditing={props.submit}
         ref={props.inputRef}
         blurOnSubmit={props.blur}
-        selectionColor={theme.colors.text.disabled}
+        selectionColor={theme.colors.bg.grey}
         cursorColor={theme.colors.ui.primary}
+        placeholderTextColor={props.phtextColor || theme.colors.bg.grey}
       />
       {!inputState.isValid && inputState.touched && (
         <View style={styles.errorContainer}>

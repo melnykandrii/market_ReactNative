@@ -6,6 +6,7 @@ export const LOGIN = "LOGIN";
 export const AUTHENTICATE = "AUTHENTICATE";
 export const LOGOUT = "LOGOUT";
 export const SET_TRYAUTH = "SET_TRYAUTH";
+export const RESET_PASSWORD = "RESET_PASSWORD";
 
 let timer;
 
@@ -20,11 +21,44 @@ export const authenticate = (userId, token, expiryTime) => {
   };
 };
 
+export const resetPassword = (email) => {
+  return async (dispatch) => {
+    const response = await fetch(
+      `https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${ENV.firebaseApiKey}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          requestType: "PASSWORD_RESET",
+          email: email,
+        }),
+      }
+    );
+    console.log(response);
+    if (!response.ok) {
+      //error handle, different types of server responses
+      const errorResData = await response.json();
+      console.log(errorResData);
+      const errorId = errorResData.error.message;
+      let message = "Something went wrong!";
+
+      if (errorId === "EMAIL_NOT_FOUND") {
+        message = "There is no account linked to this e-mail!";
+      }
+
+      throw new Error(message);
+    }
+    dispatch({ type: RESET_PASSWORD });
+  };
+};
+
 export const signUp = (email, password) => {
   return async (dispatch) => {
     const response = await fetch(
       `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${ENV.firebaseApiKey}`,
-      //"https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${ENV.firebaseApiKey}",
+      //`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${ENV.firebaseApiKey}`,
       {
         method: "POST",
         headers: {
@@ -90,7 +124,7 @@ export const logIn = (email, password) => {
   return async (dispatch) => {
     const response = await fetch(
       `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${ENV.firebaseApiKey}`,
-      //"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${ENV.firebaseApiKey}",
+      //`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${ENV.firebaseApiKey}`,
       {
         method: "POST",
         headers: {

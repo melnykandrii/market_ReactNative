@@ -5,7 +5,6 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import { StartupScreen } from "../../features/startup/screens/startup.screen";
 import { AuthStackNavigator } from "./auth-stack.navigator";
-import { AuthScreen } from "../../features/auth/screens/authentication.screen";
 
 export const AppNavigator = () => {
   const isAuth = useSelector((state) => !!state.auth.token);
@@ -14,7 +13,7 @@ export const AppNavigator = () => {
   return (
     <NavigationContainer>
       {isAuth && <MainDrawerNavi />}
-      {!isAuth && tryAuth && <AuthScreen />}
+      {!isAuth && tryAuth && <AuthStackNavigator />}
       {!isAuth && !tryAuth && <StartupScreen />}
     </NavigationContainer>
   );

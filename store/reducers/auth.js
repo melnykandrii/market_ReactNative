@@ -1,4 +1,9 @@
-import { AUTHENTICATE, LOGOUT, SET_TRYAUTH } from "../actions/auth";
+import {
+  AUTHENTICATE,
+  LOGOUT,
+  SET_TRYAUTH,
+  RESET_PASSWORD,
+} from "../actions/auth";
 
 const initialState = {
   token: null,
@@ -20,6 +25,11 @@ export default (state = initialState, action) => {
         onTryAuth: true,
       };
     case LOGOUT:
+      return {
+        ...initialState,
+        onTryAuth: true,
+      };
+    case RESET_PASSWORD:
       return {
         ...initialState,
         onTryAuth: true,

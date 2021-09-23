@@ -5,6 +5,8 @@ import {
   Alert,
   TouchableWithoutFeedback,
   Keyboard,
+  Text,
+  TouchableOpacity,
 } from "react-native";
 import { useDispatch } from "react-redux";
 
@@ -21,6 +23,8 @@ import {
   AuthButton,
 } from "../styles/auth-screen.styles";
 import { Spacer } from "../../../components/typography/spacer/spacer.component";
+import { SignUpComponent } from "../components/sign-up.component";
+import { ResetPassComponent } from "../components/reset-password.component";
 
 const FORM_INPUT_UPDATE = "FORM_INPUT_UPDATE";
 
@@ -47,11 +51,14 @@ const formReducer = (state, action) => {
   return state;
 };
 
-export const AuthScreen = ({ navigation }) => {
+export const AuthScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
   const [isSignUp, setIsSignUp] = useState(false);
   const dispatch = useDispatch();
+  const [resetPassword, setResetPassword] = useState(false);
+  const [code, setCode] = useState(false);
+  const [vCode, setVCode] = useState("");
 
   const [formState, dispatchFormState] = useReducer(formReducer, {
     inputValues: {
@@ -96,6 +103,18 @@ export const AuthScreen = ({ navigation }) => {
     }
   };
 
+  const resetPasswordHandler = async () => {
+    setError(null);
+    setIsLoading(true);
+    try {
+      await dispatch(authActions.resetPassword(formState.inputValues.email));
+      setCode(true);
+    } catch (err) {
+      setError(err.message);
+    }
+    setIsLoading(false);
+  };
+
   const inputChangeHandler = useCallback(
     (inputIdentifier, inputValue, inputValidity) => {
       dispatchFormState({
@@ -121,81 +140,29 @@ export const AuthScreen = ({ navigation }) => {
             </LogoContainer>
 
             <AuthCard>
-              <ScrollView>
-                <Input
-                  id="email"
-                  label="E-mail"
-                  keyboardType="email-address"
-                  required
-                  email
-                  autoCapitalize="none"
-                  returnKey="next"
-                  errorText="Please enter a valid email address"
-                  onInputChange={inputChangeHandler}
-                  initialValue=""
-                  submit={() => {
-                    this.passwordRef.focus();
-                  }}
-                  blur={false}
+              {resetPassword ? (
+                <ResetPassComponent
+                  {...props}
+                  setResetPassword={setResetPassword}
+                  isLoading={isLoading}
+                  inputChangeHandler={inputChangeHandler}
+                  resetPasswordHandler={resetPasswordHandler}
+                  setCode={setCode}
+                  code={code}
+                  vCode={vCode}
+                  setVCode={setVCode}
                 />
-                <Spacer position="bottom" size="xl" />
-                <Input
-                  id="password"
-                  label="Password"
-                  keyboardType="default"
-                  secureTextEntry
-                  required
-                  minLength={6}
-                  autoCapitalize="none"
-                  returnKey="done"
-                  errorText="Please enter a valid password"
-                  onInputChange={inputChangeHandler}
-                  initialValue=""
-                  submit={() => {
-                    isSignUp ? this.repeatPassRef.focus() : Keyboard.dismiss;
-                  }}
-                  inputRef={(passwordRef) => {
-                    this.passwordRef = passwordRef;
-                  }}
-                  blur={false}
+              ) : (
+                <SignUpComponent
+                  {...props}
+                  isLoading={isLoading}
+                  inputChangeHandler={inputChangeHandler}
+                  authHandler={authHandler}
+                  isSignUp={isSignUp}
+                  setIsSignUp={setIsSignUp}
+                  setResetPassword={setResetPassword}
                 />
-                {isSignUp ? (
-                  <Input
-                    id="repeatedPassword"
-                    label="RepeatePassword"
-                    keyboardType="default"
-                    secureTextEntry
-                    required
-                    minLength={6}
-                    autoCapitalize="none"
-                    errorText="Please enter a valid password"
-                    onInputChange={inputChangeHandler}
-                    initialValue=""
-                    submit={Keyboard.dismiss}
-                    inputRef={(repeatPassRef) => {
-                      this.repeatPassRef = repeatPassRef;
-                    }}
-                    blur={false}
-                  />
-                ) : null}
-                <Spacer position="bottom" size="xl" />
-                <AuthButton
-                  buttonTitle={isSignUp ? "SignUp" : "Login"}
-                  buttonColor={theme.colors.ui.primary}
-                  onPress={authHandler}
-                  buttonLoading={isLoading}
-                  buttonIcon={
-                    isSignUp ? "account-plus" : "account-circle-outline"
-                  }
-                />
-                <AuthButton
-                  buttonTitle={`To ${isSignUp ? "Login" : "SignUp"}`}
-                  buttonColor={theme.colors.ui.primary}
-                  mode="outlined"
-                  buttonIcon="account-convert"
-                  onPress={() => setIsSignUp((prevState) => !prevState)}
-                />
-              </ScrollView>
+              )}
             </AuthCard>
           </KeyboardView>
         </AccountCover>
