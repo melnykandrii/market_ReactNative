@@ -8,7 +8,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:568968568447:android:4a2ed618c0ba258a7f294a",
+        "mobilesdk_app_id": "1:568968568447:android:5036429dc79fdf2e7f294a",
         "android_client_info": {
           "package_name": "com.qshpq"
         }
@@ -30,6 +30,13 @@
             {
               "client_id": "568968568447-6rh9n3gn90qaak4lm8u7qpl0dt7bss24.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "568968568447-k2op5ubqgecv7v62o96i9kmltg6q8n7d.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.name.QSHPQ"
+              }
             }
           ]
         }

@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import ENV from "../../env";
 
 export const SIGNUP = "SIGNUP";
 export const LOGIN = "LOGIN";
@@ -22,8 +23,8 @@ export const authenticate = (userId, token, expiryTime) => {
 export const signUp = (email, password) => {
   return async (dispatch) => {
     const response = await fetch(
-      "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAsLaBeo2IEwdkjnDmE7aBRTDQIjBEGIfI",
-      //"https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBxm3HiBwqyaDLtTUIcSg3l0rlpUIzpilM",
+      `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${ENV.firebaseApiKey}`,
+      //"https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${ENV.firebaseApiKey}",
       {
         method: "POST",
         headers: {
@@ -88,8 +89,8 @@ export const signUp = (email, password) => {
 export const logIn = (email, password) => {
   return async (dispatch) => {
     const response = await fetch(
-      "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAsLaBeo2IEwdkjnDmE7aBRTDQIjBEGIfI",
-      //"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBxm3HiBwqyaDLtTUIcSg3l0rlpUIzpilM",
+      `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${ENV.firebaseApiKey}`,
+      //"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${ENV.firebaseApiKey}",
       {
         method: "POST",
         headers: {

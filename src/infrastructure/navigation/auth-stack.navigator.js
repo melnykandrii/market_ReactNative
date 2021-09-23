@@ -11,6 +11,7 @@ export const AuthStackNavigator = () => {
   return (
     <AuthStack.Navigator
       headerMode="none"
+      backBehavior="none"
       initialRouteName="Auth"
       screenOptions={() => ({
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
