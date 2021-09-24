@@ -44,13 +44,13 @@ const styles = StyleSheet.create({
   },
   button: {
     alignSelf: "center",
-    justifyContent:"center",
-    width:120,
-    height:40
+    justifyContent: "center",
+    width: 120,
+    height: 40,
   },
   btContant: {
     width: 120,
     height: 40,
-    alignSelf:"center",
+    alignSelf: "center",
   },
 });

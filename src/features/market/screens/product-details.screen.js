@@ -1,5 +1,5 @@
 import * as cartActions from "../../../../store/actions/cart";
-import * as productActions from "../../../../store/actions/products";
+import * as productsActions from "../../../../store/actions/products";
 import { ScrollView, TouchableOpacity } from "react-native";
 import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +7,7 @@ import { theme } from "../../../infrastructure/theme";
 //import { BodyButton } from "../../../components/buttons/body.button.component";
 import { BodyButton } from "../../../components/buttons/button.component";
 import { Spacer } from "../../../components/typography/spacer/spacer.component";
+import { CloseButton } from "../../../components/buttons/close.button.component";
 import {
   Image,
   TopContainer,
@@ -22,27 +23,17 @@ import { InfoScreen } from "../../../components/info/info-screen.component";
 export const ProductDetailsScreen = (props) => {
   const prodId = props.route.params.productId;
   const { item } = props.route.params;
-
+  const isFavourite = useSelector((state) =>
+    state.products.favouriteProducts.find((product) => product.id === prodId)
+  );
   const selectedProduct = useSelector((state) =>
     state.products.availableProducts.find((prod) => prod.id === prodId)
   );
-  //console.log(filename);
-  //const currentProductIsFavorite = useSelector(state => state.products.favoriteProducts.some(prod => prod.id === prodId));
 
   const dispatch = useDispatch();
-  /*
-const toggleFavoriteHandler = useCallback(() => {
-    dispatch(productActions.toggleFavorite(prodId));
-}, [dispatch, prodId]);
-
-useEffect(() => {
-    props.navigation.setParams({toggleFav: toggleFavoriteHandler});
-},[toggleFavoriteHandler]);
-
-useEffect(() => {
-    props.navigation.setParams({isFav: currentProductIsFavorite});
-},[currentProductIsFavorite]);*/
-
+  const toggleFavouriteHandler = (id) => {
+    dispatch(productsActions.toggleFavourite(id));
+  };
   if (!selectedProduct) {
     return (
       <InfoScreen
@@ -58,6 +49,19 @@ useEffect(() => {
 
   return (
     <ScrollView>
+      <CloseButton
+        name={isFavourite ? "star" : "star-outline"}
+        onClose={() => {
+          toggleFavouriteHandler(selectedProduct.id);
+        }}
+        style={{
+          position: "absolute",
+          zIndex: 9,
+          top: 10,
+          right: 10,
+        }}
+        buttonColor={theme.colors.bg.primary}
+      />
       <TouchableOpacity
         onPress={() => {
           props.navigation.navigate("ImageScreen", {

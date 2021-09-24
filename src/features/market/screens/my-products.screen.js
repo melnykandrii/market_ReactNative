@@ -129,6 +129,7 @@ export const UserProductsScreen = (props) => {
           onSelect={() => {
             editProductHandler({ item }, item.id);
           }}
+          onShow={true}
         >
           <CloseButton
             buttonColor={theme.colors.text.primary}

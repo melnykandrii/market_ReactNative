@@ -11,41 +11,19 @@ export const ResetPassComponent = (props) => {
     <View style={{ alignItems: "center" }}>
       {props.code ? (
         <>
-          <Text variant="authHeader">Code verification</Text>
-          <Text variant="authHeader">Code:</Text>
-          <TextInput
-            value={props.vCode}
-            keyboardType="numeric"
-            onChangeText={props.setVCode}
-            placeholder="Code"
-            style={{
-              borderWidth: 1,
-              marginTop: 10,
-              height: 40,
-              width: 100,
-              borderColor: theme.colors.bg.grey,
-              color: theme.colors.bg.primary,
-              backgroundColor: theme.colors.ui.primary,
-            }}
-            selectionColor={theme.colors.bg.grey}
-            cursorColor={theme.colors.bg.grey}
-            placeholderTextColor={props.phtextColor || theme.colors.bg.grey}
-          />
+          <Text variant="authHeader">Check your email.</Text>
+          <Text variant="authHeader">
+            The password reset confirmation letter was sent to your email.
+            Please follow the instruction in order to change your password.
+          </Text>
+
           <Spacer position="bottom" size="xl" />
 
           <AuthButton
-            buttonTitle="Verify"
-            buttonColor={theme.colors.ui.primary}
-            onPress={props.codeVerifyHandler}
-            buttonLoading={props.isLoading}
-            buttonIcon="email-outline"
-          />
-          <AuthButton
-            buttonTitle="Go Back"
+            buttonTitle="Ok"
             buttonColor={theme.colors.ui.primary}
             mode="outlined"
-            buttonIcon="email-outline"
-            onPress={() => props.setCode(false)}
+            onPress={() => props.setResetPassword(false)}
           />
         </>
       ) : (
@@ -63,7 +41,7 @@ export const ResetPassComponent = (props) => {
             onInputChange={props.inputChangeHandler}
             initialValue=""
             placeholder="Please enter e-mail address"
-            submit={props.resetPasswordHandler}
+            submit={Keyboard.dismiss}
           />
           <Spacer position="bottom" size="xl" />
 

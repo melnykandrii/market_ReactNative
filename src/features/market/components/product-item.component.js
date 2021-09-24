@@ -11,6 +11,7 @@ import {
 import { Card } from "../../../components/cards/card.component";
 import React from "react";
 import { theme } from "../../../infrastructure/theme";
+import { CloseButton } from "../../../components/buttons/close.button.component";
 
 const ProductItem = (props) => {
   let TouchableCmp = TouchableOpacity;
@@ -20,6 +21,14 @@ const ProductItem = (props) => {
 
   return (
     <Card style={{ ...styles.product, ...props.cardStyle }}>
+      {!props.onShow && (
+        <CloseButton
+          name={props.name}
+          onClose={props.toggleFavouriteHandler}
+          style={styles.fav}
+          buttonColor={theme.colors.bg.primary}
+        />
+      )}
       <View style={styles.touchable}>
         <TouchableCmp onPress={props.onSelect} useForeground>
           <View>
@@ -90,6 +99,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: "25%",
     paddingHorizontal: 20,
+  },
+  fav: {
+    position: "absolute",
+    zIndex: 9,
+    top: 10,
+    right: 10,
+    backgroundColor: theme.colors.ui.primary,
   },
 });
 

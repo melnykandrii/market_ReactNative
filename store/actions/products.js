@@ -3,9 +3,10 @@ import storage from "@react-native-firebase/storage";
 export const DELETE_PRODUCT = "DELETE_PRODUCT";
 export const CREATE_PRODUCT = "CREATE_PRODUCT";
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
-export const TOGGLE_FAVORITE = "TOGGLE_FAVORITE";
+export const TOGGLE_FAVOURITE = "TOGGLE_FAVOURITE";
 export const SET_FILTERS = "SET_FILTERS";
 export const SET_PRODUCTS = "SET_PRODUCTS";
+export const SET_FAVOURITES = "SET_FAVOURITES";
 
 export const fetchProducts = () => {
   return async (dispatch, getState) => {
@@ -188,9 +189,9 @@ export const updateProduct = (
   };
 };
 
-export const toggleFavorite = (id) => {
+export const toggleFavourite = (id) => {
   return {
-    type: TOGGLE_FAVORITE,
+    type: TOGGLE_FAVOURITE,
     pid: id,
   };
 };

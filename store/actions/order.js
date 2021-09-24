@@ -10,7 +10,8 @@ export const fetchOrders = () => {
     const userId = getState().auth.userId;
     try {
       const response = await fetch(
-        `https://shopma-58377-default-rtdb.firebaseio.com/orders/${userId}.json?auth=${token}`
+        `https://shopma-58377-default-rtdb.firebaseio.com/users/${userId}/orders.json?auth=${token}`
+        // `https://shopma-58377-default-rtdb.firebaseio.com/orders/${userId}.json?auth=${token}`
         // `https://storefilern-default-rtdb.firebaseio.com/orders/${userId}.json?auth=${token}`
       );
 
@@ -54,7 +55,8 @@ export const addOrder = (cartItems, totalAmount) => {
       new Date().toString().split(" ")[3] +
       new Date().toString().split(" ")[2];
     const response = await fetch(
-      `https://shopma-58377-default-rtdb.firebaseio.com/orders/${userId}.json?auth=${token}`,
+      `https://shopma-58377-default-rtdb.firebaseio.com/users/${userId}/orders.json?auth=${token}`,
+      // `https://shopma-58377-default-rtdb.firebaseio.com/orders/${userId}.json?auth=${token}`,
       //`https://storefilern-default-rtdb.firebaseio.com/orders/${userId}.json?auth=${token}`,
       {
         method: "POST",

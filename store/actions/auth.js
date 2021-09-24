@@ -45,7 +45,10 @@ export const resetPassword = (email) => {
       let message = "Something went wrong!";
 
       if (errorId === "EMAIL_NOT_FOUND") {
-        message = "There is no account linked to this e-mail!";
+        message = "There is no account linked to provided e-mail!";
+      }
+      if (errorId === "MISSING_EMAIL") {
+        message = "Please provide your email address.";
       }
 
       throw new Error(message);

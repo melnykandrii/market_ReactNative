@@ -30,7 +30,7 @@ export const MainDrawerNavi = () => {
       drawerStyle={styles.drawer}
       drawerContentOptions={{
         activeTintColor: theme.colors.bg.primary,
-        inactiveTintColor: theme.colors.ui.disabled,
+        inactiveTintColor: theme.colors.bg.grey,
         itemStyle: {
           padding: theme.spacessh[17],
         },

@@ -1,30 +1,17 @@
 import React, { useEffect, useState, useCallback } from "react";
 import * as cartActions from "../../../../store/actions/cart";
 import * as productsActions from "../../../../store/actions/products";
-
-import { FlatList, StyleSheet, RefreshControl } from "react-native";
-
 import { useDispatch, useSelector } from "react-redux";
-import ProductItem from "../components/product-item.component";
-import { BodyButton } from "../../../components/buttons/button.component";
 import { theme } from "../../../infrastructure/theme";
 import { LoadingState } from "../../../components/loading/loading-state.component";
 import { InfoScreen } from "../../../components/info/info-screen.component";
+import { ProductsList } from "../components/products-list.component";
 
 export const ShopScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
   const products = useSelector((state) => state.products.availableProducts);
-  // const displayedProducts = useSelector(state => state.products.filteredProducts);
-  /*
-    const prodId = products.id;
 
-    const availableProducts = useSelector(state => state.products.filteredProducts);
-
-    const displayedProducts = availableProducts.filter(
-        product => product.id.indexOf(prodId) >= 0
-    );
-*/
   const dispatch = useDispatch();
   const loadProducts = useCallback(async () => {
     setError(null);
@@ -61,6 +48,10 @@ export const ShopScreen = (props) => {
     dispatch(cartActions.addToCart(item));
   };
 
+  const toggleFavouriteHandler = (id) => {
+    dispatch(productsActions.toggleFavourite(id));
+  };
+
   if (error) {
     return (
       <InfoScreen
@@ -95,61 +86,13 @@ export const ShopScreen = (props) => {
   }
 
   return (
-    <FlatList
+    <ProductsList
       data={products}
-      keyExtractor={(item) => item.id}
-      refreshControl={
-        <RefreshControl
-          tintColor={theme.colors.bg.black}
-          colors={[theme.colors.ui.primary]}
-          refreshing={isLoading}
-          onRefresh={loadProducts}
-        />
-      }
-      renderItem={({ item }) => (
-        <ProductItem
-          image={item.imageUrl}
-          title={item.title}
-          price={item.price}
-          onSelect={() => {
-            viewProductHandler(item.id, item.title, { item });
-          }}
-        >
-          <BodyButton
-            buttonTitle="View"
-            buttonColor={theme.colors.text.primary}
-            mode="outlined"
-            onPress={() => {
-              viewProductHandler(item.id, item.title, { item });
-            }}
-            style={styles.button}
-            compact="true"
-          />
-          <BodyButton
-            buttonTitle="Order"
-            buttonColor={theme.colors.text.primary}
-            mode="outlined"
-            onPress={() => {
-              addToCardHandler(item);
-            }}
-            style={styles.button}
-            compact="true"
-          />
-        </ProductItem>
-      )}
+      refreshing={isLoading}
+      onRefresh={loadProducts}
+      viewProductHandler={viewProductHandler}
+      toggleFavouriteHandler={toggleFavouriteHandler}
+      addToCardHandler={addToCardHandler}
     />
   );
 };
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  indicator: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});

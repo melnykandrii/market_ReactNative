@@ -3,15 +3,16 @@ import {
   DELETE_PRODUCT,
   SET_FILTERS,
   SET_PRODUCTS,
-  TOGGLE_FAVORITE,
+  TOGGLE_FAVOURITE,
   UPDATE_PRODUCT,
+  SET_FAVOURITES,
 } from "../actions/products";
 import Product from "../../models/product";
 
 const initialState = {
   availableProducts: [],
   userProducts: [],
-  favoriteProducts: [],
+  favouriteProducts: [],
   filteredProducts: [],
 };
 
@@ -21,6 +22,7 @@ export default (state = initialState, action) => {
       return {
         availableProducts: action.products,
         userProducts: action.userProducts,
+        favouriteProducts: state.favouriteProducts,
       };
     case CREATE_PRODUCT:
       const newProduct = new Product(
@@ -73,21 +75,21 @@ export default (state = initialState, action) => {
           (product) => product.id !== action.pid
         ),
       };
-    case TOGGLE_FAVORITE:
-      const prodIndex = state.favoriteProducts.findIndex(
+    case TOGGLE_FAVOURITE:
+      const prodIndex = state.favouriteProducts.findIndex(
         (prod) => prod.id === action.pid
       );
       if (prodIndex >= 0) {
-        const updateFavProd = [...state.favoriteProducts];
+        const updateFavProd = [...state.favouriteProducts];
         updateFavProd.splice(prodIndex, 1);
-        return { ...state, favoriteProducts: updateFavProd };
+        return { ...state, favouriteProducts: updateFavProd };
       } else {
         const favProd = state.availableProducts.find(
           (prod) => prod.id === action.pid
         );
         return {
           ...state,
-          favoriteProducts: state.favoriteProducts.concat(favProd),
+          favouriteProducts: state.favouriteProducts.concat(favProd),
         };
       }
     case SET_FILTERS:

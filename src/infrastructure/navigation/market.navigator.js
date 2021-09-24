@@ -18,11 +18,13 @@ import { HeaderBadgedButton } from "../../components/buttons/header-badged-butto
 import { ActionScreen } from "../../features/market/screens/action.screen";
 
 import { ShopScreen } from "../../features/market/screens/market.screen";
+import { FavouritesScreen } from "../../features/market/screens/favourites.screen";
 
 const ShopNavi = createStackNavigator();
 
 export const ShopNavigator = () => {
   const cartTotalQty = useSelector((state) => state.cart.totalQty);
+  const favProducts = useSelector((state) => state.products.favouriteProducts);
   return (
     <ShopNavi.Navigator
       initialRouteName="Simple Market"
@@ -63,13 +65,12 @@ export const ShopNavigator = () => {
             <HeaderButtons HeaderButtonComponent={HeaderBadgedButton}>
               <Item
                 badgeVisible={false}
-                title="Filter"
-                iconName={"filter-sharp"}
+                title="Favourites"
+                iconName={favProducts.length ? "star" : "star-outline"}
                 badgeTestId="filter-badge"
                 buttonTestId="filter-button-badge"
-                testID="filterBadge"
                 onPress={() => {
-                  navigation.navigate("Filters");
+                  navigation.navigate("Favourites");
                 }}
               />
               <Item
@@ -78,7 +79,7 @@ export const ShopNavigator = () => {
                 badgeTestId="cart-badge"
                 buttonTestId="cart-button-badge"
                 title="Cart"
-                iconName="cart"
+                iconName={cartTotalQty ? "cart" : "cart-outline"}
                 testID="cartBadge"
                 onPress={() => {
                   navigation.navigate("Cart");
@@ -102,7 +103,7 @@ export const ShopNavigator = () => {
                 badgeTestId="cart-badge"
                 buttonTestId="cart-button-badge"
                 title="Cart"
-                iconName="cart"
+                iconName={cartTotalQty ? "cart" : "cart-outline"}
                 testID="cartBadge"
                 onPress={() => {
                   navigation.navigate("Cart");
@@ -122,6 +123,30 @@ export const ShopNavigator = () => {
         })}
       />
       <ShopNavi.Screen name="Cart" component={CartScreen} />
+      <ShopNavi.Screen
+        name="Favourites"
+        component={FavouritesScreen}
+        options={({ navigation }) => ({
+          title: "Wish List",
+          gestureEnabled: true,
+          headerRight: (props) => (
+            <HeaderButtons HeaderButtonComponent={HeaderBadgedButton}>
+              <Item
+                badgeVisible={cartTotalQty}
+                badgeValue={cartTotalQty}
+                badgeTestId="cart-badge"
+                buttonTestId="cart-button-badge"
+                title="Cart"
+                iconName={cartTotalQty ? "cart" : "cart-outline"}
+                testID="cartBadge"
+                onPress={() => {
+                  navigation.navigate("Cart");
+                }}
+              />
+            </HeaderButtons>
+          ),
+        })}
+      />
       <ShopNavi.Screen
         name="Actions"
         component={ActionScreen}

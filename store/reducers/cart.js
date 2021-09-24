@@ -1,6 +1,7 @@
 import { ADD_TO_CART, REMOVE_FROM_CART } from "../actions/cart";
 
 import { ADD_ORDER } from "../actions/order";
+import { LOGOUT } from "../actions/auth";
 import CartItem from "../../models/cart-item";
 import { DELETE_PRODUCT } from "../actions/products";
 
@@ -68,6 +69,9 @@ export default (state = initialState, action) => {
         totalQty: state.totalQty - 1,
       };
     case ADD_ORDER:
+      // returns initial state after placing an order
+      return initialState;
+    case LOGOUT:
       // returns initial state after placing an order
       return initialState;
     case DELETE_PRODUCT:
