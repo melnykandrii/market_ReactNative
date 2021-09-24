@@ -10,12 +10,12 @@ export const Card = (props) => {
 
 const styles = StyleSheet.create({
   card: {
-    shadowColor: "black",
-    shadowOpacity: 0.26,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 8,
-    elevation: 5,
-    borderRadius: 10,
+    shadowColor: theme.colors.bg.black,
+    shadowOpacity: theme.spacessh[1],
+    shadowOffset: { width: theme.spacessh[0], height: theme.spacessh[3] },
+    shadowRadius: theme.sizessh[1],
+    elevation: theme.sizessh[0],
+    borderRadius: theme.sizessh[2],
     backgroundColor: theme.colors.ui.primary,
   },
 });

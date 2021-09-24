@@ -1,5 +1,4 @@
 import * as productsActions from "../../../../store/actions/products";
-import storage from "@react-native-firebase/storage";
 import {
   Alert,
   KeyboardAvoidingView,
@@ -16,10 +15,9 @@ import { ImgPicker } from "../../../components/image-picker/image-picker.compone
 
 import { BodyButton } from "../../../components/buttons/button.component";
 import { theme } from "../../../infrastructure/theme";
-import { HeaderButtons, Item } from "react-navigation-header-buttons";
-import HeaderButton from "../../../../components/UI/HeaderButton";
 import { LoadingState } from "../../../components/loading/loading-state.component";
 import { Spacer } from "../../../components/typography/spacer/spacer.component";
+import { SaveHeaderButton } from "../../../components/buttons/save-header-button.component";
 
 const FORM_INPUT_UPDATE = "FORM_INPUT_UPDATE";
 
@@ -131,16 +129,10 @@ export const EditProductScreen = (props) => {
   useEffect(() => {
     props.navigation.setOptions({
       headerRight: () => (
-        <HeaderButtons HeaderButtonComponent={HeaderButton}>
-          <Item
-            title="Submit"
-            iconName="checkmark-outline"
-            onPress={submitHandler}
-          />
-        </HeaderButtons>
+        <SaveHeaderButton onPress={submitHandler} buttonDisabled={!imageUrl} />
       ),
     });
-  }, [props.navigation, submitHandler]);
+  }, [imageUrl, props.navigation, submitHandler]);
 
   const inputChangeHandler = useCallback(
     (inputIdentifier, inputValue, inputValidity) => {
@@ -176,6 +168,7 @@ export const EditProductScreen = (props) => {
           imageUrl={imageUrl}
           onPress={onNavigate}
           editedProduct={editedProduct}
+          disabled={!imageUrl}
         />
 
         <View style={styles.form}>
@@ -183,8 +176,6 @@ export const EditProductScreen = (props) => {
             id="title"
             label="Title"
             errorText="Please enter a valid title!"
-            //value={formState.inputValues.title}
-            //onChangeText={textChangeHandler.bind(this, 'title')}
             keyboard="default"
             autoCapitalize="words"
             autoCorrect
@@ -204,8 +195,6 @@ export const EditProductScreen = (props) => {
               id="price"
               label="Price"
               errorText="Please enter a valid price!"
-              //value={formState.inputValues.price}
-              //onChangeText={textChangeHandler.bind(this, 'price')}
               keyboard="decimal-pad"
               returnKey="next"
               submit={() => {
@@ -224,8 +213,6 @@ export const EditProductScreen = (props) => {
           <DefaultInputCont
             id="description"
             label="Description"
-            //value={formState.inputValues.description}
-            //onChangeText={textChangeHandler.bind(this, 'description')}
             keyboard="default"
             autoCapitalize="sentences"
             autoCorrect

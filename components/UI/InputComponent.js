@@ -1,8 +1,6 @@
 import { Platform, StyleSheet, Text, TextInput, View } from "react-native";
 import React, { useEffect, useReducer } from "react";
 
-import Colors from "../../constants/Colors";
-
 const INPUT_CHANGE = "INPUT_CHANGE";
 const INPUT_BLUR = "INPUT_BLUR";
 
@@ -101,8 +99,7 @@ const styles = StyleSheet.create({
   input: {
     paddingHorizontal: 2,
     paddingVertical: 5,
-    borderBottomColor:
-      Platform.OS === "android" ? Colors.disabledroid : Colors.disablediOS,
+    borderBottomColor: "green",
     borderBottomWidth: 1,
   },
   errorContainer: {

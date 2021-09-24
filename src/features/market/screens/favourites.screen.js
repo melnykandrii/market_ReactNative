@@ -15,8 +15,6 @@ export const FavouritesScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
   const favProducts = useSelector((state) => state.products.favouriteProducts);
-  console.log(favProducts);
-
   const dispatch = useDispatch();
   /*
   const loadFavourites = useCallback(async () => {

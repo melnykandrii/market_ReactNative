@@ -1,24 +1,27 @@
+import React from "react";
 import {
   CardStyleInterpolators,
   createStackNavigator,
+  TransitionPresets,
 } from "@react-navigation/stack";
-import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import { HeaderButtons } from "react-navigation-header-buttons";
 import { useSelector } from "react-redux";
 
 import { CartScreen } from "../../features/market/screens/cart.screen";
 import FiltersScreen from "../../../screens/shop/FiltersScreen";
-import HeaderButton from "../../../components/UI/HeaderButton";
 import { ProductDetailsScreen } from "../../features/market/screens/product-details.screen";
-import React from "react";
-import { TransitionPresets } from "@react-navigation/stack";
-import { theme } from "../theme";
 import { ImageScreen } from "../../features/market/screens/image.screen";
-import { HeaderBadgedButton } from "../../components/buttons/header-badged-button.component";
-
 import { ActionScreen } from "../../features/market/screens/action.screen";
-
 import { ShopScreen } from "../../features/market/screens/market.screen";
 import { FavouritesScreen } from "../../features/market/screens/favourites.screen";
+
+import { theme } from "../theme";
+
+import { CartHeaderButton } from "../../components/buttons/cart-header-button.component";
+import { MenuHeaderButton } from "../../components/buttons/menu-header-button.component";
+import { FavouriteHeaderButton } from "../../components/buttons/favourite-header-button.component";
+import { CloseHeaderButton } from "../../components/buttons/close-header-button.component";
+import { SaveHeaderButton } from "../../components/buttons/save-header-button.component";
 
 const ShopNavi = createStackNavigator();
 
@@ -50,40 +53,19 @@ export const ShopNavigator = () => {
         component={ShopScreen}
         options={({ navigation }) => ({
           headerLeft: (props) => (
-            <HeaderButtons HeaderButtonComponent={HeaderButton}>
-              <Item
-                title="Menu"
-                iconName="menu-outline"
-                onPress={() => {
-                  navigation.toggleDrawer();
-                }}
-                testID="menu"
-              />
-            </HeaderButtons>
+            <MenuHeaderButton {...props} navigation={navigation} />
           ),
           headerRight: (props) => (
-            <HeaderButtons HeaderButtonComponent={HeaderBadgedButton}>
-              <Item
-                badgeVisible={false}
-                title="Favourites"
-                iconName={favProducts.length ? "star" : "star-outline"}
-                badgeTestId="filter-badge"
-                buttonTestId="filter-button-badge"
-                onPress={() => {
-                  navigation.navigate("Favourites");
-                }}
+            <HeaderButtons>
+              <FavouriteHeaderButton
+                {...props}
+                favProducts={favProducts}
+                navigation={navigation}
               />
-              <Item
-                badgeVisible={cartTotalQty}
-                badgeValue={cartTotalQty}
-                badgeTestId="cart-badge"
-                buttonTestId="cart-button-badge"
-                title="Cart"
-                iconName={cartTotalQty ? "cart" : "cart-outline"}
-                testID="cartBadge"
-                onPress={() => {
-                  navigation.navigate("Cart");
-                }}
+              <CartHeaderButton
+                {...props}
+                cartTotalQty={cartTotalQty}
+                navigation={navigation}
               />
             </HeaderButtons>
           ),
@@ -96,20 +78,11 @@ export const ShopNavigator = () => {
           title: route.params?.productTitle ?? "Product Details",
           gestureEnabled: true,
           headerRight: (props) => (
-            <HeaderButtons HeaderButtonComponent={HeaderBadgedButton}>
-              <Item
-                badgeVisible={cartTotalQty}
-                badgeValue={cartTotalQty}
-                badgeTestId="cart-badge"
-                buttonTestId="cart-button-badge"
-                title="Cart"
-                iconName={cartTotalQty ? "cart" : "cart-outline"}
-                testID="cartBadge"
-                onPress={() => {
-                  navigation.navigate("Cart");
-                }}
-              />
-            </HeaderButtons>
+            <CartHeaderButton
+              {...props}
+              cartTotalQty={cartTotalQty}
+              navigation={navigation}
+            />
           ),
         })}
       />
@@ -130,20 +103,11 @@ export const ShopNavigator = () => {
           title: "Wish List",
           gestureEnabled: true,
           headerRight: (props) => (
-            <HeaderButtons HeaderButtonComponent={HeaderBadgedButton}>
-              <Item
-                badgeVisible={cartTotalQty}
-                badgeValue={cartTotalQty}
-                badgeTestId="cart-badge"
-                buttonTestId="cart-button-badge"
-                title="Cart"
-                iconName={cartTotalQty ? "cart" : "cart-outline"}
-                testID="cartBadge"
-                onPress={() => {
-                  navigation.navigate("Cart");
-                }}
-              />
-            </HeaderButtons>
+            <CartHeaderButton
+              {...props}
+              cartTotalQty={cartTotalQty}
+              navigation={navigation}
+            />
           ),
         })}
       />
@@ -164,27 +128,16 @@ export const ShopNavigator = () => {
           title: "Filters",
           ...TransitionPresets.FadeFromBottomAndroid,
           headerLeft: (props) => (
-            <HeaderButtons HeaderButtonComponent={HeaderButton}>
-              <Item
-                title="Close"
-                iconName="close-outline"
-                onPress={() => {
-                  navigation.goBack();
-                }}
-              />
-            </HeaderButtons>
+            <CloseHeaderButton {...props} navigation={navigation} />
           ),
           headerRight: (props) => (
-            <HeaderButtons HeaderButtonComponent={HeaderButton}>
-              <Item
-                title="Save"
-                iconName="checkmark-outline"
-                onPress={() => {
-                  route.params.save();
-                  navigation.goBack();
-                }}
-              />
-            </HeaderButtons>
+            <SaveHeaderButton
+              {...props}
+              onPress={() => {
+                route.params.save();
+                navigation.goBack();
+              }}
+            />
           ),
         })}
       />

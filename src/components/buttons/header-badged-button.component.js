@@ -38,9 +38,10 @@ export const HeaderBadgedButton = (props) => {
         <HeaderButton
           {...props}
           IconComponent={Ionicons}
-          iconSize={props.iconSize || theme.spacessh[14]}
+          iconSize={props.iconSize || theme.spacessh[16]}
           color={props.color || theme.colors.bg.primary}
-          testId={props.buttonTestId}
+          testID={props.buttonTestId}
+          disabled={props.buttonDisabled}
         />
       </View>
     </ButtonContainer>

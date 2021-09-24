@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
-import { ActivityIndicator } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
-import Colors from "../../../../constants/Colors";
 import * as authActions from "../../../../store/actions/auth";
 import { Background, Container } from "../styles/startup-screen.styles";
+import { LoadingState } from "../../../components/loading/loading-state.component";
 
 export const StartupScreen = () => {
   const dispatch = useDispatch();
@@ -35,7 +34,7 @@ export const StartupScreen = () => {
   return (
     <Background>
       <Container>
-        <ActivityIndicator size="large" color={Colors.primaryColor} />
+        <LoadingState />
       </Container>
     </Background>
   );

@@ -3,9 +3,8 @@ import {
   CardStyleInterpolators,
   createStackNavigator,
 } from "@react-navigation/stack";
-import { HeaderButtons, Item } from "react-navigation-header-buttons";
-import HeaderButton from "../../../components/UI/HeaderButton";
 import { OrdersScreen } from "../../features/orders/screens/orders.screen";
+import { MenuHeaderButton } from "../../components/buttons/menu-header-button.component";
 import { theme } from "../theme";
 
 const OrdersNavi = createStackNavigator();
@@ -34,15 +33,7 @@ export const OrdersNavigation = () => {
         component={OrdersScreen}
         options={({ navigation }) => ({
           headerLeft: (props) => (
-            <HeaderButtons HeaderButtonComponent={HeaderButton}>
-              <Item
-                title="Menu"
-                iconName="menu-outline"
-                onPress={() => {
-                  navigation.toggleDrawer();
-                }}
-              />
-            </HeaderButtons>
+            <MenuHeaderButton {...props} navigation={navigation} />
           ),
         })}
       />

@@ -1,15 +1,10 @@
 import { Button, Platform, StyleSheet, View } from "react-native";
-
-import Colors from "../../constants/Colors";
 import React from "react";
 
 const DefaultButton = (props) => {
   return (
     <View style={styles.buttonCont}>
-      <Button
-        {...props}
-        color={Platform.OS === "android" ? Colors.headdroid : Colors.labelios}
-      />
+      <Button {...props} color="green" />
     </View>
   );
 };

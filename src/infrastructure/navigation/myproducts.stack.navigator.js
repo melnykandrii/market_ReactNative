@@ -1,16 +1,18 @@
+import React from "react";
 import {
   CardStyleInterpolators,
   createStackNavigator,
+  TransitionPresets,
 } from "@react-navigation/stack";
-import { HeaderButtons, Item } from "react-navigation-header-buttons";
+
 import { EditProductScreen } from "../../features/market/screens/edit-product.screen";
-import HeaderButton from "../../../components/UI/HeaderButton";
-import React from "react";
 import { UserProductsScreen } from "../../features/market/screens/my-products.screen";
-import { theme } from "../theme";
 import { ImageScreen } from "../../features/market/screens/image.screen";
 
-import { TransitionPresets } from "@react-navigation/stack";
+import { MenuHeaderButton } from "../../components/buttons/menu-header-button.component";
+import { AddHeaderButton } from "../../components/buttons/add-header-button.component";
+
+import { theme } from "../theme";
 
 const ProdNavi = createStackNavigator();
 
@@ -38,26 +40,14 @@ export const MyProdNavigation = () => {
         component={UserProductsScreen}
         options={({ route, navigation }) => ({
           headerLeft: (props) => (
-            <HeaderButtons HeaderButtonComponent={HeaderButton}>
-              <Item
-                title="Menu"
-                iconName="menu-outline"
-                onPress={() => {
-                  navigation.toggleDrawer();
-                }}
-              />
-            </HeaderButtons>
+            <MenuHeaderButton {...props} navigation={navigation} />
           ),
           headerRight: (props) => (
-            <HeaderButtons HeaderButtonComponent={HeaderButton}>
-              <Item
-                title="Add"
-                iconName="add"
-                onPress={() => {
-                  navigation.navigate("Edit Product");
-                }}
-              />
-            </HeaderButtons>
+            <AddHeaderButton
+              onPress={() => {
+                navigation.navigate("Edit Product");
+              }}
+            />
           ),
         })}
       />
@@ -75,7 +65,6 @@ export const MyProdNavigation = () => {
         options={() => ({
           headerShown: false,
           gestureEnabled: true,
-
           ...TransitionPresets.FadeFromBottomAndroid,
         })}
       />
