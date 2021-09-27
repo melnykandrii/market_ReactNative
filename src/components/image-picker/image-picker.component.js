@@ -1,11 +1,4 @@
-import {
-  Alert,
-  TouchableOpacity,
-  Image,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { TouchableOpacity, Image, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
 import ImagePicker from "react-native-image-crop-picker";
 //import { BodyButton } from "../../src/components/buttons/body.button.component";

@@ -1,5 +1,5 @@
-import * as cartActions from "../../../../store/actions/cart";
-import * as ordersActions from "../../../../store/actions/order";
+import * as cartActions from "../../../services/store/actions/cart";
+import * as ordersActions from "../../../services/store/actions/order";
 
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   headerQty: {
     fontFamily: theme.fonts.title,
     fontSize: 10,
-    marginLeft: "30%",
+    marginLeft: "20%",
     color: theme.colors.bg.primary,
   },
   headerName: {

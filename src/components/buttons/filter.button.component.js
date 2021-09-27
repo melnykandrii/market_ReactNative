@@ -1,7 +1,7 @@
 import { Button, Platform, StyleSheet, View } from "react-native";
 import React from "react";
 
-const DefaultButton = (props) => {
+export const FilterButton = (props) => {
   return (
     <View style={styles.buttonCont}>
       <Button {...props} color="green" />
@@ -16,5 +16,3 @@ const styles = StyleSheet.create({
     alignItems: Platform.OS === "android" ? "stretch" : "center",
   },
 });
-
-export default DefaultButton;

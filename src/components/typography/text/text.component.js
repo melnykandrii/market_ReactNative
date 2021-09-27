@@ -42,6 +42,14 @@ const authLabel = (theme) => `
     margin-top: 10px;
 `;
 
+const inputLabel = (theme) => `
+    font-family: ${theme.fonts.title};
+    font-weight: ${theme.fontWeights.regular};
+    font-size: ${theme.fontSizes.body};
+    color: ${theme.colors.bg.black};
+    margin-top: 10px;
+`;
+
 const error = (theme) => `
     color: ${theme.colors.text.error};
 `;
@@ -80,6 +88,7 @@ const variants = {
   button,
   authLabel,
   authHeader,
+  inputLabel,
 };
 
 export const Text = styled.Text`

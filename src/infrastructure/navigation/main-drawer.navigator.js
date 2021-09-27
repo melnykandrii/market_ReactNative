@@ -5,7 +5,7 @@ import React from "react";
 import { ShopNavigator } from "./market.navigator";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { DrawerComponent } from "../../components/drawer/drawer.component";
-import * as authActions from "../../../store/actions/auth";
+import * as authActions from "../../services/store/actions/auth";
 import { useDispatch } from "react-redux";
 import { theme } from "../theme";
 import { MenuIcon } from "../../components/icons/menu-icon.component";

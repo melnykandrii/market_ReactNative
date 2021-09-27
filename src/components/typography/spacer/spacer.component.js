@@ -7,6 +7,7 @@ const sizeVariant = {
   large: 3,
   xl: 4,
   xxl: 5,
+  xxll: 10,
   xxxl: 20,
 };
 

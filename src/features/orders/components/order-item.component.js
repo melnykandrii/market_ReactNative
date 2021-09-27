@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import { StyleSheet } from "react-native";
 import { CartItem } from "../../market/components/cart-item.component";
 import { BodyButton } from "../../../components/buttons/button.component";
-//import { BodyButton } from "../../../components/buttons/body.button.component";
 import {
   OrderContainer,
   OrderLabel,
@@ -29,7 +29,7 @@ export const OrderItem = (props) => {
         onPress={() => {
           setShowDetails((prevState) => !prevState);
         }}
-        labelStyle={{ fontSize: 10 }}
+        labelStyle={styles.labelStyle}
         compact={true}
       />
 
@@ -56,3 +56,8 @@ export const OrderItem = (props) => {
     </OrderCard>
   );
 };
+const styles = StyleSheet.create({
+  labelStyle: {
+    fontSize: 10,
+  },
+});

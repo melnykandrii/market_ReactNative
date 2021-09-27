@@ -11,7 +11,7 @@ import ProductItem from "../components/product-item.component";
 import { theme } from "../../../infrastructure/theme";
 import { InfoScreen } from "../../../components/info/info-screen.component";
 import { LoadingState } from "../../../components/loading/loading-state.component";
-import * as productsActions from "../../../../store/actions/products";
+import * as productsActions from "../../../services/store/actions/products";
 import { CloseButton } from "../../../components/buttons/close.button.component";
 
 export const UserProductsScreen = (props) => {

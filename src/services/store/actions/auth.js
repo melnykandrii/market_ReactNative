@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import ENV from "../../env";
+import ENV from "../../../../env";
 
 export const SIGNUP = "SIGNUP";
 export const LOGIN = "LOGIN";

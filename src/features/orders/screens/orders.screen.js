@@ -3,7 +3,7 @@ import { InfoScreen } from "../../../components/info/info-screen.component";
 import { OrderItem } from "../components/order-item.component";
 import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import * as ordersActions from "../../../../store/actions/order";
+import * as ordersActions from "../../../services/store/actions/order";
 import { LoadingState } from "../../../components/loading/loading-state.component";
 import { theme } from "../../../infrastructure/theme";
 

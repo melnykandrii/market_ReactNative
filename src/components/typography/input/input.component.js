@@ -1,6 +1,31 @@
 import React, { useReducer, useEffect } from "react";
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import styled from "styled-components";
 import { theme } from "../../../infrastructure/theme";
+import { Text } from "../text/text.component.js";
+
+const InputContainer = styled.View`
+  width: 100%;
+`;
+
+const ErrorContainer = styled.View`
+  margin-vertical: ${(props) => props.theme.sizepx[0]};
+`;
+
+const StyledInput = styled.TextInput`
+  padding-horizontal: 2px;
+  padding-vertical: 5px;
+  border-bottom-color: ${(props) =>
+    props.borderColor || theme.colors.ui.primary};
+  border-bottom-width: 1px;
+  color: ${(props) => props.mainColor || theme.colors.ui.primary};
+`;
+
+const StyledLabel = styled(Text)`
+  color: ${(props) => props.textColor || theme.colors.ui.primary};
+  font-family: ${(props) => props.theme.fonts.title};
+  font-weight: ${theme.fontWeights.regular};
+  margin-top: 10px;
+`;
 
 const INPUT_CHANGE = "INPUT_CHANGE";
 const INPUT_BLUR = "INPUT_BLUR";
@@ -65,50 +90,28 @@ export const Input = (props) => {
   };
 
   return (
-    <View style={styles.formControl}>
-      <Text style={styles.label}>{props.label}</Text>
-      <TextInput
+    <InputContainer>
+      <StyledLabel {...props}>{props.label}</StyledLabel>
+      <StyledInput
         {...props}
-        style={styles.input}
         value={inputState.value}
         onChangeText={textChangeHandler}
         onBlur={lostFocusHandler}
         onSubmitEditing={props.submit}
+        keyboardType={props.keyboard}
+        returnKeyType={props.returnKey}
         ref={props.inputRef}
         blurOnSubmit={props.blur}
         selectionColor={theme.colors.bg.grey}
         cursorColor={theme.colors.ui.primary}
+        placeholder={props.placeholder}
         placeholderTextColor={props.phtextColor || theme.colors.bg.grey}
       />
       {!inputState.isValid && inputState.touched && (
-        <View style={styles.errorContainer}>
-          <Text style={styles.errorText}>{props.errorText}</Text>
-        </View>
+        <ErrorContainer>
+          <Text variant="error">{props.errorText}</Text>
+        </ErrorContainer>
       )}
-    </View>
+    </InputContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  formControl: {
-    width: "100%",
-  },
-  label: {
-    marginVertical: 3,
-    color: theme.colors.ui.primary,
-  },
-  input: {
-    paddingHorizontal: 2,
-    paddingVertical: 5,
-    borderBottomColor: theme.colors.ui.primary,
-    borderBottomWidth: 1,
-    color: theme.colors.ui.primary,
-  },
-  errorContainer: {
-    marginVertical: 5,
-  },
-  errorText: {
-    color: theme.colors.ui.error,
-    fontSize: 13,
-  },
-});

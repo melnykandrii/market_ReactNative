@@ -20,7 +20,7 @@ export const fetchProducts = () => {
       );
       if (!response.ok) {
         const errorResponseData = await response.json();
-        const errorId = errorResponseData.error.message;
+        //  const errorId = errorResponseData.error.message;
         console.log(errorResponseData);
         let errorMessage = "Something went wrong";
         throw new Error(errorMessage);

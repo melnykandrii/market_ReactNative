@@ -5,7 +5,7 @@ import {
   SET_PRODUCTS,
   TOGGLE_FAVOURITE,
   UPDATE_PRODUCT,
-  SET_FAVOURITES,
+  // SET_FAVOURITES,
 } from "../actions/products";
 import Product from "../../models/product";
 

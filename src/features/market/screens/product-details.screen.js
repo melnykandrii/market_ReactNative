@@ -1,13 +1,14 @@
-import * as cartActions from "../../../../store/actions/cart";
-import * as productsActions from "../../../../store/actions/products";
+import React from "react";
 import { ScrollView, TouchableOpacity } from "react-native";
-import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import * as cartActions from "../../../services/store/actions/cart";
+import * as productsActions from "../../../services/store/actions/products";
+
 import { theme } from "../../../infrastructure/theme";
-//import { BodyButton } from "../../../components/buttons/body.button.component";
+
 import { BodyButton } from "../../../components/buttons/button.component";
 import { Spacer } from "../../../components/typography/spacer/spacer.component";
-import { CloseButton } from "../../../components/buttons/close.button.component";
+
 import {
   Image,
   TopContainer,
@@ -19,10 +20,10 @@ import {
   Description,
 } from "../styles/product-details-screen.styles";
 import { InfoScreen } from "../../../components/info/info-screen.component";
+import { FavouriteButton } from "../../../components/buttons/favourite-button.component";
 
 export const ProductDetailsScreen = (props) => {
   const prodId = props.route.params.productId;
-  const { item } = props.route.params;
   const isFavourite = useSelector((state) =>
     state.products.favouriteProducts.find((product) => product.id === prodId)
   );
@@ -49,18 +50,11 @@ export const ProductDetailsScreen = (props) => {
 
   return (
     <ScrollView>
-      <CloseButton
+      <FavouriteButton
         name={isFavourite ? "star" : "star-outline"}
-        onClose={() => {
+        onFavourite={() => {
           toggleFavouriteHandler(selectedProduct.id);
         }}
-        style={{
-          position: "absolute",
-          zIndex: 9,
-          top: 10,
-          right: 10,
-        }}
-        buttonColor={theme.colors.bg.primary}
       />
       <TouchableOpacity
         onPress={() => {

@@ -11,7 +11,7 @@ import {
 import { Card } from "../../../components/cards/card.component";
 import React from "react";
 import { theme } from "../../../infrastructure/theme";
-import { CloseButton } from "../../../components/buttons/close.button.component";
+import { FavouriteButton } from "../../../components/buttons/favourite-button.component";
 
 const ProductItem = (props) => {
   let TouchableCmp = TouchableOpacity;
@@ -22,11 +22,9 @@ const ProductItem = (props) => {
   return (
     <Card style={{ ...styles.product, ...props.cardStyle }}>
       {!props.onShow && (
-        <CloseButton
+        <FavouriteButton
           name={props.name}
-          onClose={props.toggleFavouriteHandler}
-          style={styles.fav}
-          buttonColor={theme.colors.bg.primary}
+          onFavourite={props.toggleFavouriteHandler}
         />
       )}
       <View style={styles.touchable}>
@@ -99,13 +97,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: "25%",
     paddingHorizontal: 20,
-  },
-  fav: {
-    position: "absolute",
-    zIndex: 9,
-    top: 10,
-    right: 10,
-    backgroundColor: theme.colors.ui.primary,
   },
 });
 

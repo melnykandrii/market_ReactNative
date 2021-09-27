@@ -1,52 +1,21 @@
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
 import { theme } from "../../../infrastructure/theme";
-import { CloseButton } from "../../../components/buttons/close.button.component";
+import { CloseButton } from "../../../components/buttons/close-fullscreen-button.component";
 import { InfoIcon } from "../../../components/icons/info-icon.component";
+import { FullScreen, Label } from "../styles/full-screen.styles";
 
 export const ActionScreen = (props) => {
   return (
-    <View style={styles.imageContainer}>
-      <CloseButton
-        style={styles.closeButton}
-        size={30}
-        onClose={() => props.navigation.goBack()}
-      />
-
+    <FullScreen>
+      <CloseButton navigation={props.navigation} />
       <InfoIcon
         {...props}
         size={100}
         iconName="check-bold"
-        iconColor="white"
-        iconBg="green"
+        iconColor={theme.colors.bg.white}
+        iconBg={theme.colors.ui.success}
       />
-      <Text
-        style={{
-          marginTop: 60,
-          fontSize: 50,
-          color: "green",
-          fontFamily: theme.fonts.heading,
-        }}
-      >
-        Success!
-      </Text>
-    </View>
+      <Label>Success!</Label>
+    </FullScreen>
   );
 };
-
-const styles = StyleSheet.create({
-  imageContainer: {
-    width: "100%",
-    height: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-
-    backgroundColor: theme.colors.ui.primary,
-  },
-  closeButton: {
-    position: "absolute",
-    zIndex: 9,
-    top: 20,
-    right: 10,
-  },
-});

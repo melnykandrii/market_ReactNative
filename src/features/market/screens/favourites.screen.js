@@ -1,37 +1,13 @@
-import * as cartActions from "../../../../store/actions/cart";
-import * as productsActions from "../../../../store/actions/products";
-
-import { FlatList } from "react-native";
+import * as cartActions from "../../../services/store/actions/cart";
+import * as productsActions from "../../../services/store/actions/products";
 import { useDispatch, useSelector } from "react-redux";
 import { InfoScreen } from "../../../components/info/info-screen.component";
-import ProductItem from "../components/product-item.component";
-import React, { useState, useCallback, useEffect } from "react";
-import { BodyButton } from "../../../components/buttons/button.component";
-import { LoadingState } from "../../../components/loading/loading-state.component";
-import { theme } from "../../../infrastructure/theme";
+import React from "react";
 import { ProductsList } from "../components/products-list.component";
 
 export const FavouritesScreen = (props) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState();
   const favProducts = useSelector((state) => state.products.favouriteProducts);
   const dispatch = useDispatch();
-  /*
-  const loadFavourites = useCallback(async () => {
-    setError(null);
-    setIsLoading(true);
-    try {
-      await dispatch(productsActions.fetchFavourites());
-    } catch (err) {
-      setError(err.message);
-    }
-    setIsLoading(false);
-  }, [dispatch]);
-
-  useEffect(() => {
-    loadFavourites();
-  }, [dispatch, loadFavourites]);
-*/
   const viewProductHandler = (id, title, { item }) => {
     props.navigation.navigate("Product Details", {
       productId: id,
@@ -59,10 +35,6 @@ export const FavouritesScreen = (props) => {
         }}
       />
     );
-  }
-
-  if (isLoading) {
-    return <LoadingState />;
   }
 
   return (

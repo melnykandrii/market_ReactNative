@@ -1,11 +1,14 @@
 import React, { useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
-import * as authActions from "../../../../store/actions/auth";
-import { Background, Container } from "../styles/startup-screen.styles";
-import { LoadingState } from "../../../components/loading/loading-state.component";
+import * as authActions from "../../../services/store/actions/auth";
+import {
+  Background,
+  Container,
+  LoadingIndicator,
+} from "../styles/startup-screen.styles";
 
-export const StartupScreen = () => {
+export const StartupScreen = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,7 +37,7 @@ export const StartupScreen = () => {
   return (
     <Background>
       <Container>
-        <LoadingState />
+        <LoadingIndicator />
       </Container>
     </Background>
   );

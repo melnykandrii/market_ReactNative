@@ -1,12 +1,12 @@
-import { Button, Platform, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React, { useCallback, useEffect, useState } from "react";
 
-import DefaultButton from "../../components/UI/DefaultButton";
-import FilterSwitch from "../../components/UI/FilterSwitch";
-import { setFilters } from "../../store/actions/products";
+import { FilterButton } from "../../../components/buttons/filter.button.component";
+import { FilterSwitch } from "../../../components/switches/filter-switcher";
+import { setFilters } from "../../../services/store/actions/products";
 import { useDispatch } from "react-redux";
 
-const FiltersScreen = (props) => {
+export const FiltersScreen = (props) => {
   const { navigation } = props;
 
   const [isClothes, setIsClothes] = useState(false);
@@ -60,7 +60,7 @@ const FiltersScreen = (props) => {
         state={isOffice}
         onChange={(newValue) => setIsOffice(newValue)}
       />
-      <DefaultButton
+      <FilterButton
         title="Save"
         onPress={() => {
           props.route.params.save();
@@ -77,4 +77,3 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
 });
-export default FiltersScreen;

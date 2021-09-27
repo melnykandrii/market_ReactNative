@@ -1,4 +1,4 @@
-import * as productsActions from "../../../../store/actions/products";
+import * as productsActions from "../../../services/store/actions/products";
 import {
   Alert,
   KeyboardAvoidingView,
@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import React, { useCallback, useEffect, useReducer, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import DefaultInputCont from "../../../../components/UI/InputComponent";
+import { Input } from "../../../components/typography/input/input.component";
 import { ImgPicker } from "../../../components/image-picker/image-picker.component";
 
 import { BodyButton } from "../../../components/buttons/button.component";
@@ -18,6 +18,7 @@ import { theme } from "../../../infrastructure/theme";
 import { LoadingState } from "../../../components/loading/loading-state.component";
 import { Spacer } from "../../../components/typography/spacer/spacer.component";
 import { SaveHeaderButton } from "../../../components/buttons/save-header-button.component";
+import { InfoScreen } from "../../../components/info/info-screen.component";
 
 const FORM_INPUT_UPDATE = "FORM_INPUT_UPDATE";
 
@@ -129,7 +130,11 @@ export const EditProductScreen = (props) => {
   useEffect(() => {
     props.navigation.setOptions({
       headerRight: () => (
-        <SaveHeaderButton onPress={submitHandler} buttonDisabled={!imageUrl} />
+        <SaveHeaderButton
+          onPress={submitHandler}
+          buttonDisabled={!imageUrl}
+          color={!imageUrl ? theme.colors.ui.primary : theme.colors.bg.primary}
+        />
       ),
     });
   }, [imageUrl, props.navigation, submitHandler]);
@@ -156,13 +161,31 @@ export const EditProductScreen = (props) => {
     return <LoadingState />;
   }
 
+  if (error) {
+    return (
+      <InfoScreen
+        title="An error occured!"
+        subTitle="Please try again."
+        buttonTitle="Try again"
+        iconName="close"
+        buttonIcon="reload"
+        compact="true"
+        iconBg={theme.colors.ui.error}
+        onPress={() => {}}
+      />
+    );
+  }
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={{ flex: 1 }}
+      style={styles.keyboard}
       keyboardVerticalOffset={80}
     >
-      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1 }}>
+      <ScrollView
+        style={styles.keyboard}
+        contentContainerStyle={styles.contentContainer}
+      >
         <ImgPicker
           onImageTaken={imageHandler}
           imageUrl={imageUrl}
@@ -172,7 +195,7 @@ export const EditProductScreen = (props) => {
         />
 
         <View style={styles.form}>
-          <DefaultInputCont
+          <Input
             id="title"
             label="Title"
             errorText="Please enter a valid title!"
@@ -189,9 +212,12 @@ export const EditProductScreen = (props) => {
             initialValue={editedProduct ? editedProduct.title : ""}
             initiallyValid={!!editedProduct}
             required
+            mainColor={theme.colors.bg.black}
+            borderColor={theme.colors.bg.black}
+            textColor={theme.colors.bg.black}
           />
           {editedProduct ? null : (
-            <DefaultInputCont
+            <Input
               id="price"
               label="Price"
               errorText="Please enter a valid price!"
@@ -208,9 +234,12 @@ export const EditProductScreen = (props) => {
               onInputChange={inputChangeHandler}
               required
               min={0.1}
+              mainColor={theme.colors.bg.black}
+              borderColor={theme.colors.bg.black}
+              textColor={theme.colors.bg.black}
             />
           )}
-          <DefaultInputCont
+          <Input
             id="description"
             label="Description"
             keyboard="default"
@@ -230,7 +259,9 @@ export const EditProductScreen = (props) => {
             initiallyValid={!!editedProduct}
             required
             minLength={5}
-            style={styles.button}
+            mainColor={theme.colors.bg.black}
+            borderColor={theme.colors.bg.black}
+            textColor={theme.colors.bg.black}
           />
         </View>
         <Spacer position="bottom" size="xxl" />
@@ -251,6 +282,7 @@ const styles = StyleSheet.create({
   keyboard: {
     flex: 1,
   },
+  contentContainer: { flexGrow: 1 },
   form: {
     paddingHorizontal: 10,
   },

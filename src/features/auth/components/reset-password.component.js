@@ -1,14 +1,19 @@
-import React, { useState } from "react";
-import { View, Keyboard, TouchableOpacity, TextInput } from "react-native";
+import React from "react";
+import { Keyboard } from "react-native";
 import { Input } from "../../../components/typography/input/input.component";
 import { theme } from "../../../infrastructure/theme";
 import { AuthButton } from "../styles/auth-screen.styles";
 import { Spacer } from "../../../components/typography/spacer/spacer.component";
 import { Text } from "../../../components/typography/text/text.component";
+import styled from "styled-components";
+
+const Container = styled.View`
+  align-items: center;
+`;
 
 export const ResetPassComponent = (props) => {
   return (
-    <View style={{ alignItems: "center" }}>
+    <Container>
       {props.code ? (
         <>
           <Text variant="authHeader">Check your email.</Text>
@@ -33,6 +38,7 @@ export const ResetPassComponent = (props) => {
             id="email"
             label="E-mail"
             keyboardType="email-address"
+            placeholder="my@email.my"
             required
             email
             autoCapitalize="none"
@@ -40,7 +46,6 @@ export const ResetPassComponent = (props) => {
             errorText="Please enter a valid email address"
             onInputChange={props.inputChangeHandler}
             initialValue=""
-            placeholder="Please enter e-mail address"
             submit={Keyboard.dismiss}
           />
           <Spacer position="bottom" size="xl" />
@@ -61,6 +66,6 @@ export const ResetPassComponent = (props) => {
           />
         </>
       )}
-    </View>
+    </Container>
   );
 };

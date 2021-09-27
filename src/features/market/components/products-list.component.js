@@ -1,8 +1,7 @@
 import React from "react";
-import * as productsActions from "../../../../store/actions/products";
 
 import { FlatList, RefreshControl } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import ProductItem from "../components/product-item.component";
 import { BodyButton } from "../../../components/buttons/button.component";
 import { theme } from "../../../infrastructure/theme";

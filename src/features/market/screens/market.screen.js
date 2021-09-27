@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
-import * as cartActions from "../../../../store/actions/cart";
-import * as productsActions from "../../../../store/actions/products";
+import * as cartActions from "../../../services/store/actions/cart";
+import * as productsActions from "../../../services/store/actions/products";
 import { useDispatch, useSelector } from "react-redux";
 import { theme } from "../../../infrastructure/theme";
 import { LoadingState } from "../../../components/loading/loading-state.component";

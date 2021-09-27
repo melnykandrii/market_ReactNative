@@ -8,7 +8,7 @@ import { HeaderButtons } from "react-navigation-header-buttons";
 import { useSelector } from "react-redux";
 
 import { CartScreen } from "../../features/market/screens/cart.screen";
-import FiltersScreen from "../../../screens/shop/FiltersScreen";
+import { FiltersScreen } from "../../features/market/screens/filters.screen";
 import { ProductDetailsScreen } from "../../features/market/screens/product-details.screen";
 import { ImageScreen } from "../../features/market/screens/image.screen";
 import { ActionScreen } from "../../features/market/screens/action.screen";

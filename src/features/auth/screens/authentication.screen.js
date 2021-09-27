@@ -1,18 +1,13 @@
 import React, { useState, useEffect, useReducer, useCallback } from "react";
 import {
-  ScrollView,
   Platform,
   Alert,
   TouchableWithoutFeedback,
   Keyboard,
-  Text,
-  TouchableOpacity,
 } from "react-native";
 import { useDispatch } from "react-redux";
 
-import * as authActions from "../../../../store/actions/auth";
-import { Input } from "../../../components/typography/input/input.component";
-import { theme } from "../../../infrastructure/theme";
+import * as authActions from "../../../services/store/actions/auth";
 import {
   LogoImage,
   AccountBackground,
@@ -20,9 +15,7 @@ import {
   KeyboardView,
   LogoContainer,
   AuthCard,
-  AuthButton,
 } from "../styles/auth-screen.styles";
-import { Spacer } from "../../../components/typography/spacer/spacer.component";
 import { SignUpComponent } from "../components/sign-up.component";
 import { ResetPassComponent } from "../components/reset-password.component";
 

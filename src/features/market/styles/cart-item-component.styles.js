@@ -45,7 +45,7 @@ export const ItemTitle = styled.Text`
 `;
 
 export const PriceContainer = styled.View`
-  flex: 2;
+  flex: 2.5;
   flex-direction: row;
   justify-content: flex-end;
 `;

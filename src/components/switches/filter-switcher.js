@@ -1,8 +1,8 @@
-import { Platform, StyleSheet, Switch, Text, View } from "react-native";
+import { StyleSheet, Switch, Text, View } from "react-native";
 
 import React from "react";
 
-const FilterSwitch = (props) => {
+export const FilterSwitch = (props) => {
   return (
     <View style={styles.filterContainer}>
       <Text>{props.label}</Text>
@@ -29,4 +29,3 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
 });
-export default FilterSwitch;

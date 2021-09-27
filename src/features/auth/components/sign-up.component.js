@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { ScrollView, Keyboard, TouchableOpacity } from "react-native";
 import { Input } from "../../../components/typography/input/input.component";
 import { theme } from "../../../infrastructure/theme";
@@ -12,7 +12,8 @@ export const SignUpComponent = (props) => {
       <Input
         id="email"
         label="E-mail"
-        keyboardType="email-address"
+        keyboard="email-address"
+        placeholder="my@email.my"
         required
         email
         autoCapitalize="none"
@@ -29,7 +30,8 @@ export const SignUpComponent = (props) => {
       <Input
         id="password"
         label="Password"
-        keyboardType="default"
+        keyboard="default"
+        placeholder="mypassword"
         secureTextEntry
         required
         minLength={6}
@@ -56,6 +58,7 @@ export const SignUpComponent = (props) => {
           id="repeatedPassword"
           label="RepeatePassword"
           keyboardType="default"
+          placeholder="mypassword"
           secureTextEntry
           required
           minLength={6}

@@ -1,9 +1,9 @@
 {
-  "name": "QSHPQ",
-  "displayName": "QSHPQ",
+  "name": "S-Market",
+  "displayName": "S-Market",
   "expo": {
-    "name": "QSHPQ",
-    "slug": "QSHPQ",
+    "name": "S-Market",
+    "slug": "S-Market",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
