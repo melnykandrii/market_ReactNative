@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { ScrollView, Keyboard, TouchableOpacity } from "react-native";
 import { Input } from "../../../components/typography/input/input.component";
 import { theme } from "../../../infrastructure/theme";
 import { AuthButton } from "../styles/auth-screen.styles";
 import { Spacer } from "../../../components/typography/spacer/spacer.component";
 import { Text } from "../../../components/typography/text/text.component";
+import { CheckBox } from "react-native-elements";
 
 export const SignUpComponent = (props) => {
+  const [checked, setChecked] = useState(false);
   return (
     <ScrollView>
       <Input
@@ -54,24 +56,35 @@ export const SignUpComponent = (props) => {
         </TouchableOpacity>
       )}
       {props.isSignUp ? (
-        <Input
-          id="repeatedPassword"
-          label="RepeatePassword"
-          keyboardType="default"
-          placeholder="mypassword"
-          secureTextEntry
-          required
-          minLength={6}
-          autoCapitalize="none"
-          errorText="Please enter a valid password"
-          onInputChange={props.inputChangeHandler}
-          initialValue=""
-          submit={Keyboard.dismiss}
-          inputRef={(repeatPassRef) => {
-            this.repeatPassRef = repeatPassRef;
-          }}
-          blur={false}
-        />
+        <>
+          <Input
+            id="repeatedPassword"
+            label="Repeate Password"
+            keyboardType="default"
+            placeholder="mypassword"
+            secureTextEntry
+            required
+            minLength={6}
+            autoCapitalize="none"
+            errorText="Please enter a valid password"
+            onInputChange={props.inputChangeHandler}
+            initialValue=""
+            submit={Keyboard.dismiss}
+            inputRef={(repeatPassRef) => {
+              this.repeatPassRef = repeatPassRef;
+            }}
+            blur={false}
+          />
+          <CheckBox
+            title="By accepting you are argreed to Terms and Policy"
+            checked={checked}
+            onIconPress={() => setChecked((prevState) => !prevState)}
+            onPress={() => props.navigation.navigate("Tabs")}
+            checkedColor="black"
+            fontFamily="abril"
+            containerStyle={{ backgroundColor: "white", borderWidth: 0 }}
+          />
+        </>
       ) : null}
       <Spacer position="bottom" size="xl" />
       <AuthButton
@@ -80,6 +93,7 @@ export const SignUpComponent = (props) => {
         onPress={props.authHandler}
         buttonLoading={props.isLoading}
         buttonIcon={props.isSignUp ? "account-plus" : "account-circle-outline"}
+        disabled={props.isSignUp && !checked ? true : false}
       />
       <AuthButton
         buttonTitle={`To ${props.isSignUp ? "Login" : "SignUp"}`}

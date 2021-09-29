@@ -154,6 +154,7 @@ export const AuthScreen = (props) => {
                   isSignUp={isSignUp}
                   setIsSignUp={setIsSignUp}
                   setResetPassword={setResetPassword}
+                  navigation={props.navigation}
                 />
               )}
             </AuthCard>

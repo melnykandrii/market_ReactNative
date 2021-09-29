@@ -1,6 +1,7 @@
 import "react-native-gesture-handler";
 
 import * as Font from "expo-font";
+import { StatusBar, SafeAreaView } from "react-native";
 import { ThemeProvider } from "styled-components/native";
 import React, { useState } from "react";
 import { applyMiddleware, combineReducers, createStore } from "redux";
@@ -8,7 +9,7 @@ import { theme } from "./src/infrastructure/theme";
 import AppLoading from "expo-app-loading";
 import { Provider } from "react-redux";
 import ReduxThunk from "redux-thunk";
-import { StatusBar } from "expo-status-bar";
+import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 import authReducer from "./src/services/store/reducers/auth";
 import cartReducer from "./src/services/store/reducers/cart";
 import ordersReducer from "./src/services/store/reducers/order";
@@ -49,12 +50,14 @@ export default function App() {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <Provider store={store}>
-          <AppNavigator />
-        </Provider>
-      </ThemeProvider>
-      <StatusBar style="auto" />
+      <SafeAreaView style={{ flex: 1, marginTop: StatusBar.currentHeight }}>
+        <ThemeProvider theme={theme}>
+          <Provider store={store}>
+            <AppNavigator />
+          </Provider>
+        </ThemeProvider>
+      </SafeAreaView>
+      <ExpoStatusBar style="auto" />
     </>
   );
 }
