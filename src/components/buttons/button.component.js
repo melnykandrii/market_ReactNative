@@ -4,8 +4,14 @@ import { StyleSheet } from "react-native";
 import { theme } from "../../infrastructure/theme";
 import styled from "styled-components";
 
-const StyledButton = styled(Button).attrs((props) => ({}))`
-  width: ${(props) => props.theme.sizepx[10]};
+const StyledButton = styled(Button).attrs((props) => ({
+  labelStyle: {
+    fontFamily: theme.fonts.title,
+    fontSize: props.buttonFontSize,
+    color: props.labelColor || theme.colors.ui.primary,
+  },
+}))`
+  width: ${(props) => props.buttonWidth || props.theme.sizepx[10]};
   font-family: abril;
 `;
 
@@ -18,7 +24,6 @@ export const BodyButton = (props) => {
       loading={props.buttonLoading}
       icon={props.buttonIcon}
       style={{ ...styles.button, ...props.style }}
-      labelStyle={{ ...styles.buttonLabel, ...props.labelStyle }}
       contentStyle={props.buttonContant}
     >
       {props.buttonTitle}
@@ -29,8 +34,5 @@ export const BodyButton = (props) => {
 const styles = StyleSheet.create({
   button: {
     borderColor: theme.colors.ui.disabled,
-  },
-  buttonLabel: {
-    fontFamily: theme.fonts.title,
   },
 });

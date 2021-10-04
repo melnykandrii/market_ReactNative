@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import { CartItem } from "../../market/components/cart-item.component";
 import { BodyButton } from "../../../components/buttons/button.component";
+import { theme } from "../../../infrastructure/theme";
 import {
   OrderContainer,
   OrderLabel,
@@ -31,6 +32,8 @@ export const OrderItem = (props) => {
         }}
         labelStyle={styles.labelStyle}
         compact={true}
+        labelColor={theme.colors.text.primary}
+        buttonFontSize={10}
       />
 
       {showDetails && (

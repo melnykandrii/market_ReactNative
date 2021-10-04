@@ -1,7 +1,7 @@
 import "react-native-gesture-handler";
 
 import * as Font from "expo-font";
-import { StatusBar, SafeAreaView } from "react-native";
+
 import { ThemeProvider } from "styled-components/native";
 import React, { useState } from "react";
 import { applyMiddleware, combineReducers, createStore } from "redux";
@@ -50,13 +50,11 @@ export default function App() {
 
   return (
     <>
-      <SafeAreaView style={{ flex: 1, marginTop: StatusBar.currentHeight }}>
-        <ThemeProvider theme={theme}>
-          <Provider store={store}>
-            <AppNavigator />
-          </Provider>
-        </ThemeProvider>
-      </SafeAreaView>
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <AppNavigator />
+        </Provider>
+      </ThemeProvider>
       <ExpoStatusBar style="auto" />
     </>
   );

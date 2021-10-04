@@ -4,9 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as cartActions from "../../../services/store/actions/cart";
 import * as productsActions from "../../../services/store/actions/products";
 
-import { theme } from "../../../infrastructure/theme";
-
-import { BodyButton } from "../../../components/buttons/button.component";
+import { BlackBodyButton } from "../../../components/buttons/body-black.button.component";
 import { Spacer } from "../../../components/typography/spacer/spacer.component";
 
 import {
@@ -72,11 +70,8 @@ export const ProductDetailsScreen = (props) => {
           <Price>${selectedProduct.price.toFixed(2)}</Price>
         </PriceContainer>
         <ButtonContainer>
-          <BodyButton
+          <BlackBodyButton
             buttonTitle="Buy"
-            mode="outlined"
-            buttonColor={theme.colors.bg.black}
-            style={{ borderColor: theme.colors.bg.grey }}
             onPress={() => {
               dispatch(cartActions.addToCart(selectedProduct));
             }}

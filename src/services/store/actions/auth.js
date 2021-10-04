@@ -36,11 +36,9 @@ export const resetPassword = (email) => {
         }),
       }
     );
-    console.log(response);
     if (!response.ok) {
       //error handle, different types of server responses
       const errorResData = await response.json();
-      console.log(errorResData);
       const errorId = errorResData.error.message;
       let message = "Something went wrong!";
 
@@ -78,7 +76,6 @@ export const signUp = (email, password) => {
     if (!response.ok) {
       //error handel, different types server response
       const errorResData = await response.json();
-      console.log(errorResData);
       const errorId = errorResData.error.message;
       let message = "Something went wrong!";
 
@@ -144,7 +141,6 @@ export const logIn = (email, password) => {
     if (!response.ok) {
       //error handel, what exactly goes wrong
       const errorResData = await response.json();
-      console.log(errorResData);
       const errorId = errorResData.error.message;
       let message = "Something went wrong!";
 

@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { theme } from "../../infrastructure/theme";
-import { BodyButton } from "../buttons/button.component";
 import { InfoIcon } from "../icons/info-icon.component";
+import { BlackBodyButton } from "../buttons/body-black.button.component";
 
 export const InfoScreen = (props) => {
   return (
@@ -11,7 +11,7 @@ export const InfoScreen = (props) => {
       <Text style={styles.title}>{props.title}</Text>
       <Text style={styles.subTitle}>{props.subTitle}</Text>
       <View style={styles.buttonCont}>
-        <BodyButton
+        <BlackBodyButton
           {...props}
           buttonColor={theme.colors.bg.black}
           title={props.buttonTitle}

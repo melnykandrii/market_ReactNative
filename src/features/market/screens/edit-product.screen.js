@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Input } from "../../../components/typography/input/input.component";
 import { ImgPicker } from "../../../components/image-picker/image-picker.component";
 
-import { BodyButton } from "../../../components/buttons/button.component";
+import { BlackBodyButton } from "../../../components/buttons/body-black.button.component";
 import { theme } from "../../../infrastructure/theme";
 import { LoadingState } from "../../../components/loading/loading-state.component";
 import { Spacer } from "../../../components/typography/spacer/spacer.component";
@@ -265,13 +265,12 @@ export const EditProductScreen = (props) => {
           />
         </View>
         <Spacer position="bottom" size="xxl" />
-        <BodyButton
+        <BlackBodyButton
           buttonTitle="Save"
-          mode="outlined"
           onPress={submitHandler}
-          buttonColor={theme.colors.bg.black}
-          style={styles.button}
           disabled={!imageUrl}
+          labelColor={!imageUrl ? "grey" : "black"}
+          style={styles.button}
         />
       </ScrollView>
     </KeyboardAvoidingView>
@@ -288,7 +287,6 @@ const styles = StyleSheet.create({
   },
   button: {
     alignSelf: "center",
-    marginBottom: 10,
-    borderColor: theme.colors.bg.grey,
+    marginVertical: 30,
   },
 });

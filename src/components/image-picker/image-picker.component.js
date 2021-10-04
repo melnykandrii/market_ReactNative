@@ -1,45 +1,12 @@
 import { TouchableOpacity, Image, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
 import ImagePicker from "react-native-image-crop-picker";
-//import { BodyButton } from "../../src/components/buttons/body.button.component";
 import { theme } from "../../infrastructure/theme";
-import { BodyButton } from "../buttons/button.component";
+import { BlackBodyButton } from "../buttons/body-black.button.component";
 
 export const ImgPicker = (props) => {
   const [pickedImage, setPickedImage] = useState(props.imageUrl);
-
-  /* const verifyCameraPermissions = async () => {
-    const result = await ImagePicker.openCamera();
-    console.log(result);
-     if (result.status !== "granted") {
-      Alert.alert(
-        "Insufusiant permisions!",
-        "You need to grant camera permisions!",
-        [{ text: "Ok" }]
-      );
-      return false;
-    }
-    return true;
-  };
-
-  const verifyMediaPermissions = async () => {
-    const result = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (result.status !== "granted") {
-      Alert.alert(
-        "Insufusiant permisions!",
-        "You need to grant media-library permisions!",
-        [{ text: "Ok" }]
-      );
-      return false;
-    }
-    return true;
-  };
-*/
   const takeImageHandler = async () => {
-    /*  const hasPermission = await verifyCameraPermissions();
-    if (!hasPermission) {
-      return;
-    }*/
     try {
       const image = await ImagePicker.openCamera({
         allowsEditing: true,
@@ -89,21 +56,16 @@ export const ImgPicker = (props) => {
         </View>
       </TouchableOpacity>
       <View style={styles.buttonContainer}>
-        <BodyButton
+        <BlackBodyButton
           buttonTitle="Add Photo"
-          mode="outlined"
           onPress={takeImageHandler}
           style={styles.button}
-          buttonColor={theme.colors.bg.black}
         />
 
-        <BodyButton
+        <BlackBodyButton
           buttonTitle="Select Image"
-          mode="outlined"
           onPress={selectImageHandler}
           style={styles.button}
-          compact={true}
-          buttonColor={theme.colors.bg.black}
         />
       </View>
     </View>
@@ -136,7 +98,6 @@ const styles = StyleSheet.create({
   },
   button: {
     width: 140,
-    borderColor: theme.colors.bg.grey,
   },
   emptyText: {
     fontStyle: "italic",

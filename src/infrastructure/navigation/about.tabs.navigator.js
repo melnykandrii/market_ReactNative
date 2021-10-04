@@ -13,24 +13,24 @@ export const AboutTabsNavigator = () => {
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
-          if (route.name === "Terms") {
-            iconName = focused ? "home" : "home-outline";
-          } else if (route.name === "Privacy") {
-            iconName = focused ? "ios-map" : "ios-map-outline";
+          if (route.name === "Terms of Use") {
+            iconName = focused ? "mortar-board" : "mortar-board";
+          } else if (route.name === "Privacy Policy") {
+            iconName = focused ? "law" : "law";
           }
           return (
-            <Icon name={iconName} type="ionicon" size={size} color={color} />
+            <Icon name={iconName} type="octicon" size={size} color={color} />
           );
         },
       })}
       tabBarOptions={{
-        activeTintColor: theme.colors.ui.primary,
-        inactiveTintColor: "gray",
+        activeTintColor: theme.colors.bg.black,
+        inactiveTintColor: theme.colors.bg.grey,
         keyboardHidesTabBar: true,
       }}
     >
-      <Tab.Screen name="Terms" component={TermsScreen} />
-      <Tab.Screen name="Privacy" component={PolicyScreen} />
+      <Tab.Screen name="Terms of Use" component={TermsScreen} />
+      <Tab.Screen name="Privacy Policy" component={PolicyScreen} />
     </Tab.Navigator>
   );
 };

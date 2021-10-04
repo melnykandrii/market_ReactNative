@@ -52,6 +52,14 @@ export const AuthScreen = (props) => {
   const [resetPassword, setResetPassword] = useState(false);
   const [code, setCode] = useState(false);
   const [vCode, setVCode] = useState("");
+  const [isChecked, setIsChecked] = useState(false);
+  const Agree = props.route ? props.route.params : false;
+
+  useEffect(() => {
+    if (Agree) {
+      setIsChecked(Agree.setAgree);
+    }
+  }, [Agree, props.route.params]);
 
   const [formState, dispatchFormState] = useReducer(formReducer, {
     inputValues: {
@@ -155,6 +163,8 @@ export const AuthScreen = (props) => {
                   setIsSignUp={setIsSignUp}
                   setResetPassword={setResetPassword}
                   navigation={props.navigation}
+                  isChecked={isChecked}
+                  setIsChecked={setIsChecked}
                 />
               )}
             </AuthCard>

@@ -50,6 +50,27 @@ const inputLabel = (theme) => `
     margin-top: 10px;
 `;
 
+const aboutHeader = (theme) => `
+    font-family: ${theme.fonts.title};
+    font-weight: ${theme.fontWeights.regular};
+    font-size: ${theme.fontSizes.h5};
+    color: ${theme.colors.bg.black};
+`;
+
+const version = (theme) => `
+    font-family: ${theme.fonts.title};
+    font-weight: ${theme.fontWeights.regular};
+    font-size: ${theme.fontSizes.caption};
+    color: ${theme.colors.bg.primary};
+`;
+
+const date = (theme) => `
+    font-family: ${theme.fonts.title};
+    font-weight: ${theme.fontWeights.regular};
+    font-size: ${theme.fontSizes.caption};
+    color: ${theme.colors.bg.black};
+`;
+
 const error = (theme) => `
     color: ${theme.colors.text.error};
 `;
@@ -68,6 +89,12 @@ const label = (theme) => `
     font-family: ${theme.fonts.heading};
     font-size: ${theme.fontSizes.body};
     font-weight: ${theme.fontWeights.medium};
+`;
+const agreeLabel = (theme) => `
+    font-family: ${theme.fonts.heading};
+    font-size: ${theme.fontSizes.button};
+    font-weight: ${theme.fontWeights.medium};
+    color: ${theme.colors.ui.primary};
 `;
 
 const button = (theme) => `
@@ -89,6 +116,10 @@ const variants = {
   authLabel,
   authHeader,
   inputLabel,
+  aboutHeader,
+  agreeLabel,
+  version,
+  date,
 };
 
 export const Text = styled.Text`

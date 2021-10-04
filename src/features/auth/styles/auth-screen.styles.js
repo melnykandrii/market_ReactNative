@@ -5,6 +5,28 @@ import { theme } from "../../../infrastructure/theme";
 import { Card } from "../../../components/cards/card.component";
 import { LinearGradient } from "expo-linear-gradient";
 import { BodyButton } from "../../../components/buttons/button.component";
+import { CheckBox } from "react-native-elements";
+
+export const CheckBoxContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin-left: -10px;
+`;
+
+export const CheckTerms = styled(CheckBox).attrs((props) => ({
+  fontFamily: theme.fonts.heading,
+  checkedColor: theme.colors.ui.primary,
+  containerStyle: {
+    backgroundColor: theme.colors.bg.primary,
+    borderWidth: 0,
+    width: 30,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+}))`
+  align-items: center;
+`;
 
 export const LogoImage = styled.Image.attrs({
   source: require("../../../../assets/adaptive_icon.png"),
@@ -31,9 +53,7 @@ export const AuthCard = (props) => {
   return <Card style={styles.authCard}>{props.children}</Card>;
 };
 
-export const AccountBackground = styled.View.attrs({
-  //source: require("../../../../assets/home_bg_places.jpg"),
-})`
+export const AccountBackground = styled.View.attrs({})`
   flex: 1;
   align-items: center;
   justify-content: center;
@@ -68,15 +88,15 @@ const styles = StyleSheet.create({
     maxWidth: theme.sizessh[18],
     maxHeight: theme.sizessh[19],
     backgroundColor: theme.colors.bg.primary,
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
   },
   button: {
     alignSelf: "center",
-    marginTop: 20,
+    marginTop: 10,
+    marginBottom: 10,
     width: 120,
     height: 40,
-    //marginHorizontal: "20%",
-    //backgroundColor: theme.colors.bg.primary,
   },
   btContant: {
     width: 120,

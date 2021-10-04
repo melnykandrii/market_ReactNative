@@ -9,9 +9,9 @@ import { CartItem } from "../components/cart-item.component";
 import { InfoScreen } from "../../../components/info/info-screen.component";
 import React, { useState } from "react";
 import { Spacer } from "../../../components/typography/spacer/spacer.component";
-import { BodyButton } from "../../../components/buttons/button.component";
 import { theme } from "../../../infrastructure/theme";
 import { LoadingState } from "../../../components/loading/loading-state.component";
+import { BlackBodyButton } from "../../../components/buttons/body-black.button.component";
 
 export const CartScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -103,15 +103,13 @@ export const CartScreen = (props) => {
         </Text>
       </View>
       <View style={styles.buttonCont}>
-        <BodyButton
+        <BlackBodyButton
           buttonTitle="Order Now"
-          buttonColor={theme.colors.bg.black}
-          mode="outlined"
+          compact="true"
           disabled={cartItems.length === 0}
           onPress={OrderHandler}
-          style={styles.button}
-          compact="true"
           buttonContant={styles.btContant}
+          style={styles.button}
         />
       </View>
     </View>

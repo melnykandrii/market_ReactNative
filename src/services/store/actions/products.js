@@ -19,9 +19,8 @@ export const fetchProducts = () => {
         // `https://storefilern-default-rtdb.firebaseio.com/products.json?auth=${token}`
       );
       if (!response.ok) {
-        const errorResponseData = await response.json();
+        // const errorResponseData = await response.json();
         //  const errorId = errorResponseData.error.message;
-        console.log(errorResponseData);
         let errorMessage = "Something went wrong";
         throw new Error(errorMessage);
       }
@@ -49,7 +48,6 @@ export const fetchProducts = () => {
       });
     } catch (err) {
       //send to custom analytics server
-      console.log(err);
       throw err;
     }
   };
@@ -136,7 +134,6 @@ export const updateProduct = (
   oldImageUrl
 ) => {
   return async (dispatch, getState) => {
-    console.log("oldImage", oldImageUrl, "newImage", imageUrl);
     const token = getState().auth.token;
     const storedImage = imageUrl.split("/")[0] === "https:";
     let url;

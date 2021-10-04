@@ -26,7 +26,6 @@ export const FiltersScreen = (props) => {
       office: isOffice,
     };
     dispatch(setFilters(appliedFilters));
-    console.log(appliedFilters);
   }, [isClothes, isElectronic, isBook, isHomeDeco, isOffice, dispatch]);
 
   useEffect(() => {

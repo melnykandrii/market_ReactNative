@@ -6,5 +6,4 @@ export const SearchContainer = styled.View`
 
 export const ListContainer = styled.View`
   padding-top: 0px;
-  background-color: red;
 `;

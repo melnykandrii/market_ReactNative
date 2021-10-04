@@ -22,7 +22,7 @@ export const ProductsList = (props) => {
       >
         <BodyButton
           buttonTitle="View"
-          buttonColor={theme.colors.text.primary}
+          labelColor={theme.colors.text.primary}
           mode="outlined"
           onPress={() => {
             props.viewProductHandler(item.id, item.title, { item });
@@ -31,7 +31,7 @@ export const ProductsList = (props) => {
         />
         <BodyButton
           buttonTitle="Order"
-          buttonColor={theme.colors.text.primary}
+          labelColor={theme.colors.text.primary}
           mode="outlined"
           onPress={() => {
             props.addToCardHandler(item);
