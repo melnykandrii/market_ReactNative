@@ -10,11 +10,10 @@ export const CartHeaderButton = (props) => {
         badgeVisible={props.cartTotalQty}
         badgeValue={props.cartTotalQty}
         badgeTestId="cart-badge"
-        buttonTestId="cart-button-badge"
+        buttonTestId="cart-button"
         iconSize={24}
         title="Cart"
         iconName={props.cartTotalQty ? "cart" : "cart-outline"}
-        testID="cartBadge"
         onPress={() => {
           props.navigation.navigate("Cart");
         }}

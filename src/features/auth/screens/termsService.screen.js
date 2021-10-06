@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView } from "react-native";
+import { ScrollView, Platform } from "react-native";
 import { CenteredButton } from "../../../components/buttons/body-button-centered.component";
 import {
   AboutView,
@@ -9,6 +9,7 @@ import {
   CloseBtn,
   DateHeader,
   SafeCont,
+  SafeIos,
 } from "../styles/terms-privacy.styles";
 
 const Content = (props) => {
@@ -105,15 +106,19 @@ export const TermsScreen = (props) => {
   const [auth, setAuth] = useState(false);
   const authen = props.route.params ? props.route.params : false;
 
+  let SafeCmp = SafeIos;
+  if (Platform.OS === "android") {
+    SafeCmp = SafeCont;
+  }
   useEffect(() => {
     if (authen) {
       setAuth(authen.auth);
     }
   }, [authen, authen.auth]);
   return auth ? (
-    <SafeCont>
+    <SafeCmp>
       <Content {...props} auth={auth} setAuth={setAuth} />
-    </SafeCont>
+    </SafeCmp>
   ) : (
     <Content {...props} auth={auth} setAuth={setAuth} />
   );

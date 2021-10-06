@@ -34,3 +34,7 @@ export const SafeCont = styled.SafeAreaView`
   flex: 1;
   margin-top: ${StatusBar.currentHeight}px;
 `;
+
+export const SafeIos = styled.SafeAreaView`
+  flex: 1;
+`;

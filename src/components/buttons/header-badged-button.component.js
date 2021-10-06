@@ -20,7 +20,7 @@ const StyledBadge = styled(Badge).attrs((props) => ({
   size: props.badgeSize || theme.spacessh[8],
   visible: props.badgeVisible,
   style: props.badgeStyle,
-  testID: props.badgeTestID,
+  testID: props.badgeTestId,
 }))`
   color: ${(props) => props.badgeC || props.theme.colors.ui.primary};
   background-color: ${(props) =>

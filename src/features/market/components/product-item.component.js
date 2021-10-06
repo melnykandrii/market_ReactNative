@@ -25,6 +25,7 @@ const ProductItem = (props) => {
         <FavouriteButton
           name={props.name}
           onFavourite={props.toggleFavouriteHandler}
+          testID="favoriteBtn"
         />
       )}
       <View style={styles.touchable}>
@@ -35,6 +36,7 @@ const ProductItem = (props) => {
                 style={styles.image}
                 source={{ uri: props.image }}
                 defaultSource={require("../../../../assets/default_product.jpg")}
+                testID="prodImage"
               />
             </View>
 
