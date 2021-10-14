@@ -44,18 +44,18 @@ const Content = (props) => {
           {"\n"}{" "}
           <TitleHeader variant="inputLabel">"Simple-Market" </TitleHeader> is a
           non-profit demo application with the main purpose to demonstrate its
-          functions, it is free and available to everyone older 13 years old,
-          and assumes the use of third-party tools and technologies in
+          functions, it is free and available to everyone older than 13 years
+          old and assumes the use of third-party tools and technologies in
           processing, such as authentication and storage information. All
           provided Personal data could be used for analyzing and improving the
           work of the Service. {"\n"} By using the "Simple-Market" application,
           You agree to the collection and use of information in accordance with
           this Privacy Policy.{"\n"}
           <TitleHeader variant="inputLabel">Interpretation </TitleHeader> {"\n"}
-          The words of which the initial letter is capitalized have meanings
+          The words in which the initial letter is capitalized have meanings
           defined under the following conditions. {"\n"} The following
           definitions shall have the same meaning regardless of whether they
-          appear in singular or in plural. {"\n"}
+          appear in singular or in the plural. {"\n"}
           <TitleHeader variant="inputLabel">Definitions</TitleHeader> {"\n"}
           For the purposes of this Privacy Policy: {"\n"} {"  "}
           <TitleHeader variant="inputLabel">Account </TitleHeader>- means a
@@ -135,9 +135,9 @@ const Content = (props) => {
         </TitleHeader>
         <TextContext variant="bodyTitle">
           {"\n"} Simple Market" doesn't use your personal information as it's a
-          demo version, however, there is a posibility that Your data could be
-          used for Analytics purpose or by third parties according to their
-          purpose. There for we do not recommend to store any sensatife
+          demo version, however, there is a possibility that Your data could be
+          used for Analytics purposes or by third parties according to their
+          purpose. Therefore we do not recommend storing any sensatife
           information. {"\n"} The information is stored on the Service
           Provider's server and on Your device.{"\n"} You can enable or disable
           access to this information at any time, through Your Device settings.{" "}

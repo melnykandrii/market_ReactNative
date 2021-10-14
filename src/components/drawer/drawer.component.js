@@ -53,7 +53,7 @@ export const DrawerComponent = (props) => {
         </TopContainer>
 
         <DrawerItemList {...props} />
-        <StyledText variant="version">ver.1.0.0</StyledText>
+        <StyledText variant="version">ver.1.0.1</StyledText>
       </SafeAreaView>
     </Container>
   );
