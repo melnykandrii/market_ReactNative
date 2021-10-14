@@ -4,7 +4,9 @@ import { theme } from "../../infrastructure/theme";
 
 export const Card = (props) => {
   return (
-    <View style={{ ...styles.card, ...props.style }}>{props.children}</View>
+    <View testID="card" style={{ ...styles.card, ...props.style }}>
+      {props.children}
+    </View>
   );
 };
 

@@ -11,8 +11,8 @@ export const FavouriteHeaderButton = (props) => {
         title="Favourites"
         iconSize={22}
         iconName={props.favProducts.length ? "star" : "star-outline"}
-        badgeTestId="filter-badge"
-        buttonTestId="filter-button-badge"
+        badgeTestId="favourite-badge"
+        buttonTestId="favourite-button"
         onPress={() => {
           props.navigation.navigate("Favourites");
         }}
